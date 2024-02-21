@@ -12,12 +12,17 @@ public class Gamepanel extends Canvas {
     final int maxRowScreen = 12;//row ratio
     final int screenWidth = maxColScreen*tileSize;//768
     final int screenHeight = maxRowScreen*tileSize;//576
-
+    GraphicsContext gc = this.getGraphicsContext2D();
     public Gamepanel() {
         setWidth(screenWidth);
         setHeight(screenHeight);
-        GraphicsContext gc = this.getGraphicsContext2D();
-        gc.setFill(Color.BLACK);
-        gc.fillRect(0,0,screenWidth,screenHeight);
+        addlistener();
+    }
+    public void addlistener() {
+        public void paintComponent() {
+            gc.setFill(Color.WHITE);
+
+            draw(gc);
+        }
     }
 }
