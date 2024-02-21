@@ -6,6 +6,8 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -14,6 +16,7 @@ import panel.Gamepanel;
 import ent.GameLogic;
 import render.Renderable;
 import render.RenderableHolder;
+
 
 public class Main extends Application {
     public static void Main(String[] args) {
