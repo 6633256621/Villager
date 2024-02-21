@@ -14,7 +14,7 @@ import static java.lang.Math.sqrt;
 
 public class Player extends Entity {
     private static final double speed = 2;
-    private static final double sideSpeed = sqrt((speed*speed)/2);
+    private static final double sideSpeed = speed*(Math.cos(Math.toRadians(45.0)));
 
     private int size = Gamepanel.getInstance().getTileSize();
     private int spriteCounter = 0;
