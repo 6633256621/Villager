@@ -44,11 +44,13 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Villager");
         stage.requestFocus();
+        stage.setResizable(false);
         stage.show();
 
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                Gamepanel.getInstance().getGc().clearRect(0,0,Gamepanel.getInstance().getScreenWidth(),Gamepanel.getInstance().getScreenHeight());
                 gamepanel.paintComponent();
                 logic.logicUpdate();
                 RenderableHolder.getInstance().update();

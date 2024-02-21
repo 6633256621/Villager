@@ -67,4 +67,8 @@ public class Gamepanel extends Canvas {
     public int getScreenHeight() {
         return screenHeight;
     }
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
 }
