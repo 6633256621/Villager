@@ -18,5 +18,8 @@ public class InputUtility {
             keyPressed.remove(keycode);
         }
     }
+    public static boolean onlyKeypressed() {
+        return keyPressed.size()==1;
+    }
 }
 
