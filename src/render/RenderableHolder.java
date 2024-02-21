@@ -24,4 +24,12 @@ public class RenderableHolder {
     public static RenderableHolder getInstance() {
         return instance;
     }
+
+    public ArrayList<Renderable> getEntities() {
+        return entities;
+    }
+
+    public void update() {
+
+    }
 }
