@@ -1,16 +1,12 @@
 package ent;
 
-import input.InputUtility;
+import utility.InputUtility;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import panel.Gamepanel;
 import javafx.scene.image.Image;
 
-import java.awt.*;
-
-import static java.lang.Math.sqrt;
+import static utility.LoadUtility.*;
 
 public class Player extends Entity {
     private static final double speed = 2;
@@ -19,41 +15,16 @@ public class Player extends Entity {
     private int size = Gamepanel.getInstance().getTileSize();
     private int spriteCounter = 0;
     private int spriteNum = 1;
-    private Image down = new Image(ClassLoader.getSystemResourceAsStream("Character_Down.png"));
-    private Image up = new Image(ClassLoader.getSystemResourceAsStream("up.png"));
-
-    private Image left = new Image(ClassLoader.getSystemResourceAsStream("left.png"));
-
-    private Image right = new Image(ClassLoader.getSystemResourceAsStream("right.png"));
-    private Image down2 = new Image(ClassLoader.getSystemResourceAsStream("down2.png"));
-    private Image down3 = new Image(ClassLoader.getSystemResourceAsStream("down3.png"));
-    private Image up2 = new Image(ClassLoader.getSystemResourceAsStream("up2.png"));
-    private Image up3 = new Image(ClassLoader.getSystemResourceAsStream("up3.png"));
-    private Image left2 = new Image(ClassLoader.getSystemResourceAsStream("left2.png"));
-    private Image left3 = new Image(ClassLoader.getSystemResourceAsStream("left3.png"));
-    private Image right2 = new Image(ClassLoader.getSystemResourceAsStream("right2.png"));
-    private Image right3 = new Image(ClassLoader.getSystemResourceAsStream("right3.png"));
-    private Image upleft = new Image(ClassLoader.getSystemResourceAsStream("upleft.png"));
-    private Image upleft2 = new Image(ClassLoader.getSystemResourceAsStream("upleft2.png"));
-    private Image upleft3 = new Image(ClassLoader.getSystemResourceAsStream("upleft3.png"));
-    private Image upright = new Image(ClassLoader.getSystemResourceAsStream("upright.png"));
-    private Image upright2 = new Image(ClassLoader.getSystemResourceAsStream("upright2.png"));
-    private Image upright3 = new Image(ClassLoader.getSystemResourceAsStream("upright3.png"));
-    private Image downright = new Image(ClassLoader.getSystemResourceAsStream("downright.png"));
-    private Image downright2 = new Image(ClassLoader.getSystemResourceAsStream("downright2.png"));
-    private Image downright3 = new Image(ClassLoader.getSystemResourceAsStream("downright3.png"));
-    private Image downleft = new Image(ClassLoader.getSystemResourceAsStream("downleft.png"));
-    private Image downleft2 = new Image(ClassLoader.getSystemResourceAsStream("downleft2.png"));
-    private Image downleft3 = new Image(ClassLoader.getSystemResourceAsStream("downleft3.png"));
-
 
     private Image def;
 
+
     public Player() {
-        x = 100;
-        y = 100;
+        x = 355;
+        y = 250;
         z=2;
         def = down;
+        playerLoad();
     }
 
     private void up() {

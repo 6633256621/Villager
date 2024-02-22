@@ -1,11 +1,8 @@
 package panel;
 
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import input.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
 
@@ -24,22 +21,7 @@ public class Gamepanel extends Canvas {
     public Gamepanel() {
         setWidth(screenWidth);
         setHeight(screenHeight);
-        //addlistener();
     }
-//    public void addlistener() {
-//        setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                InputUtility.setKeyPressed(keyEvent.getCode(), true);
-//            }
-//        });
-//        setOnKeyReleased(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                InputUtility.setKeyPressed(keyEvent.getCode(), false);
-//            }
-//        });
-//    }
 
     public void paintComponent() {
         gc.setFill(Color.BLACK);
