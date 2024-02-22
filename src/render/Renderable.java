@@ -3,7 +3,8 @@ package render;
 import javafx.scene.canvas.GraphicsContext;
 
 public interface Renderable {
-    public int getZ();
-    public void draw(GraphicsContext gc);
-    public boolean isVisible();
+    //field (interface no need to declare as public)
+    int getZ();//deep
+    void draw(GraphicsContext gc);
+    boolean isVisible();
 }

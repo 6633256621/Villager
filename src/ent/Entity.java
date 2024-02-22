@@ -1,15 +1,19 @@
 package ent;
-
-import javafx.scene.canvas.GraphicsContext;
 import render.Renderable;
 
 public abstract class Entity implements Renderable {
-    protected double x,y;
-    protected int z;
-    boolean visible;
+    protected double x, y;//position
+    protected int z;//the layer of entity
+    boolean visible;//can we see it?
+
+
+    //constructor
     protected Entity() {
-        visible=true;
+        visible = true;
     }
+
+
+    //getter
     @Override
     public int getZ() {
         return z;
