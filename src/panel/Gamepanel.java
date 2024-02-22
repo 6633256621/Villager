@@ -9,28 +9,32 @@ import render.RenderableHolder;
 public class Gamepanel extends Canvas {
     public static Gamepanel instance;
 
-    final int originalTileSize = 16;//16X16
-    final int scale = 3;//Scale to adjust
-    final int tileSize = originalTileSize * scale;//48x48
-    final int maxColScreen = 16;//col ratio
-    final int maxRowScreen = 12;//row ratio
-    final int screenWidth = maxColScreen*tileSize;//768
-    final int screenHeight = maxRowScreen*tileSize;//576
-    GraphicsContext gc = this.getGraphicsContext2D();
+    private int originalTileSize = 16;//16X16
+    private int scale = 3;//Scale to adjust
+    private int tileSize = originalTileSize * scale;//48x48
+    private int maxColScreen = 16;//col ratio
+    private int maxRowScreen = 12;//row ratio
+    private int screenWidth = maxColScreen*tileSize;//768
+    private int screenHeight = maxRowScreen*tileSize;//576
+    private GraphicsContext gc = this.getGraphicsContext2D();
 
+    //constructor
     public Gamepanel() {
         setWidth(screenWidth);
         setHeight(screenHeight);
     }
 
+    //draw all entity
     public void paintComponent() {
         gc.setFill(Color.BLACK);
         for (Renderable entity : RenderableHolder.getInstance().getEntities()) {
             if (entity.isVisible()){
-                entity.draw(gc);
+                entity.draw(gc);//draw each entity
             }
         }
     }
+
+    //singleton method
     public static Gamepanel getInstance() {
         if (instance==null) {
             instance= new Gamepanel();
@@ -38,6 +42,8 @@ public class Gamepanel extends Canvas {
         return instance;
     }
 
+
+    //getter
     public int getTileSize() {
         return tileSize;
     }

@@ -9,24 +9,23 @@ import javafx.scene.image.Image;
 import static utility.LoadUtility.*;
 
 public class Player extends Entity {
-    private static final double speed = 2;
-    private static final double sideSpeed = speed*(Math.cos(Math.toRadians(45.0)));
-
-    private int size = Gamepanel.getInstance().getTileSize();
+    private static double speed = 2;//player spped
+    private static double sideSpeed = speed * (Math.cos(Math.toRadians(45.0)));//speed when sidewalk
+    private int tileSize = Gamepanel.getInstance().getTileSize();//tile size
     private int spriteCounter = 0;
     private int spriteNum = 1;
+    private Image def;//display image at that moment
 
-    private Image def;
-
-
+    //constructor
     public Player() {
         x = 355;
         y = 250;
-        z=2;
+        z = 2;
         def = down;
         playerLoad();
     }
-
+    
+    //movement
     private void up() {
         y -= speed;
         if (spriteNum == 1) {
@@ -39,7 +38,6 @@ public class Player extends Entity {
             def = up3;
         }
     }
-
     private void down() {
         y += speed;
         if (spriteNum == 1) {
@@ -52,7 +50,6 @@ public class Player extends Entity {
             def = down3;
         }
     }
-
     private void left() {
         x -= speed;
         if (spriteNum == 1) {
@@ -65,7 +62,6 @@ public class Player extends Entity {
             def = left3;
         }
     }
-
     private void right() {
         x += speed;
         if (spriteNum == 1) {
@@ -130,33 +126,40 @@ public class Player extends Entity {
             def = downleft3;
         }
     }
-
+    
+    //fetch position
     public void update() {
-        if (InputUtility.getKeyPressed(KeyCode.W)&&InputUtility.onlyKeypressed()) {
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isOnlyOneKeyPressed()) {
             up();
         }
-        if (InputUtility.getKeyPressed(KeyCode.S)&&InputUtility.onlyKeypressed()) {
+        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isOnlyOneKeyPressed()) {
             down();
         }
-        if (InputUtility.getKeyPressed(KeyCode.A)&&InputUtility.onlyKeypressed()) {
+        if (InputUtility.isKeyPressed(KeyCode.A) && InputUtility.isOnlyOneKeyPressed()) {
             left();
         }
-        if (InputUtility.getKeyPressed(KeyCode.D)&&InputUtility.onlyKeypressed()) {
+        if (InputUtility.isKeyPressed(KeyCode.D) && InputUtility.isOnlyOneKeyPressed()) {
             right();
         }
-        if (InputUtility.getKeyPressed(KeyCode.W)&&InputUtility.getKeyPressed(KeyCode.A)) {
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
             upleft();
         }
-        if (InputUtility.getKeyPressed(KeyCode.W)&&InputUtility.getKeyPressed(KeyCode.D)) {
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
             upright();
         }
-        if (InputUtility.getKeyPressed(KeyCode.S)&&InputUtility.getKeyPressed(KeyCode.D)) {
+        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
             downright();
         }
-        if (InputUtility.getKeyPressed(KeyCode.S)&&InputUtility.getKeyPressed(KeyCode.A)) {
+        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
             downleft();
         }
+        spriteCount();
+    }
+    
+    //sprite counter so my player can walk
+    private void spriteCount() {
         spriteCounter++;
+
         if (spriteCounter > 45) {
             spriteCounter = 0;
         } else {
@@ -169,11 +172,10 @@ public class Player extends Entity {
             }
         }
     }
-
+    
+    //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(def, x, y, size, size);
+        gc.drawImage(def, x, y, tileSize, tileSize);
     }
-
-
 }

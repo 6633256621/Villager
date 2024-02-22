@@ -3,12 +3,17 @@ package utility;
 import javafx.scene.image.Image;
 
 public class LoadUtility {
+    //player image
     public static Image down,down2,down3,up,up2,up3,left,left2,left3,right,right2,right3,
                         downleft,downleft2,downleft3,downright,downright2,downright3,
                         upleft,upleft2,upleft3,upright,upright2,upright3;
+
+    //group of load
     static {
         playerLoad();
     }
+
+
     public static void playerLoad() {
         down = new Image(ClassLoader.getSystemResourceAsStream("Character_Down.png"));
         up = new Image(ClassLoader.getSystemResourceAsStream("up.png"));
