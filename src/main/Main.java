@@ -1,20 +1,12 @@
 package main;
 
-import input.InputUtility;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.layout.GridPane;
 import panel.Gamepanel;
 import ent.GameLogic;
-import render.Renderable;
+import panel.Rootpane;
 import render.RenderableHolder;
 
 
@@ -24,28 +16,18 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        GridPane gridpane = new GridPane();
+        Rootpane rootpane = new Rootpane();
         Gamepanel gamepanel = Gamepanel.getInstance();
         GameLogic logic = new GameLogic();
-        gridpane.getChildren().addAll(gamepanel);
-        Scene scene = new Scene(gridpane);
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), true);
-            }
-        });
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), false);
-            }
-        });
+        rootpane.getChildren().addAll(gamepanel);
+        Scene scene = new Scene(rootpane);
+        rootpane.addlistener();
         stage.setScene(scene);
         stage.setTitle("Villager");
-        stage.requestFocus();
         stage.setResizable(false);
         stage.show();
+        scene.getRoot().requestFocus();
+
 
         AnimationTimer animation = new AnimationTimer() {
             @Override
