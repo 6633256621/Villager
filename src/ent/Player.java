@@ -212,7 +212,7 @@ public class Player extends Entity {
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(def, x, y, GamePanel.getInstance().getTileSize(), GamePanel.getInstance().getTileSize());
+        gc.drawImage(def, x, y, GamePanel.getInstance().getTileSize(), GamePanel.getInstance().getTileSize()*1.2);
     }
 
     public double getSpeed() {
