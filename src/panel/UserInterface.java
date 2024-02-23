@@ -3,8 +3,6 @@ package panel;
 import ent.GameLogic;
 import ent.Player;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -51,6 +49,7 @@ public class UserInterface {
         gc.fillText("EXP",x+20,y+gp.getTileSize()*6);
         gc.fillText("Next LV EXP",x+20,y+gp.getTileSize()*7);
         gc.fillText("Weapon",x+20,y+ gp.getTileSize()*8);
+        gc.fillText("Weapon",x+20,y+ gp.getTileSize()*9);
 
         int last = x+frameWidth- 50;
         gc.setFill(Color.WHITE);
@@ -61,7 +60,8 @@ public class UserInterface {
         gc.fillText(""+p.getDefense(),last,y+ gp.getTileSize()*5);
         gc.fillText(""+p.getExp(),last,y+ gp.getTileSize()*6);
         gc.fillText(""+p.getNextLevelExp(),last,y+ gp.getTileSize()*7);
-        gc.drawImage(new Image("sword.png"),last-15,y+gp.getTileSize()*7+15,gp.getTileSize(), gp.getTileSize());
+        gc.drawImage(p.getCurrentWeapon().getImage(),last-20,y+gp.getTileSize()*7+15,gp.getTileSize(), gp.getTileSize());
+        gc.drawImage(p.getCurrentShield().getImage(),last-20,y+gp.getTileSize()*8+15,gp.getTileSize(), gp.getTileSize());
 
     }
     public void drawSubWindow(int x,int y,int width,int height,GraphicsContext gc) {
