@@ -15,29 +15,29 @@ public class LoadUtility {
 
 
     public static void playerLoad() {
-        down = new Image(ClassLoader.getSystemResourceAsStream("Character_Down.png"));
-        up = new Image(ClassLoader.getSystemResourceAsStream("up.png"));
-        left = new Image(ClassLoader.getSystemResourceAsStream("left.png"));
-        right = new Image(ClassLoader.getSystemResourceAsStream("right.png"));
-        down2 = new Image(ClassLoader.getSystemResourceAsStream("down2.png"));
-        down3 = new Image(ClassLoader.getSystemResourceAsStream("down3.png"));
-        up2 = new Image(ClassLoader.getSystemResourceAsStream("up2.png"));
-        up3 = new Image(ClassLoader.getSystemResourceAsStream("up3.png"));
-        left2 = new Image(ClassLoader.getSystemResourceAsStream("left2.png"));
-        left3 = new Image(ClassLoader.getSystemResourceAsStream("left3.png"));
-        right2 = new Image(ClassLoader.getSystemResourceAsStream("right2.png"));
-        right3 = new Image(ClassLoader.getSystemResourceAsStream("right3.png"));
-        upleft = new Image(ClassLoader.getSystemResourceAsStream("upleft.png"));
-        upleft2 = new Image(ClassLoader.getSystemResourceAsStream("upleft2.png"));
-        upleft3 = new Image(ClassLoader.getSystemResourceAsStream("upleft3.png"));
-        upright = new Image(ClassLoader.getSystemResourceAsStream("upright.png"));
-        upright2 = new Image(ClassLoader.getSystemResourceAsStream("upright2.png"));
-        upright3 = new Image(ClassLoader.getSystemResourceAsStream("upright3.png"));
-        downright = new Image(ClassLoader.getSystemResourceAsStream("downright.png"));
-        downright2 = new Image(ClassLoader.getSystemResourceAsStream("downright2.png"));
-        downright3 = new Image(ClassLoader.getSystemResourceAsStream("downright3.png"));
-        downleft = new Image(ClassLoader.getSystemResourceAsStream("downleft.png"));
-        downleft2 = new Image(ClassLoader.getSystemResourceAsStream("downleft2.png"));
-        downleft3 = new Image(ClassLoader.getSystemResourceAsStream("downleft3.png"));
+        down = new Image(ClassLoader.getSystemResourceAsStream("player/Character_Down.png"));
+        up = new Image(ClassLoader.getSystemResourceAsStream("player/up.png"));
+        left = new Image(ClassLoader.getSystemResourceAsStream("player/left.png"));
+        right = new Image(ClassLoader.getSystemResourceAsStream("player/right.png"));
+        down2 = new Image(ClassLoader.getSystemResourceAsStream("player/down2.png"));
+        down3 = new Image(ClassLoader.getSystemResourceAsStream("player/down3.png"));
+        up2 = new Image(ClassLoader.getSystemResourceAsStream("player/up2.png"));
+        up3 = new Image(ClassLoader.getSystemResourceAsStream("player/up3.png"));
+        left2 = new Image(ClassLoader.getSystemResourceAsStream("player/left2.png"));
+        left3 = new Image(ClassLoader.getSystemResourceAsStream("player/left3.png"));
+        right2 = new Image(ClassLoader.getSystemResourceAsStream("player/right2.png"));
+        right3 = new Image(ClassLoader.getSystemResourceAsStream("player/right3.png"));
+        upleft = new Image(ClassLoader.getSystemResourceAsStream("player/upleft.png"));
+        upleft2 = new Image(ClassLoader.getSystemResourceAsStream("player/upleft2.png"));
+        upleft3 = new Image(ClassLoader.getSystemResourceAsStream("player/upleft3.png"));
+        upright = new Image(ClassLoader.getSystemResourceAsStream("player/upright.png"));
+        upright2 = new Image(ClassLoader.getSystemResourceAsStream("player/upright2.png"));
+        upright3 = new Image(ClassLoader.getSystemResourceAsStream("player/upright3.png"));
+        downright = new Image(ClassLoader.getSystemResourceAsStream("player/downright.png"));
+        downright2 = new Image(ClassLoader.getSystemResourceAsStream("player/downright2.png"));
+        downright3 = new Image(ClassLoader.getSystemResourceAsStream("player/downright3.png"));
+        downleft = new Image(ClassLoader.getSystemResourceAsStream("player/downleft.png"));
+        downleft2 = new Image(ClassLoader.getSystemResourceAsStream("player/downleft2.png"));
+        downleft3 = new Image(ClassLoader.getSystemResourceAsStream("player/downleft3.png"));
     }
 }
