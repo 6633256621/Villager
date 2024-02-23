@@ -1,4 +1,5 @@
 package ent;
+import panel.GamePanel;
 import render.RenderableHolder;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +7,12 @@ import java.util.List;
 public class GameLogic {
     private List<Entity> gameObjectContainer;//container for all object
     private Player player;
+    public static GameLogic instance;
 
     //constructor(setup for all entity)
     public GameLogic() {
         gameObjectContainer =new ArrayList<>();
-        player = new Player();
+        player = Player.getInstance();
         addNewObject(player);
     }
 
@@ -24,4 +26,15 @@ public class GameLogic {
     public void logicUpdate() {
         player.update();
     }
+    public static GameLogic getInstance() {
+        if (instance==null) {
+            instance= new GameLogic();
+        }
+        return instance;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }
+
