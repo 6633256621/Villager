@@ -304,4 +304,12 @@ public class Player extends Entity {
     public void setMoney(int money) {
         this.money = money;
     }
+
+    public BaseWeapon getCurrentWeapon() {
+        return currentWeapon;
+    }
+
+    public BaseShield getCurrentShield() {
+        return currentShield;
+    }
 }
