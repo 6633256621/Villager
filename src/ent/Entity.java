@@ -4,12 +4,14 @@ import render.Renderable;
 public abstract class Entity implements Renderable {
     protected double x, y;//position
     protected int z;//the layer of entity
-    boolean visible;//can we see it?
+    protected boolean visible;//can we see it?
+    protected boolean destroyed;//is dead?
 
 
     //constructor
     protected Entity() {
         visible = true;
+        destroyed=false;
     }
 
 
@@ -23,4 +25,9 @@ public abstract class Entity implements Renderable {
     public boolean isVisible() {
         return visible;
     }
+    @Override
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
 }

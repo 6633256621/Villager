@@ -1,11 +1,13 @@
 package main;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import panel.Gamepanel;
+import panel.GamePanel;
 import ent.GameLogic;
-import panel.Rootpane;
+import panel.RootPane;
 import render.RenderableHolder;
 
 
@@ -17,10 +19,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //setup pane
-        Rootpane rootpane = new Rootpane();
+        RootPane rootpane = new RootPane();
         rootpane.addlistener();
-        Gamepanel gamepanel = Gamepanel.getInstance();
+        GamePanel gamepanel = GamePanel.getInstance();
         GameLogic logic = new GameLogic();
+        RenderableHolder renderableHolder = RenderableHolder.getInstance();
+        GraphicsContext gc = gamepanel.getGraphicsContext2D();
         rootpane.getChildren().addAll(gamepanel);
         //setup scene
         Scene scene = new Scene(rootpane);
@@ -35,10 +39,10 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                Gamepanel.getInstance().getGc().clearRect(0,0,Gamepanel.getInstance().getScreenWidth(),Gamepanel.getInstance().getScreenHeight());
+                gc.clearRect(0,0, GamePanel.getInstance().getScreenWidth(), GamePanel.getInstance().getScreenHeight());
                 gamepanel.paintComponent();
                 logic.logicUpdate();
-                RenderableHolder.getInstance().update();
+                renderableHolder.update();
             }
         };
         animation.start();//start animation timer

@@ -7,4 +7,6 @@ public interface Renderable {
     int getZ();//deep
     void draw(GraphicsContext gc);
     boolean isVisible();
+
+    boolean isDestroyed();
 }
