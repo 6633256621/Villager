@@ -1,8 +1,10 @@
 package Weapon;
 
+import interfacepackage.Sellable;
 import javafx.scene.image.Image;
 
-public abstract class BaseWeapon {
+public abstract class BaseWeapon implements Sellable {
+    int price =0;
     protected Image image;
     protected int attackValue=0;
     public int getAttackValue() {
@@ -15,5 +17,10 @@ public abstract class BaseWeapon {
 
     public Image getImage() {
         return image;
+    }
+
+    @Override
+    public int getPrice() {
+        return price;
     }
 }

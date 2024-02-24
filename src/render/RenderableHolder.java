@@ -1,5 +1,7 @@
 package render;
 
+import interfacepackage.Renderable;
+
 import java.util.*;
 
 public class RenderableHolder {

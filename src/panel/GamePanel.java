@@ -2,12 +2,11 @@ package panel;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import render.Renderable;
+import interfacepackage.Renderable;
 import render.RenderableHolder;
 import tile.TileManager;
-import utility.InputUtility;
+import utility.UserInterface;
 
 public class GamePanel extends Canvas {
     public static GamePanel instance;
@@ -15,10 +14,17 @@ public class GamePanel extends Canvas {
     private int originalTileSize = 16;//16X16
     private int scale = 3;//Scale to adjust
     private int tileSize = originalTileSize * scale;//48x48
-    private int maxColScreen = 16;//col ratio
-    private int maxRowScreen = 12;//row ratio
+    private int maxColScreen = 32;//col ratio
+    private int maxRowScreen = 18;//row ratio
     private int screenWidth = maxColScreen * tileSize;//768
     private int screenHeight = maxRowScreen * tileSize;//576
+
+    //world setting
+    private int maxWorldCol = 50;
+    private int maxWorldRow = 50;
+    private int worldWidth = maxWorldCol * tileSize;
+    private int worldHeight = maxWorldRow * tileSize;
+
     private TileManager tileManager = new TileManager(this);
     private GraphicsContext gc = this.getGraphicsContext2D();
     public UserInterface ui = new UserInterface(this);
@@ -75,5 +81,21 @@ public class GamePanel extends Canvas {
 
     public int getMaxRowScreen() {
         return maxRowScreen;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
     }
 }
