@@ -4,6 +4,7 @@ import Weapon.BaseShield;
 import Weapon.BaseWeapon;
 import Weapon.NewbieShield;
 import Weapon.NewbieSword;
+import javafx.scene.Scene;
 import utility.InputUtility;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -13,12 +14,14 @@ import javafx.scene.image.Image;
 import static utility.LoadUtility.*;
 
 public class Player extends Entity {
+    public final int screenX;
+    public final int screenY;
     //counter
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
     //Character Attributes
-    private double speed = 2;//player speed
+    private double speed = 4;//player speed
     private double sideSpeed = speed * (Math.cos(Math.toRadians(45.0)));//speed when sidewalk
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
@@ -30,13 +33,17 @@ public class Player extends Entity {
         return instance;
     }
 
+    GamePanel gp = GamePanel.getInstance();
+
     private Image def;//display image at that moment
 
     //constructor
     public Player() {
         super();
-        x = 355;
-        y = 250;
+        worldX = gp.getTileSize() * 23;
+        worldY = gp.getTileSize() * 21;
+        screenX = gp.getScreenWidth() / 2 - (gp.getTileSize()) / 2;
+        screenY = gp.getScreenHeight() / 2 - (gp.getTileSize()) / 2;
         z = 2;
         def = down;
         playerLoad();
@@ -52,11 +59,12 @@ public class Player extends Entity {
         setMoney(0);
         setAttack(getAttack());
         setDefense(getDefense());
+        setMoney(0);
     }
 
     //movement
     private void up() {
-        y -= speed;
+        worldY -= speed;
         if (spriteNum == 1) {
             def = up;
         }
@@ -69,7 +77,7 @@ public class Player extends Entity {
     }
 
     private void down() {
-        y += speed;
+        worldY += speed;
         if (spriteNum == 1) {
             def = down;
         }
@@ -82,7 +90,7 @@ public class Player extends Entity {
     }
 
     private void left() {
-        x -= speed;
+        worldX -= speed;
         if (spriteNum == 1) {
             def = left;
         }
@@ -95,7 +103,7 @@ public class Player extends Entity {
     }
 
     private void right() {
-        x += speed;
+        worldX += speed;
         if (spriteNum == 1) {
             def = right;
         }
@@ -108,8 +116,8 @@ public class Player extends Entity {
     }
 
     private void upleft() {
-        x -= sideSpeed;
-        y -= sideSpeed;
+        worldX -= sideSpeed;
+        worldY -= sideSpeed;
         if (spriteNum == 1) {
             def = upleft;
         }
@@ -122,8 +130,8 @@ public class Player extends Entity {
     }
 
     private void upright() {
-        x += sideSpeed;
-        y -= sideSpeed;
+        worldX += sideSpeed;
+        worldY -= sideSpeed;
         if (spriteNum == 1) {
             def = upright;
         }
@@ -136,8 +144,8 @@ public class Player extends Entity {
     }
 
     private void downright() {
-        x += sideSpeed;
-        y += sideSpeed;
+        worldX += sideSpeed;
+        worldY += sideSpeed;
         if (spriteNum == 1) {
             def = downright;
         }
@@ -150,8 +158,8 @@ public class Player extends Entity {
     }
 
     private void downleft() {
-        x -= sideSpeed;
-        y += sideSpeed;
+        worldX -= sideSpeed;
+        worldY += sideSpeed;
         if (spriteNum == 1) {
             def = downleft;
         }
@@ -165,28 +173,28 @@ public class Player extends Entity {
 
     //fetch position
     public void update() {
-        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isOnlyOneKeyPressed()) {
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
             up();
         }
-        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isOnlyOneKeyPressed()) {
+        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
             down();
         }
-        if (InputUtility.isKeyPressed(KeyCode.A) && InputUtility.isOnlyOneKeyPressed()) {
+        else if (InputUtility.isKeyPressed(KeyCode.A) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
             left();
         }
-        if (InputUtility.isKeyPressed(KeyCode.D) && InputUtility.isOnlyOneKeyPressed()) {
+        else if (InputUtility.isKeyPressed(KeyCode.D) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
             right();
         }
-        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
+        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A) && !InputUtility.isKeyPressed(KeyCode.R)) {
             upleft();
         }
-        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
+        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D) && !InputUtility.isKeyPressed(KeyCode.R)) {
             upright();
         }
-        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
+        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D) && !InputUtility.isKeyPressed(KeyCode.R)) {
             downright();
         }
-        if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
+        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A) && !InputUtility.isKeyPressed(KeyCode.R)) {
             downleft();
         }
         spriteCount();
@@ -196,14 +204,14 @@ public class Player extends Entity {
     private void spriteCount() {
         spriteCounter++;
 
-        if (spriteCounter > 45) {
+        if (spriteCounter > 30) {
             spriteCounter = 0;
         } else {
-            if (spriteCounter < 15) {
+            if (spriteCounter < 10) {
                 spriteNum = 1;
-            } else if (spriteCounter > 15 && spriteCounter <= 30) {
+            } else if (spriteCounter > 10 && spriteCounter <= 20) {
                 spriteNum = 2;
-            } else if (spriteCounter > 30) {
+            } else if (spriteCounter > 20) {
                 spriteNum = 3;
             }
         }
@@ -212,7 +220,7 @@ public class Player extends Entity {
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(def, x, y, GamePanel.getInstance().getTileSize(), GamePanel.getInstance().getTileSize()*1.2);
+        gc.drawImage(def, screenX, screenY, GamePanel.getInstance().getTileSize(), GamePanel.getInstance().getTileSize());
     }
 
     public double getSpeed() {
@@ -312,4 +320,5 @@ public class Player extends Entity {
     public BaseShield getCurrentShield() {
         return currentShield;
     }
+
 }

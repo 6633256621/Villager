@@ -1,8 +1,8 @@
 package ent;
-import render.Renderable;
+import interfacepackage.Renderable;
 
 public abstract class Entity implements Renderable {
-    protected double x, y;//position
+    protected double worldX, worldY;//position
     protected int z;//the layer of entity
     protected boolean visible;//can we see it?
     protected boolean destroyed;//is dead?
@@ -30,4 +30,11 @@ public abstract class Entity implements Renderable {
         return destroyed;
     }
 
+    public double getWorldX() {
+        return worldX;
+    }
+
+    public double getWorldY() {
+        return worldY;
+    }
 }

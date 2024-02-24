@@ -59,6 +59,10 @@ public class InputUtility {
     public static boolean isOnlyOneKeyPressed() {
         return keyPressed.size() == 1;
     }
+    public static boolean isOnlyTwoKeyPressed() {
+        return keyPressed.size() == 2;
+    }
+
 }
 
 

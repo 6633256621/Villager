@@ -1,4 +1,4 @@
-package render;
+package interfacepackage;
 
 import javafx.scene.canvas.GraphicsContext;
 
