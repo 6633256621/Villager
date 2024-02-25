@@ -1,25 +1,37 @@
 package ent;
+import object.Chest;
+import object.SuperObject;
 import panel.GamePanel;
 import render.RenderableHolder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GameLogic {
-    private List<Entity> gameObjectContainer;//container for all object
+    private List<Entity> gameEntityContainer;//container for all entity
+    private List<SuperObject> gameObjectContainer;//container for all object
     private Player player;
+    private Chest chest1;
     public static GameLogic instance;
 
     //constructor(setup for all entity)
     public GameLogic() {
-        gameObjectContainer =new ArrayList<>();
+        gameEntityContainer =new ArrayList<>();
+        gameObjectContainer = new ArrayList<>();
         player = Player.getInstance();
-        addNewObject(player);
+        chest1 = new Chest(23,7);
+        addNewEntity(player);
+        addNewObject(chest1);
     }
 
     //function for add object to container
-    private void addNewObject(Entity entity) {
-        gameObjectContainer.add(entity);
+    private void addNewEntity(Entity entity) {
+        gameEntityContainer.add(entity);
         RenderableHolder.getInstance().add(entity);
+    }
+    private void addNewObject(SuperObject object) {
+        gameObjectContainer.add(object);
+        RenderableHolder.getInstance().add(object);
     }
 
     //fetch
