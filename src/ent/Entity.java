@@ -1,11 +1,19 @@
 package ent;
 import interfacepackage.Renderable;
+import javafx.scene.shape.Rectangle;
 
 public abstract class Entity implements Renderable {
-    protected double worldX, worldY;//position
-    protected int z;//the layer of entity
+    //position
+    protected double worldX, worldY;
+    //order of drawing
+    protected int z;
+    //boolean for drawing or not
     protected boolean visible;//can we see it?
     protected boolean destroyed;//is dead?
+    //collision check
+    protected Rectangle solidArea;
+    protected double solidAreaDefaultX,solidAreaDefaultY;
+    private boolean collisionOn=false;
 
 
     //constructor
@@ -38,5 +46,20 @@ public abstract class Entity implements Renderable {
         return worldY;
     }
 
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public double getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public double getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public boolean isCollisionOn() {
+        return collisionOn;
+    }
 }
 

@@ -4,6 +4,7 @@ import ent.Player;
 import interfacepackage.Renderable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 
 public abstract class SuperObject implements Renderable {
@@ -13,21 +14,25 @@ public abstract class SuperObject implements Renderable {
     protected double worldX, worldY;
     protected int z;
     GamePanel gp;
+    private Rectangle solidArea = new Rectangle(0, 0, 40, 40);
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
     Player player;
+
     public SuperObject() {
-        this.gp =GamePanel.getInstance();
-        this.player=Player.getInstance();
+        this.gp = GamePanel.getInstance();
+        this.player = Player.getInstance();
     }
-    public void draw(GraphicsContext gc){
+
+    public void draw(GraphicsContext gc) {
         double screenX = worldX - player.getWorldX() + player.getScreenX();
         double screenY = worldY - player.getWorldY() + player.getScreenY();
 
-        if(worldX + gp.getTileSize() > player.getWorldX() - player.getScreenX() &&
+        if (worldX + gp.getTileSize() > player.getWorldX() - player.getScreenX() &&
                 worldX - gp.getTileSize() < player.getWorldX() + player.getScreenX() &&
                 worldY + gp.getTileSize() > player.getWorldY() - player.getScreenY() &&
-                worldY - gp.getTileSize() < player.getWorldY() + player.getScreenY())
-        {
-            gc.drawImage(image,screenX,screenY, gp.getTileSize(), gp.getTileSize());
+                worldY - gp.getTileSize() < player.getWorldY() + player.getScreenY()) {
+            gc.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize());
         }
     }
 
@@ -55,6 +60,7 @@ public abstract class SuperObject implements Renderable {
     public double getWorldY() {
         return worldY;
     }
+
     @Override
     public boolean isDestroyed() {
         return false;
