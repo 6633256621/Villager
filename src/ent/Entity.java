@@ -37,4 +37,6 @@ public abstract class Entity implements Renderable {
     public double getWorldY() {
         return worldY;
     }
+
 }
+

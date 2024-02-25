@@ -15,7 +15,7 @@ public class InputUtility {
 
     public static void setKeyPressed(KeyCode keycode, boolean pressed) {
         //if pressed add to array
-        if (!keycode.equals(KeyCode.R)){
+        if (!keycode.equals(KeyCode.R)&&!keycode.equals(KeyCode.P)){
             if (pressed) {
                 //normal
                 if (!keyPressed.contains(keycode)) {
@@ -30,7 +30,7 @@ public class InputUtility {
     }
 
     public static void setKeyTriggered(KeyCode keycode, boolean pressed) {
-        if (keycode.equals(KeyCode.R)){
+        if (keycode.equals(KeyCode.R)||keycode.equals(KeyCode.P)){
             if (pressed) {
 
                 if (!keyPressed.contains(keycode) && !isClicked) {

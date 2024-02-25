@@ -2,10 +2,13 @@ package panel;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import interfacepackage.Renderable;
+import javafx.scene.text.Font;
 import render.RenderableHolder;
 import tile.TileManager;
+import utility.InputUtility;
 import utility.UserInterface;
 
 public class GamePanel extends Canvas {
@@ -39,6 +42,10 @@ public class GamePanel extends Canvas {
 
     //draw all entity
     public void paintComponent() {
+        //Debug
+        long drawStart = System.nanoTime();
+
+
         gc.setFill(Color.BLACK);
         tileManager.draw(gc);
         for (Renderable entity : RenderableHolder.getInstance().getEntities()) {
@@ -47,6 +54,15 @@ public class GamePanel extends Canvas {
             }
         }
         ui.draw(gc);
+
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
+        if (InputUtility.isKeyPressed(KeyCode.P)){
+            gc.setFill(Color.WHITE);
+            gc.setFont(new Font(20));
+            gc.fillText("Draw Time: " + passed, 10, 400);
+            System.out.println("Draw Time :" + passed);
+        }
     }
 
     //singleton method

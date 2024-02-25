@@ -1,8 +1,10 @@
 package tile;
 
 import ent.Player;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import panel.GamePanel;
 
 import java.io.BufferedReader;
@@ -12,11 +14,13 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     GamePanel gp;
+    Player player;
     Tile[] tile;
     int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
+        this.player = Player.getInstance();
         tile = new Tile[10];
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
         getTileImage();
@@ -38,6 +42,9 @@ public class TileManager {
         tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass1.png"));
         tile[6] = new Tile();
         tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass2.png"));
+        for (int i = 0; i < 7; i++) {
+            tile[i].makeScale(gp);
+        }
     }
 
     public void loadMap() {
@@ -79,10 +86,18 @@ public class TileManager {
 
             int worldX = worldCol * gp.getTileSize();
             int worldY = worldRow * gp.getTileSize();
-            double screenX = worldX - Player.getInstance().getWorldX() + Player.getInstance().screenX;
-            double screenY = worldY - Player.getInstance().getWorldY() + Player.getInstance().screenY;
+            double screenX = worldX - player.getWorldX() + player.screenX;
+            double screenY = worldY - player.getWorldY() + player.screenY;
 
-            gc.drawImage(tile[tileNum].image, screenX, screenY, gp.getTileSize(), gp.getTileSize());
+            if (worldX + gp.getTileSize() > player.getWorldX() - player.getScreenX() &&
+                    worldX - gp.getTileSize() < player.getWorldX() + player.getScreenX() &&
+                    worldY + gp.getTileSize() > player.getWorldY() - player.getScreenY() &&
+                    worldY - gp.getTileSize() < player.getWorldY() + player.getScreenY()) {
+                gc.drawImage(tile[tileNum].image, screenX, screenY, tile[tileNum].getImageView().getFitWidth(),
+                        tile[tileNum].getImageView().getFitHeight());
+            }
+
+
             worldCol++;
 
             if (worldCol == gp.getMaxWorldCol()) {

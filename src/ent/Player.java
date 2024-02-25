@@ -16,12 +16,13 @@ import static utility.LoadUtility.*;
 public class Player extends Entity {
     public final int screenX;
     public final int screenY;
+    private int tileSize = GamePanel.getInstance().getTileSize();
     //counter
     private int spriteCounter = 0;
     private int spriteNum = 1;
 
     //Character Attributes
-    private double speed = 4;//player speed
+    private double speed = 3;//player speed
     private double sideSpeed = speed * (Math.cos(Math.toRadians(45.0)));//speed when sidewalk
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
@@ -173,30 +174,33 @@ public class Player extends Entity {
 
     //fetch position
     public void update() {
-        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
-            up();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
-            down();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.A) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
-            left();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.D) && InputUtility.isOnlyOneKeyPressed() && !InputUtility.isKeyPressed(KeyCode.R)) {
-            right();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A) && !InputUtility.isKeyPressed(KeyCode.R)) {
+
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
             upleft();
         }
-        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D) && !InputUtility.isKeyPressed(KeyCode.R)) {
+        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
             upright();
         }
-        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D) && !InputUtility.isKeyPressed(KeyCode.R)) {
+        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
             downright();
         }
-        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A) && !InputUtility.isKeyPressed(KeyCode.R)) {
+        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
             downleft();
         }
+
+        else if (InputUtility.isKeyPressed(KeyCode.W)) {
+            up();
+        }
+        else if (InputUtility.isKeyPressed(KeyCode.S)) {
+            down();
+        }
+        else if (InputUtility.isKeyPressed(KeyCode.A)) {
+            left();
+        }
+        else if (InputUtility.isKeyPressed(KeyCode.D)) {
+            right();
+        }
+
         spriteCount();
     }
 
@@ -204,14 +208,14 @@ public class Player extends Entity {
     private void spriteCount() {
         spriteCounter++;
 
-        if (spriteCounter > 30) {
+        if (spriteCounter > 45) {
             spriteCounter = 0;
         } else {
-            if (spriteCounter < 10) {
+            if (spriteCounter < 15) {
                 spriteNum = 1;
-            } else if (spriteCounter > 10 && spriteCounter <= 20) {
+            } else if (spriteCounter > 15 && spriteCounter <= 30) {
                 spriteNum = 2;
-            } else if (spriteCounter > 20) {
+            } else if (spriteCounter > 30) {
                 spriteNum = 3;
             }
         }
@@ -321,4 +325,11 @@ public class Player extends Entity {
         return currentShield;
     }
 
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
 }
