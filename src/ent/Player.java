@@ -5,6 +5,7 @@ import Weapon.BaseWeapon;
 import Weapon.NewbieShield;
 import Weapon.NewbieSword;
 import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
 import utility.InputUtility;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -14,6 +15,7 @@ import javafx.scene.image.Image;
 import static utility.LoadUtility.*;
 
 public class Player extends Entity {
+    //player position
     public final int screenX;
     public final int screenY;
     private int tileSize = GamePanel.getInstance().getTileSize();
@@ -27,13 +29,12 @@ public class Player extends Entity {
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
     private BaseShield currentShield = new NewbieShield();
-
+    //singleton
     public static Player instance = new Player();
-
     public static Player getInstance() {
         return instance;
     }
-
+    //Gamepanel
     GamePanel gp = GamePanel.getInstance();
 
     private Image def;//display image at that moment
@@ -41,11 +42,19 @@ public class Player extends Entity {
     //constructor
     public Player() {
         super();
+        //where to spawn
         worldX = gp.getTileSize() * 23;
         worldY = gp.getTileSize() * 21;
+        //where to draw
         screenX = gp.getScreenWidth() / 2 - (gp.getTileSize()) / 2;
         screenY = gp.getScreenHeight() / 2 - (gp.getTileSize()) / 2;
         z = 2;
+        solidArea = new Rectangle();
+        solidArea.setX(8);
+        solidArea.setY(16);
+        solidAreaDefaultX=solidArea.getX();
+        solidAreaDefaultY=solidArea.getY();
+
         def = down;
         playerLoad();
 
@@ -224,7 +233,7 @@ public class Player extends Entity {
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(def, screenX, screenY, GamePanel.getInstance().getTileSize(), GamePanel.getInstance().getTileSize());
+        gc.drawImage(def, screenX, screenY, tileSize, tileSize);
     }
 
     public double getSpeed() {
@@ -332,4 +341,5 @@ public class Player extends Entity {
     public int getScreenY() {
         return screenY;
     }
+
 }

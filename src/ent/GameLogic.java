@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class GameLogic {
-    private List<Entity> gameEntityContainer;//container for all entity
-    private List<SuperObject> gameObjectContainer;//container for all object
+    //container for entity and object
+    private List<Entity> gameEntityContainer;
+    private List<SuperObject> gameObjectContainer;
+    //each
     private Player player;
     private Chest chest1;
+    //singleton
     public static GameLogic instance;
 
     //constructor(setup for all entity)
@@ -44,9 +47,21 @@ public class GameLogic {
         }
         return instance;
     }
-
+    //getter
     public Player getPlayer() {
         return player;
+    }
+
+    public List<Entity> getGameEntityContainer() {
+        return gameEntityContainer;
+    }
+
+    public List<SuperObject> getGameObjectContainer() {
+        return gameObjectContainer;
+    }
+
+    public Chest getChest1() {
+        return chest1;
     }
 }
 
