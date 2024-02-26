@@ -42,7 +42,10 @@ public class TileManager {
         tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass1.png"));
         tile[6] = new Tile();
         tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass2.png"));
-        for (int i = 0; i < 7; i++) {
+        tile[7] = new Tile();
+        tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/wood.png"));
+        tile[7].collision=true;
+        for (int i = 0; i < 8; i++) {
             tile[i].makeScale(gp);
         }
     }
@@ -86,8 +89,8 @@ public class TileManager {
 
             int worldX = worldCol * gp.getTileSize();
             int worldY = worldRow * gp.getTileSize();
-            double screenX = worldX - player.getWorldX() + player.screenX;
-            double screenY = worldY - player.getWorldY() + player.screenY;
+            int screenX = worldX - player.getWorldX() + player.screenX;
+            int screenY = worldY - player.getWorldY() + player.screenY;
 
             if (worldX + gp.getTileSize() > player.getWorldX() - player.getScreenX() &&
                     worldX - gp.getTileSize() < player.getWorldX() + player.getScreenX() &&
@@ -105,5 +108,21 @@ public class TileManager {
                 worldRow++;
             }
         }
+    }
+
+    public Tile[] getTile() {
+        return tile;
+    }
+
+    public void setTile(Tile[] tile) {
+        this.tile = tile;
+    }
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
+    public void setMapTileNum(int[][] mapTileNum) {
+        this.mapTileNum = mapTileNum;
     }
 }

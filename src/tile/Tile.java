@@ -18,4 +18,13 @@ public class Tile {
     public ImageView getImageView() {
         return imageView;
     }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
+    }
+
 }
