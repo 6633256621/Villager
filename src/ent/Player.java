@@ -24,16 +24,17 @@ public class Player extends Entity {
     private int spriteNum = 1;
 
     //Character Attributes
-    private double speed = 3;//player speed
-    private double sideSpeed = speed * (Math.cos(Math.toRadians(45.0)));//speed when sidewalk
+
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
     private BaseShield currentShield = new NewbieShield();
     //singleton
     public static Player instance = new Player();
+
     public static Player getInstance() {
         return instance;
     }
+
     //Gamepanel
     GamePanel gp = GamePanel.getInstance();
 
@@ -52,10 +53,13 @@ public class Player extends Entity {
         solidArea = new Rectangle();
         solidArea.setX(8);
         solidArea.setY(16);
-        solidAreaDefaultX=solidArea.getX();
-        solidAreaDefaultY=solidArea.getY();
+        solidArea.setWidth(32);
+        solidArea.setHeight(32);
+        solidAreaDefaultX = (int) solidArea.getX();
+        solidAreaDefaultY = (int) solidArea.getY();
 
         def = down;
+        direction = "down";
         playerLoad();
 
         //status
@@ -74,7 +78,6 @@ public class Player extends Entity {
 
     //movement
     private void up() {
-        worldY -= speed;
         if (spriteNum == 1) {
             def = up;
         }
@@ -84,10 +87,13 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = up3;
         }
+        direction = "up";
+        if (!isCollisionOn()) {
+            worldY -= speed;
+        }
     }
 
     private void down() {
-        worldY += speed;
         if (spriteNum == 1) {
             def = down;
         }
@@ -97,10 +103,13 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = down3;
         }
+        direction = "down";
+        if (!isCollisionOn()) {
+            worldY += speed;
+        }
     }
 
     private void left() {
-        worldX -= speed;
         if (spriteNum == 1) {
             def = left;
         }
@@ -110,10 +119,13 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = left3;
         }
+        direction = "left";
+        if (!isCollisionOn()) {
+            worldX -= speed;
+        }
     }
 
     private void right() {
-        worldX += speed;
         if (spriteNum == 1) {
             def = right;
         }
@@ -123,11 +135,13 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = right3;
         }
+        direction = "right";
+        if (!isCollisionOn()) {
+            worldX += speed;
+        }
     }
 
     private void upleft() {
-        worldX -= sideSpeed;
-        worldY -= sideSpeed;
         if (spriteNum == 1) {
             def = upleft;
         }
@@ -137,11 +151,14 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = upleft3;
         }
+        direction = "upleft";
+        if (!isCollisionOn()) {
+            worldX -= sideSpeed;
+            worldY -= sideSpeed;
+        }
     }
 
     private void upright() {
-        worldX += sideSpeed;
-        worldY -= sideSpeed;
         if (spriteNum == 1) {
             def = upright;
         }
@@ -151,11 +168,14 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = upright3;
         }
+        direction = "upright";
+        if (!isCollisionOn()) {
+            worldX += sideSpeed;
+            worldY -= sideSpeed;
+        }
     }
 
     private void downright() {
-        worldX += sideSpeed;
-        worldY += sideSpeed;
         if (spriteNum == 1) {
             def = downright;
         }
@@ -165,11 +185,14 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = downright3;
         }
+        direction = "downright";
+        if (!isCollisionOn()) {
+            worldX += sideSpeed;
+            worldY += sideSpeed;
+        }
     }
 
     private void downleft() {
-        worldX -= sideSpeed;
-        worldY += sideSpeed;
         if (spriteNum == 1) {
             def = downleft;
         }
@@ -179,36 +202,37 @@ public class Player extends Entity {
         if (spriteNum == 3) {
             def = downleft3;
         }
+        direction = "downleft";
+        if (!isCollisionOn()) {
+            worldX -= sideSpeed;
+            worldY += sideSpeed;
+        }
     }
 
     //fetch position
     public void update() {
-
         if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
             upleft();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
             upright();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
             downright();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
             downleft();
-        }
-
-        else if (InputUtility.isKeyPressed(KeyCode.W)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.W)) {
             up();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.S)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.S)) {
             down();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.A)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.A)) {
             left();
-        }
-        else if (InputUtility.isKeyPressed(KeyCode.D)) {
+        } else if (InputUtility.isKeyPressed(KeyCode.D)) {
             right();
         }
+        setCollisionOn(false);
+        gp.collisionChecker.checkTile(this);
+
+        //if collision is false,player can move
+
 
         spriteCount();
     }
@@ -234,10 +258,6 @@ public class Player extends Entity {
     @Override
     public void draw(GraphicsContext gc) {
         gc.drawImage(def, screenX, screenY, tileSize, tileSize);
-    }
-
-    public double getSpeed() {
-        return speed;
     }
 
     public int getMaxLife() {
@@ -282,7 +302,7 @@ public class Player extends Entity {
 
 
     //setter
-    public void setSpeed(double speed) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 

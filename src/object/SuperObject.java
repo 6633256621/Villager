@@ -11,7 +11,7 @@ public abstract class SuperObject implements Renderable {
     protected Image image;
     protected String name;
     protected boolean collision = false;
-    protected double worldX, worldY;
+    protected int worldX, worldY;
     protected int z;
     GamePanel gp;
     private Rectangle solidArea = new Rectangle(0, 0, 40, 40);
@@ -25,8 +25,8 @@ public abstract class SuperObject implements Renderable {
     }
 
     public void draw(GraphicsContext gc) {
-        double screenX = worldX - player.getWorldX() + player.getScreenX();
-        double screenY = worldY - player.getWorldY() + player.getScreenY();
+        int screenX = worldX - player.getWorldX() + player.getScreenX();
+        int screenY = worldY - player.getWorldY() + player.getScreenY();
 
         if (worldX + gp.getTileSize() > player.getWorldX() - player.getScreenX() &&
                 worldX - gp.getTileSize() < player.getWorldX() + player.getScreenX() &&
@@ -53,11 +53,11 @@ public abstract class SuperObject implements Renderable {
         return collision;
     }
 
-    public double getWorldX() {
+    public int getWorldX() {
         return worldX;
     }
 
-    public double getWorldY() {
+    public int getWorldY() {
         return worldY;
     }
 
@@ -66,11 +66,11 @@ public abstract class SuperObject implements Renderable {
         return false;
     }
 
-    public void setWorldX(double worldX) {
+    public void setWorldX(int worldX) {
         this.worldX = worldX;
     }
 
-    public void setWorldY(double worldY) {
+    public void setWorldY(int worldY) {
         this.worldY = worldY;
     }
 }

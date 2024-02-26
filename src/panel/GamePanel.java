@@ -8,6 +8,7 @@ import interfacepackage.Renderable;
 import javafx.scene.text.Font;
 import render.RenderableHolder;
 import tile.TileManager;
+import utility.CollisionChecker;
 import utility.InputUtility;
 import utility.UserInterface;
 
@@ -31,6 +32,7 @@ public class GamePanel extends Canvas {
     private TileManager tileManager = new TileManager(this);
     private GraphicsContext gc = this.getGraphicsContext2D();
     public UserInterface ui = new UserInterface(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
 
     //constructor
     public GamePanel() {
@@ -113,5 +115,89 @@ public class GamePanel extends Canvas {
 
     public int getMaxWorldRow() {
         return maxWorldRow;
+    }
+
+    public static void setInstance(GamePanel instance) {
+        GamePanel.instance = instance;
+    }
+
+    public int getOriginalTileSize() {
+        return originalTileSize;
+    }
+
+    public void setOriginalTileSize(int originalTileSize) {
+        this.originalTileSize = originalTileSize;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
+
+    public void setTileSize(int tileSize) {
+        this.tileSize = tileSize;
+    }
+
+    public void setMaxColScreen(int maxColScreen) {
+        this.maxColScreen = maxColScreen;
+    }
+
+    public void setMaxRowScreen(int maxRowScreen) {
+        this.maxRowScreen = maxRowScreen;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
+    public void setMaxWorldCol(int maxWorldCol) {
+        this.maxWorldCol = maxWorldCol;
+    }
+
+    public void setMaxWorldRow(int maxWorldRow) {
+        this.maxWorldRow = maxWorldRow;
+    }
+
+    public void setWorldWidth(int worldWidth) {
+        this.worldWidth = worldWidth;
+    }
+
+    public void setWorldHeight(int worldHeight) {
+        this.worldHeight = worldHeight;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
+
+    public void setTileManager(TileManager tileManager) {
+        this.tileManager = tileManager;
+    }
+
+    public void setGc(GraphicsContext gc) {
+        this.gc = gc;
+    }
+
+    public UserInterface getUi() {
+        return ui;
+    }
+
+    public void setUi(UserInterface ui) {
+        this.ui = ui;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public void setCollisionChecker(CollisionChecker collisionChecker) {
+        this.collisionChecker = collisionChecker;
     }
 }
