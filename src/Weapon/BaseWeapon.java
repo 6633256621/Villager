@@ -1,6 +1,6 @@
 package Weapon;
 
-import interfacepackage.Sellable;
+import interfacep.Sellable;
 import javafx.scene.image.Image;
 
 public abstract class BaseWeapon implements Sellable {

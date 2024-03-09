@@ -1,19 +1,16 @@
 package object;
 
-import ent.Player;
-import javafx.scene.canvas.GraphicsContext;
+import config.Config;
 import javafx.scene.image.Image;
-import panel.GamePanel;
 
-public class Chest extends SuperObject {
-    public int z = 1;
-
+public class Chest extends Item {
     public Chest(int x, int y) {
         super();
+        z=1;
         name = "Chest";
         image = new Image(ClassLoader.getSystemResourceAsStream("objects/normal_chest.png"));
-        setWorldX(x * gp.getTileSize());
-        setWorldY(y * gp.getTileSize());
+        setWorldX(x * Config.tileSize);
+        setWorldY(y * Config.tileSize);
     }
 
     @Override

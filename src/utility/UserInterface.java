@@ -1,26 +1,25 @@
 package utility;
 
-import ent.GameLogic;
-import ent.Player;
+import config.Config;
+import object.Player;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import panel.GamePanel;
-import utility.InputUtility;
 
 public class UserInterface {
     GamePanel gp;
     Font arial_40;
     Font arial_custom=new Font("Arial",25);
 
-    Player p = Player.getInstance();
+    Player p;
 
 
     public UserInterface(GamePanel gp) {
         this.gp=gp;
         arial_40 =new Font("Arial",40);
+        p = Player.getInstance();
     }
 
     public void draw(GraphicsContext gc) {
@@ -32,10 +31,10 @@ public class UserInterface {
         }
     }
     public void drawCharacterScreen(GraphicsContext gc) {
-        final int frameX = gp.getTileSize();
-        final int frameY = gp.getTileSize();
-        final int frameWidth = gp.getTileSize()*5;
-        final int frameHeight = gp.getTileSize()*10;
+        final int frameX = Config.tileSize;
+        final int frameY = Config.tileSize;
+        final int frameWidth = Config.tileSize*5;
+        final int frameHeight = Config.tileSize*10;
         drawSubWindow(frameX,frameY,frameWidth,frameHeight,gc);
         int x = frameX;
         int y =frameY;
@@ -54,26 +53,26 @@ public class UserInterface {
     public void drawStatusText(int x,int y,int last,GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.setFont(arial_custom);
-        gc.fillText("Level",x+20,y+ gp.getTileSize());
-        gc.fillText("STR",x+20,y+gp.getTileSize()*2);
-        gc.fillText("DEX",x+20,y+gp.getTileSize()*3);
-        gc.fillText("ATK",x+20,y+gp.getTileSize()*4);
-        gc.fillText("DEF",x+20,y+gp.getTileSize()*5);
-        gc.fillText("EXP",x+20,y+gp.getTileSize()*6);
-        gc.fillText("Next LV EXP",x+20,y+gp.getTileSize()*7);
-        gc.fillText("Weapon",x+20,y+ gp.getTileSize()*8);
-        gc.fillText("Shield",x+20,y+ gp.getTileSize()*9);
+        gc.fillText("Level",x+20,y+ Config.tileSize);
+        gc.fillText("STR",x+20,y+Config.tileSize*2);
+        gc.fillText("DEX",x+20,y+Config.tileSize*3);
+        gc.fillText("ATK",x+20,y+Config.tileSize*4);
+        gc.fillText("DEF",x+20,y+Config.tileSize*5);
+        gc.fillText("EXP",x+20,y+Config.tileSize*6);
+        gc.fillText("Next LV EXP",x+20,y+Config.tileSize*7);
+        gc.fillText("Weapon",x+20,y+ Config.tileSize*8);
+        gc.fillText("Shield",x+20,y+ Config.tileSize*9);
 
         gc.setFill(Color.WHITE);
-        gc.fillText(""+p.getLevel(),last,y+ gp.getTileSize());
-        gc.fillText(""+p.getStrength(),last,y+ gp.getTileSize()*2);
-        gc.fillText(""+p.getDex(),last,y+ gp.getTileSize()*3);
-        gc.fillText(""+p.getAttack(),last,y+ gp.getTileSize()*4);
-        gc.fillText(""+p.getDefense(),last,y+ gp.getTileSize()*5);
-        gc.fillText(""+p.getExp(),last,y+ gp.getTileSize()*6);
-        gc.fillText(""+p.getNextLevelExp(),last,y+ gp.getTileSize()*7);
-        gc.drawImage(p.getCurrentWeapon().getImage(),last-20,y+gp.getTileSize()*7+15,gp.getTileSize(), gp.getTileSize());
-        gc.drawImage(p.getCurrentShield().getImage(),last-20,y+gp.getTileSize()*8+15,gp.getTileSize(), gp.getTileSize());
+        gc.fillText(""+p.getLevel(),last,y+ Config.tileSize);
+        gc.fillText(""+p.getStrength(),last,y+ Config.tileSize*2);
+        gc.fillText(""+p.getDex(),last,y+ Config.tileSize*3);
+        gc.fillText(""+p.getAttack(),last,y+ Config.tileSize*4);
+        gc.fillText(""+p.getDefense(),last,y+ Config.tileSize*5);
+        gc.fillText(""+p.getExp(),last,y+ Config.tileSize*6);
+        gc.fillText(""+p.getNextLevelExp(),last,y+ Config.tileSize*7);
+        gc.drawImage(p.getCurrentWeapon().getImage(),last-20,y+Config.tileSize*7+15,Config.tileSize, Config.tileSize);
+        gc.drawImage(p.getCurrentShield().getImage(),last-20,y+Config.tileSize*8+15,Config.tileSize, Config.tileSize);
 
     }
 }

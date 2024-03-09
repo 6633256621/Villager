@@ -1,6 +1,6 @@
 package utility;
 
-import interfacepackage.Sellable;
+import interfacep.Sellable;
 
 import java.util.ArrayList;
 

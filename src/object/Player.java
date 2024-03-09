@@ -1,54 +1,45 @@
-package ent;
+package object;
 
 import Weapon.BaseShield;
 import Weapon.BaseWeapon;
 import Weapon.NewbieShield;
 import Weapon.NewbieSword;
-import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
-import utility.InputUtility;
+import config.Config;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.KeyCode;
-import panel.GamePanel;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Rectangle;
+import panel.GamePanel;
+import utility.InputUtility;
 
 import static utility.LoadUtility.*;
 
-public class Player extends Entity {
-    //player position
+public class Player extends Entity{
     public final int screenX;
     public final int screenY;
-    private int tileSize = GamePanel.getInstance().getTileSize();
     //counter
     private int spriteCounter = 0;
     private int spriteNum = 1;
+    private int sideSpeed;
 
     //Character Attributes
-
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
     private BaseShield currentShield = new NewbieShield();
-    //singleton
     public static Player instance = new Player();
-
     public static Player getInstance() {
         return instance;
     }
-
-    //Gamepanel
     GamePanel gp = GamePanel.getInstance();
-
     private Image def;//display image at that moment
-
-    //constructor
     public Player() {
         super();
         //where to spawn
-        worldX = gp.getTileSize() * 23;
-        worldY = gp.getTileSize() * 21;
+        worldX = Config.tileSize * 23;
+        worldY = Config.tileSize * 21;
         //where to draw
-        screenX = gp.getScreenWidth() / 2 - (gp.getTileSize()) / 2;
-        screenY = gp.getScreenHeight() / 2 - (gp.getTileSize()) / 2;
+        screenX = Config.screenWidth / 2 - (Config.tileSize) / 2;
+        screenY = Config.screenHeight / 2 - (Config.tileSize) / 2;
         z = 2;
         solidArea = new Rectangle();
         solidArea.setX(8);
@@ -57,9 +48,10 @@ public class Player extends Entity {
         solidArea.setHeight(32);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
-
+        direction="down";
+        speed=3;
+        sideSpeed=this.sidespeed(speed);
         def = down;
-        direction = "down";
         playerLoad();
 
         //status
@@ -75,8 +67,6 @@ public class Player extends Entity {
         setDefense(getDefense());
         setMoney(0);
     }
-
-    //movement
     private void up() {
         if (spriteNum == 1) {
             def = up;
@@ -257,9 +247,8 @@ public class Player extends Entity {
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        gc.drawImage(def, screenX, screenY, tileSize, tileSize);
+        gc.drawImage(def, screenX, screenY, Config.tileSize, Config.tileSize);
     }
-
     public int getMaxLife() {
         return maxLife;
     }
@@ -361,5 +350,4 @@ public class Player extends Entity {
     public int getScreenY() {
         return screenY;
     }
-
 }

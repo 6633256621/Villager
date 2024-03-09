@@ -1,12 +1,12 @@
 package panel;
 
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-import utility.InputUtility;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import utility.InputUtility;
 
 public class RootPane extends StackPane {
     public RootPane() {

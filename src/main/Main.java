@@ -1,12 +1,13 @@
 package main;
+
+import config.Config;
+import logic.GameLogic;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import panel.GamePanel;
-import ent.GameLogic;
 import panel.RootPane;
 import render.RenderableHolder;
 
@@ -39,7 +40,6 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                gc.clearRect(0,0, GamePanel.getInstance().getScreenWidth(), GamePanel.getInstance().getScreenHeight());
                 gamepanel.paintComponent();
                 logic.logicUpdate();
                 renderableHolder.update();

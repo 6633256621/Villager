@@ -1,6 +1,5 @@
 package Weapon;
 
-import interfacepackage.Sellable;
 import javafx.scene.image.Image;
 
 public class NewbieShield extends BaseShield{
