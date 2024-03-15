@@ -1,5 +1,6 @@
 package logic;
 
+import config.Config;
 import object.Chest;
 import object.Object;
 import object.Player;
@@ -24,7 +25,7 @@ public class GameLogic {
     public GameLogic() {
         gameObjectContainer = new ArrayList<>();
         player = Player.getInstance();
-        chest1 = new Chest(23,7);
+        chest1 = new Chest(23+ Config.fixedPosition,7+ Config.fixedPosition);
         addNewObject(player);
         addNewObject(chest1);
         setupGame();

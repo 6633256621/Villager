@@ -20,7 +20,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         this.player = Player.getInstance();
-        tile = new Tile[10];
+        tile = new Tile[15];
         mapTileNum = new int[Config.maxWorldCol][Config.maxWorldRow];
         getTileImage();
         loadMap();
@@ -44,7 +44,10 @@ public class TileManager {
         tile[7] = new Tile();
         tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/wood.png"));
         tile[7].collision=true;
-        for (int i = 0; i < 8; i++) {
+        tile[8] = new Tile();
+        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/forest.png"));
+        tile[8].collision=true;
+        for (int i = 0; i < 9; i++) {
             tile[i].makeScale(gp);
         }
     }

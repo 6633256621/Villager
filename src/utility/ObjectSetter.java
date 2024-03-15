@@ -13,7 +13,7 @@ public class ObjectSetter {
     }
     public void setObject() {
         gl.addNewObject(new HealthPotion());
-        gl.getGameObjectContainer().getLast().setWorldX(29*Config.tileSize);
-        gl.getGameObjectContainer().getLast().setWorldY(13*Config.tileSize);
+        gl.getGameObjectContainer().getLast().setWorldX((29+Config.fixedPosition)*Config.tileSize);
+        gl.getGameObjectContainer().getLast().setWorldY((13+Config.fixedPosition)*Config.tileSize);
     }
 }

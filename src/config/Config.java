@@ -10,10 +10,12 @@ public class Config {
     public static int screenHeight = maxRowScreen * tileSize;//576
 
     //world setting
-    public static int maxWorldCol = 50;
-    public static int maxWorldRow = 50;
+    public static int maxWorldCol = 90;
+    public static int maxWorldRow = 90;
     public static int worldWidth = maxWorldCol * tileSize;
     public static int worldHeight = maxWorldRow * tileSize;
     public static int inventorySize =20;
+    public static int fixedPosition=20;
+
 
 }

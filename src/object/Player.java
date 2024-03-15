@@ -38,8 +38,8 @@ public class Player extends Entity{
     public Player() {
         super();
         //where to spawn
-        worldX = Config.tileSize * 23;
-        worldY = Config.tileSize * 21;
+        worldX = Config.tileSize * (23+Config.fixedPosition);
+        worldY = Config.tileSize * (21+Config.fixedPosition);
         z=2;
         //where to draw
         screenX = Config.screenWidth / 2 - (Config.tileSize) / 2;
