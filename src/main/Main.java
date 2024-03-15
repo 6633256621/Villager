@@ -41,10 +41,11 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long l) {
-
                 gamepanel.paintComponent();
                 logic.logicUpdate();
                 renderableHolder.update();
+                System.out.println(logic.getGameObjectContainer().size());
+                System.out.println(renderableHolder.getObjects().size());
             }
         };
         animation.start();//start animation timer
