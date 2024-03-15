@@ -104,11 +104,11 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
         for (int i = 0; i < gl.getGameObjectContainer().size(); i++) {
-            if(gl.getGameObjectContainer().get(i) instanceof Item){
+            if (gl.getGameObjectContainer().get(i) instanceof Item) {
+                Item e = (Item) gl.getGameObjectContainer().get(i);
                 if (gl.getGameObjectContainer().get(i) != null) {
-                    entity.getSolidArea().setX(entity.getWorldX() + entity.getSolidAreaDefaultX());
-                    entity.getSolidArea().setY(entity.getWorldY() + entity.getSolidAreaDefaultY());
-                    Item e = (Item) gl.getGameObjectContainer().get(i);
+                    entity.getSolidArea().setX(entity.getWorldX() + entity.getSolidArea().getX());
+                    entity.getSolidArea().setY(entity.getWorldY() + entity.getSolidArea().getY());
                     e.getSolidArea().setX(e.getWorldX() + e.getSolidArea().getX());
                     e.getSolidArea().setY(e.getWorldY() + e.getSolidArea().getY());
 
@@ -116,24 +116,101 @@ public class CollisionChecker {
                         case "up":
                             entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                             if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                System.out.println("up collision");
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
                             }
                             break;
                         case "down":
                             entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
                             break;
                         case "left":
-                            entity.getSolidArea().setX(entity.getSolidArea().getY() - entity.getSpeed());
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
                             break;
                         case "right":
-                            entity.getSolidArea().setX(entity.getSolidArea().getY() + entity.getSpeed());
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "upleft":
+                            entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "downright":
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                            entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "downleft":
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                            entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
+                            break;
+                        case "upright":
+                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                            entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                                if (e.isCollision()) {
+                                    entity.setCollisionOn(true);
+                                }
+                                if (player) {
+                                    index = i;
+                                }
+                            }
                             break;
                     }
                 }
                 entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
                 entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
-                entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
-                entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
+                e.getSolidArea().setX(e.getSolidAreaDefaultX());
+                e.getSolidArea().setY(e.getSolidAreaDefaultY());
             }
         }
         return index;

@@ -12,7 +12,7 @@ public class HealthPotion extends Thing {
         name ="Health Potion";
         price=5;
         description="["+name+"]\nFor healing";
-        collision=true;
+        collision=false;
     }
     public HealthPotion(int x, int y) {
         super();
@@ -24,6 +24,6 @@ public class HealthPotion extends Thing {
         description="["+name+"]\nFor healing";
         setWorldX(x * Config.tileSize);
         setWorldY(y * Config.tileSize);
-        collision=true;
+        collision=false;
     }
 }

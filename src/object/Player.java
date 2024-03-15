@@ -265,6 +265,8 @@ public class Player extends Entity{
         }
     }
 
+
+
     //draw image
     @Override
     public void draw(GraphicsContext gc) {

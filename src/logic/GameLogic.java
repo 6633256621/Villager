@@ -2,6 +2,7 @@ package logic;
 
 import config.Config;
 import object.Chest;
+import object.Item;
 import object.Object;
 import object.Player;
 import object.potion.HealthPotion;
@@ -20,6 +21,7 @@ public class GameLogic {
     //each
     private Player player;
     private Chest chest1;
+    private RenderableHolder renderableHolder = RenderableHolder.getInstance();
 
     //constructor(setup for all entity)
     public GameLogic() {
@@ -37,14 +39,26 @@ public class GameLogic {
     //function for add object to container
     public void addNewObject(Object object) {
         gameObjectContainer.add(object);
-        RenderableHolder.getInstance().add(object);
+        renderableHolder.add(object);
     }
 
     //fetch
     public void logicUpdate() {
         player.update();
-        collisionChecker.checkObject(player,true);
+        int objIndex = collisionChecker.checkObject(player,true);
+        pickUpObject(objIndex);
     }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            if(!((Item) getGameObjectContainer().get(i)).isCollision()){
+                player.getInventory().add((Item) getGameObjectContainer().get(i));
+                renderableHolder.getObjects().remove(getGameObjectContainer().get(i));
+                getGameObjectContainer().remove(i);
+            }
+        }
+    }
+
     //getter
     public Player getPlayer() {
         return player;
