@@ -1,12 +1,13 @@
-package Weapon;
+package object.weapon;
 
-import interfacep.Sellable;
 import javafx.scene.image.Image;
+import object.Thing;
 
-public abstract class BaseWeapon implements Sellable {
+public abstract class BaseWeapon extends Thing {
     int price =0;
     protected Image image;
     protected int attackValue=0;
+
     public int getAttackValue() {
         return attackValue;
     }

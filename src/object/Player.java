@@ -1,9 +1,8 @@
 package object;
 
-import Weapon.BaseShield;
-import Weapon.BaseWeapon;
-import Weapon.NewbieShield;
-import Weapon.NewbieSword;
+import logic.GameLogic;
+import object.potion.HealthPotion;
+import object.weapon.*;
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 import utility.InputUtility;
+
+import java.util.ArrayList;
 
 import static utility.LoadUtility.*;
 
@@ -26,21 +27,40 @@ public class Player extends Entity{
     private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
     private BaseShield currentShield = new NewbieShield();
+    private ArrayList<Item> inventory;
     public static Player instance = new Player();
     public static Player getInstance() {
         return instance;
     }
     GamePanel gp = GamePanel.getInstance();
+    GameLogic gl;
     private Image def;//display image at that moment
     public Player() {
         super();
         //where to spawn
         worldX = Config.tileSize * 23;
         worldY = Config.tileSize * 21;
+        z=2;
         //where to draw
         screenX = Config.screenWidth / 2 - (Config.tileSize) / 2;
         screenY = Config.screenHeight / 2 - (Config.tileSize) / 2;
-        z = 2;
+        direction="down";
+        speed=2;
+        sideSpeed=this.sidespeed(speed);
+        def = down;
+        playerLoad();
+        setStatus();
+        setRectangle();
+        setItems();
+    }
+    private void setItems() {
+        inventory = new ArrayList<>(20);
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new IronSword());
+        inventory.add(new IronShield());
+    }
+    private void setRectangle() {
         solidArea = new Rectangle();
         solidArea.setX(8);
         solidArea.setY(16);
@@ -48,12 +68,8 @@ public class Player extends Entity{
         solidArea.setHeight(32);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
-        direction="down";
-        speed=3;
-        sideSpeed=this.sidespeed(speed);
-        def = down;
-        playerLoad();
-
+    }
+    private void setStatus() {
         //status
         setLevel(1);
         setMaxLife(3);
@@ -67,6 +83,11 @@ public class Player extends Entity{
         setDefense(getDefense());
         setMoney(0);
     }
+//    private void pickUpObject(int i) {
+//        if (inventory.size()!=Config.inventorySize) {
+//            inventory.add()
+//        }
+//    }
     private void up() {
         if (spriteNum == 1) {
             def = up;
@@ -349,5 +370,9 @@ public class Player extends Entity{
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
     }
 }

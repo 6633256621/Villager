@@ -12,21 +12,22 @@ public class RootPane extends StackPane {
     public RootPane() {
         this.setBackground(new Background(new BackgroundFill(Color.FORESTGREEN,null,null)));
     }
-    public void addlistener() {
-        setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), true);
-                InputUtility.setKeyTriggered(keyEvent.getCode(),true);
-            }
-        });
-        setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), false);
-                InputUtility.setKeyTriggered(keyEvent.getCode(),false);
-
-            }
-        });
-    }
+//    public void addlistener() {
+//        setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent keyEvent) {
+//                InputUtility.setKeyPressed(keyEvent.getCode(), true);
+//                InputUtility.setKeyTriggered(keyEvent.getCode(),true);
+//                InputUtility.setOneTimeTriggered(keyEvent.getCode(),true);
+//            }
+//        });
+//        setOnKeyReleased(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent keyEvent) {
+//                InputUtility.setKeyPressed(keyEvent.getCode(), false);
+//                InputUtility.setKeyTriggered(keyEvent.getCode(),false);
+//                InputUtility.setOneTimeTriggered(keyEvent.getCode(),false);
+//            }
+//        });
+//    }
 }

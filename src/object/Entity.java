@@ -4,7 +4,6 @@ import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 
 public abstract class Entity extends Object{
-    protected int worldX,worldY;
     protected int speed;
     protected Rectangle solidArea;
     protected int solidAreaDefaultX,solidAreaDefaultY;
@@ -17,21 +16,6 @@ public abstract class Entity extends Object{
     }
 
    //Getter and Setter
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
-    }
-
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
-    }
 
     public Rectangle getSolidArea() {
         return solidArea;

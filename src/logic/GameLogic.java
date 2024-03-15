@@ -3,7 +3,10 @@ package logic;
 import object.Chest;
 import object.Object;
 import object.Player;
+import object.potion.HealthPotion;
 import render.RenderableHolder;
+import utility.CollisionChecker;
+import utility.ObjectSetter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 public class GameLogic {
     //container for entity and object
     private List<Object> gameObjectContainer;
+    public ObjectSetter objectSetter = new ObjectSetter(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(null,this);
     //each
     private Player player;
     private Chest chest1;
@@ -22,10 +27,14 @@ public class GameLogic {
         chest1 = new Chest(23,7);
         addNewObject(player);
         addNewObject(chest1);
+        setupGame();
+    }
+    private void setupGame() {
+        objectSetter.setObject();
     }
 
     //function for add object to container
-    private void addNewObject(Object object) {
+    public void addNewObject(Object object) {
         gameObjectContainer.add(object);
         RenderableHolder.getInstance().add(object);
     }
@@ -33,6 +42,7 @@ public class GameLogic {
     //fetch
     public void logicUpdate() {
         player.update();
+        collisionChecker.checkObject(player,true);
     }
     //getter
     public Player getPlayer() {
@@ -45,6 +55,11 @@ public class GameLogic {
 
     public Chest getChest1() {
         return chest1;
+    }
+    public static GameLogic instance;
+    public static GameLogic getInstance() {
+        instance = new GameLogic();
+        return instance;
     }
 }
 
