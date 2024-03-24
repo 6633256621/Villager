@@ -122,6 +122,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "down":
@@ -133,6 +134,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "left":
@@ -144,6 +146,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "right":
@@ -155,6 +158,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "upleft":
@@ -167,6 +171,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "downright":
@@ -179,6 +184,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "downleft":
@@ -191,6 +197,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                         case "upright":
@@ -203,6 +210,7 @@ public class CollisionChecker {
                                 if (player) {
                                     index = i;
                                 }
+                                e.setInteracted(true);
                             }
                             break;
                     }

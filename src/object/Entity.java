@@ -67,4 +67,7 @@ public abstract class Entity extends Object{
     public int sidespeed(int speed) {
         return (int) (speed * (Math.cos(Math.toRadians(45.0))));
     }
+    public void update() {
+
+    }
 }

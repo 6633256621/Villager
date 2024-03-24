@@ -1,5 +1,6 @@
 package utility;
 
+import config.GameState;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 public class InputUtility {
     private static boolean isClicked = false;
     private static boolean keyPressHandled = false;
-    private static boolean keyTwo = false;
     private static ArrayList<KeyCode> lastKeyPressed = new ArrayList<>();
     //array of all button which is interacted
     private static ArrayList<KeyCode> keyPressed = new ArrayList<>();
@@ -20,7 +20,7 @@ public class InputUtility {
 
     public static void setKeyPressed(KeyCode keycode, boolean pressed) {
         //if pressed add to array
-        if (!keycode.equals(KeyCode.R)&&!keycode.equals(KeyCode.P)&&
+        if (!keycode.equals(KeyCode.R)&&!keycode.equals(KeyCode.P)&&!keycode.equals(KeyCode.J)&&
                 !(keycode.equals(KeyCode.UP)||keycode.equals(KeyCode.DOWN)||keycode.equals(KeyCode.LEFT)||keycode.equals(KeyCode.RIGHT))
         ){
             if (pressed) {
@@ -37,7 +37,7 @@ public class InputUtility {
     }
 
     public static void setKeyTriggered(KeyCode keycode, boolean pressed) {
-        if (keycode.equals(KeyCode.R)||keycode.equals(KeyCode.P)){
+        if (keycode.equals(KeyCode.R)||keycode.equals(KeyCode.P)||keycode.equals(KeyCode.J)){
             if (pressed) {
                 if (!keyPressed.contains(keycode) && !isClicked) {
                     keyPressed.add(keycode);
@@ -62,7 +62,8 @@ public class InputUtility {
         }
     }
     public static void setOneTimeTriggered(KeyCode keycode, boolean pressed) {
-        if (keycode.equals(KeyCode.UP)||keycode.equals(KeyCode.DOWN)||keycode.equals(KeyCode.LEFT)||keycode.equals(KeyCode.RIGHT)){
+
+        if (keycode.equals(KeyCode.UP)||keycode.equals(KeyCode.DOWN)||keycode.equals(KeyCode.LEFT)||keycode.equals(KeyCode.RIGHT)||keycode.equals(KeyCode.ENTER)){
             if (pressed) {
                 if (keyPressHandled) {
                     keyPressed.remove(keycode);
@@ -71,29 +72,56 @@ public class InputUtility {
                 else if (!keyPressHandled&&!keyPressed.contains(keycode)) {
                     keyPressed.add(keycode);
                     keyPressHandled = true;
-                    if(keyPressed.contains(KeyCode.R)){
-                        if (keycode.equals(KeyCode.UP)) {
-                            UserInterface.slotRow--;
-                            if (UserInterface.slotRow < 0) {
-                                UserInterface.slotRow = 0;
+                    if(keyPressed.contains(KeyCode.R)|| GameState.chestState){
+                        if (keyPressed.contains(KeyCode.J)){
+                            if (keycode.equals(KeyCode.UP)) {
+                                UserInterface.leftSlotRow--;
+                                if (UserInterface.leftSlotRow < 0) {
+                                    UserInterface.leftSlotRow = 0;
+                                }
                             }
-                        }
-                        if (keycode.equals(KeyCode.LEFT)) {
-                            UserInterface.slotCol--;
-                            if (UserInterface.slotCol < 0) {
-                                UserInterface.slotCol = 0;
+                            if (keycode.equals(KeyCode.LEFT)) {
+                                UserInterface.leftSlotCol--;
+                                if (UserInterface.leftSlotCol < 0) {
+                                    UserInterface.leftSlotCol = 0;
+                                }
                             }
-                        }
-                        if (keycode.equals(KeyCode.DOWN)) {
-                            UserInterface.slotRow++;
-                            if (UserInterface.slotRow > 3) {
-                                UserInterface.slotRow = 3;
+                            if (keycode.equals(KeyCode.DOWN)) {
+                                UserInterface.leftSlotRow++;
+                                if (UserInterface.leftSlotRow > 3) {
+                                    UserInterface.leftSlotRow = 3;
+                                }
                             }
-                        }
-                        if (keycode.equals(KeyCode.RIGHT)) {
-                            UserInterface.slotCol++;
-                            if (UserInterface.slotCol > 4) {
-                                UserInterface.slotCol = 4;
+                            if (keycode.equals(KeyCode.RIGHT)) {
+                                UserInterface.leftSlotCol++;
+                                if (UserInterface.leftSlotCol > 4) {
+                                    UserInterface.leftSlotCol = 4;
+                                }
+                            }
+                        } else {
+                            if (keycode.equals(KeyCode.UP)) {
+                                UserInterface.rightSlotRow--;
+                                if (UserInterface.rightSlotRow < 0) {
+                                    UserInterface.rightSlotRow = 0;
+                                }
+                            }
+                            if (keycode.equals(KeyCode.LEFT)) {
+                                UserInterface.rightSlotCol--;
+                                if (UserInterface.rightSlotCol < 0) {
+                                    UserInterface.rightSlotCol = 0;
+                                }
+                            }
+                            if (keycode.equals(KeyCode.DOWN)) {
+                                UserInterface.rightSlotRow++;
+                                if (UserInterface.rightSlotRow > 3) {
+                                    UserInterface.rightSlotRow = 3;
+                                }
+                            }
+                            if (keycode.equals(KeyCode.RIGHT)) {
+                                UserInterface.rightSlotCol++;
+                                if (UserInterface.rightSlotCol > 4) {
+                                    UserInterface.rightSlotCol = 4;
+                                }
                             }
                         }
                     }
@@ -111,10 +139,10 @@ public class InputUtility {
     public static boolean isOnlyOneKeyPressed() {
         return keyPressed.size() == 1;
     }
-    public static boolean isOnlyTwoKeyPressed() {
-        return keyPressed.size() == 2;
-    }
 
+    public static ArrayList<KeyCode> getKeyPressed() {
+        return keyPressed;
+    }
 }
 
 

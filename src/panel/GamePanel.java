@@ -1,6 +1,7 @@
 package panel;
 
 import config.Config;
+import config.GameState;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,6 +39,8 @@ public class GamePanel extends Canvas {
         gc.setFill(Color.FORESTGREEN);
         gc.fillRect(0, 0, Config.screenWidth, Config.screenHeight);
         this.addlistener();
+        GameState.chestState=false;
+        GameState.traderState=false;
     }
 
     public void paintComponent() {
@@ -52,7 +55,9 @@ public class GamePanel extends Canvas {
                 entity.draw(gc);//draw each entity
             }
         }
-        ui.draw(gc);
+        if(GameState.normalState){
+            ui.draw(gc);
+        }
 
         long drawEnd = System.nanoTime();
         long passed = drawEnd - drawStart;

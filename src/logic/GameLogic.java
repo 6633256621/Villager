@@ -1,10 +1,9 @@
 package logic;
 
 import config.Config;
-import object.Chest;
-import object.Item;
+import config.GameState;
+import object.*;
 import object.Object;
-import object.Player;
 import object.potion.HealthPotion;
 import render.RenderableHolder;
 import utility.CollisionChecker;
@@ -36,6 +35,7 @@ public class GameLogic {
         objectSetter.setObject();
     }
 
+
     //function for add object to container
     public void addNewObject(Object object) {
         gameObjectContainer.add(object);
@@ -44,7 +44,16 @@ public class GameLogic {
 
     //fetch
     public void logicUpdate() {
-        player.update();
+        GameState.update();
+        for(Object e:gameObjectContainer) {
+            if (e instanceof Entity ee) {
+                ee.update();
+            } else if(e instanceof Item ee) {
+                ee.update();
+            }else {
+                System.out.println("dunno this instance");
+            }
+        }
         int objIndex = collisionChecker.checkObject(player,true);
         pickUpObject(objIndex);
     }

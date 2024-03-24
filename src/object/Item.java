@@ -12,6 +12,7 @@ public abstract class Item extends Object {
     protected String name;
     protected String description;
     protected boolean collision = false;
+    protected boolean interacted;
     Player player;
     protected Rectangle solidArea = new Rectangle(0,0,Config.tileSize,Config.tileSize);
     protected int solidAreaDefaultX = 0;
@@ -88,5 +89,14 @@ public abstract class Item extends Object {
 
     public void setSolidArea(Rectangle solidArea) {
         this.solidArea = solidArea;
+    }
+
+    public boolean isInteracted() {
+        return interacted;
+    }
+    public void update() {}
+
+    public void setInteracted(boolean interacted) {
+        this.interacted = interacted;
     }
 }

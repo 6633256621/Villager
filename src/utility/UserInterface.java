@@ -1,6 +1,8 @@
 package utility;
 
+import com.sun.javafx.tk.FontLoader;
 import config.Config;
+import interfacep.Storable;
 import object.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
@@ -11,17 +13,19 @@ import panel.GamePanel;
 public class UserInterface {
     GamePanel gp;
     Font arial_40;
-    Font arial_custom = new Font("Arial", 25);
+    private Font customFont;
 
     Player p;
-    public static int slotCol = 0;
-    public static int slotRow = 0;
+    public static int leftSlotCol = 0;
+    public static int leftSlotRow = 0;
+    public static int rightSlotCol = 0;
+    public static int rightSlotRow = 0;
 
 
     public UserInterface(GamePanel gp) {
         this.gp = gp;
-        arial_40 = new Font("Arial", 40);
         p = Player.getInstance();
+        customFont = new Font("Georgia",20);
     }
     public void draw(GraphicsContext gc) {
 //        gc.setFont(arial_40);
@@ -29,8 +33,7 @@ public class UserInterface {
 //        gc.fillText("Key = ",50,50);
         if (InputUtility.isKeyPressed(KeyCode.R)) {
             drawCharacterScreen(gc);
-            drawInventory(gc);
-
+            drawInventory(p,gc,"right");
         }
     }
 
@@ -46,19 +49,21 @@ public class UserInterface {
         drawStatusText(x, y, last, gc);
     }
 
-    public void drawSubWindow(int x, int y, int width, int height, GraphicsContext gc) {
+    public static void drawSubWindow(int x, int y, int width, int height, GraphicsContext gc) {
         gc.setFill(Color.BLACK);
         gc.setGlobalAlpha(0.5);
         gc.fillRoundRect(x, y, width, height, 35, 35);
         gc.setGlobalAlpha(1);
         gc.setStroke(Color.WHITE);
-        gc.strokeRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+        gc.setLineWidth(2);
+        gc.strokeRoundRect(x + 5, y + 5, width - 10, height - 10, 50, 50);
         gc.strokeRoundRect(x + 1, y + 1, width - 1, height - 1, 25, 25);
+        gc.setLineWidth(1);
     }
 
     public void drawStatusText(int x, int y, int last, GraphicsContext gc) {
         gc.setFill(Color.WHITE);
-        gc.setFont(arial_custom);
+        gc.setFont(customFont);
         gc.fillText("Level", x + 20, y + Config.tileSize);
         gc.fillText("STR", x + 20, y + Config.tileSize * 2);
         gc.fillText("DEX", x + 20, y + Config.tileSize * 3);
@@ -82,21 +87,27 @@ public class UserInterface {
 
     }
 
-    public void drawInventory(GraphicsContext gc) {
+    public static String drawInventory(Storable e,GraphicsContext gc,String side) {
+        int frameX;
         // overall frame
-        int frameX = Config.tileSize * 25;
+        if(side=="right") {
+            frameX = Config.tileSize * 25;
+        } else {
+            frameX = Config.tileSize;
+        }
+
         int frameY = Config.tileSize;
         int frameWidth = Config.tileSize * 6;
         int frameHeight = Config.tileSize * 5;
-        drawSubWindow(frameX, frameY, frameWidth, frameHeight, gc);
+        UserInterface.drawSubWindow(frameX, frameY, frameWidth, frameHeight, gc);
         //slot
         final int slotXStart = frameX + 20;
         final int slotYStart = frameY + 20;
         int slotX = slotXStart;
         int slotY = slotYStart;
 
-        for(int i=0;i<p.getInventory().size();i++) {
-            gc.drawImage(p.getInventory().get(i).getImage(),slotX,slotY,Config.tileSize,Config.tileSize);
+        for(int i=0;i<e.getInventory().size();i++) {
+            gc.drawImage(e.getInventory().get(i).getImage(),slotX,slotY,Config.tileSize,Config.tileSize);
 
             slotX+=Config.tileSize;
             if(i==4||i==9||i==14) {
@@ -104,10 +115,15 @@ public class UserInterface {
                 slotY+=Config.tileSize;
             }
         }
-
+        int cursorX,cursorY;
         //cursor
-        int cursorX = slotXStart + (Config.tileSize * slotCol);
-        int cursorY = slotYStart + (Config.tileSize * slotRow);
+        if (side=="left"){
+            cursorX = slotXStart + (Config.tileSize * UserInterface.leftSlotCol);
+            cursorY = slotYStart + (Config.tileSize * UserInterface.leftSlotRow);
+        } else {
+            cursorX = slotXStart + (Config.tileSize * UserInterface.rightSlotCol);
+            cursorY = slotYStart + (Config.tileSize * UserInterface.rightSlotRow);
+        }
         int cursorWidth = Config.tileSize;
         int cursorHeight = Config.tileSize;
         // Draw cursor
@@ -123,18 +139,23 @@ public class UserInterface {
         //description
         int textX = dFrameX +20;
         int textY = dFrameY+Config.tileSize;
-        gc.setFont(arial_custom);
 
-        int itemIndex = getItemIndexOnSlot();
-        if(itemIndex<p.getInventory().size()) {
+        int itemIndex = getItemIndexOnSlot(side);
+        if(itemIndex<e.getInventory().size()) {
             drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight,gc);
             gc.setFill(Color.WHITE);
-            gc.fillText(p.getInventory().get(itemIndex).getDescription(),textX,textY);
+            gc.fillText(e.getInventory().get(itemIndex).getDescription(),textX,textY);
             gc.setFill(Color.BLACK);
         }
+        return side;
     }
-    private int getItemIndexOnSlot() {
-        int itemIndex = slotCol+(slotRow*5);
+    public static int getItemIndexOnSlot(String side) {
+        int itemIndex;
+        if (side=="left") {
+            itemIndex = UserInterface.leftSlotCol+(UserInterface.leftSlotRow*5);
+        } else {
+            itemIndex = UserInterface.rightSlotCol+(UserInterface.rightSlotRow*5);
+        }
         return itemIndex;
     }
 }

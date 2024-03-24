@@ -1,5 +1,6 @@
 package object;
 
+import interfacep.Storable;
 import logic.GameLogic;
 import object.potion.HealthPotion;
 import object.weapon.*;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 import static utility.LoadUtility.*;
 
-public class Player extends Entity{
+public class Player extends Entity implements Storable {
     public final int screenX;
     public final int screenY;
     //counter
@@ -45,7 +46,7 @@ public class Player extends Entity{
         screenX = Config.screenWidth / 2 - (Config.tileSize) / 2;
         screenY = Config.screenHeight / 2 - (Config.tileSize) / 2;
         direction="down";
-        speed=2;
+        speed=3;
         sideSpeed=this.sidespeed(speed);
         def = down;
         playerLoad();
