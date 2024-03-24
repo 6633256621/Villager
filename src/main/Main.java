@@ -1,6 +1,9 @@
 package main;
 
 import config.Config;
+import config.GameState;
+import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
 import logic.GameLogic;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -10,6 +13,7 @@ import javafx.stage.Stage;
 import panel.GamePanel;
 import panel.RootPane;
 import render.RenderableHolder;
+import utility.InputUtility;
 import utility.UserInterface;
 
 
@@ -44,8 +48,11 @@ public class Main extends Application {
                 gamepanel.paintComponent();
                 logic.logicUpdate();
                 renderableHolder.update();
-                System.out.println(logic.getGameObjectContainer().size());
-                System.out.println(renderableHolder.getObjects().size());
+                System.out.println("Available fonts:");
+                for (String fontFamily : Font.getFamilies()) {
+                    System.out.println(fontFamily);
+                }
+                InputUtility.getKeyPressed().remove(KeyCode.ENTER);
             }
         };
         animation.start();//start animation timer
