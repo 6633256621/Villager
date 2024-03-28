@@ -4,9 +4,7 @@ import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 
 public abstract class Entity extends Object{
-    protected int worldX,worldY;
     protected int speed;
-    protected int sideSpeed = (int) (speed * (Math.cos(Math.toRadians(45.0))));//speed when sidewalk
     protected Rectangle solidArea;
     protected int solidAreaDefaultX,solidAreaDefaultY;
     protected boolean collisionOn=false;
@@ -18,21 +16,6 @@ public abstract class Entity extends Object{
     }
 
    //Getter and Setter
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
-    }
-
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
-    }
 
     public Rectangle getSolidArea() {
         return solidArea;
@@ -80,5 +63,11 @@ public abstract class Entity extends Object{
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+    public int sidespeed(int speed) {
+        return (int) (speed * (Math.cos(Math.toRadians(45.0))));
+    }
+    public void update() {
+
     }
 }

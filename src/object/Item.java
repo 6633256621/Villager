@@ -3,14 +3,20 @@ package object;
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
+
 
 public abstract class Item extends Object {
     protected Image image;
     protected String name;
+    protected String description;
     protected boolean collision = false;
-    protected int worldX, worldY;
+    protected boolean interacted;
     Player player;
+    protected Rectangle solidArea = new Rectangle(0,0,Config.tileSize,Config.tileSize);
+    protected int solidAreaDefaultX = 0;
+    protected int solidAreaDefaultY = 0;
 
     public Item() {
         gp = GamePanel.getInstance();
@@ -57,27 +63,40 @@ public abstract class Item extends Object {
         this.collision = collision;
     }
 
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public void setWorldX(int worldX) {
-        this.worldX = worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
-    }
-
-    public void setWorldY(int worldY) {
-        this.worldY = worldY;
-    }
-
     public Player getPlayer() {
         return player;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidArea(Rectangle solidArea) {
+        this.solidArea = solidArea;
+    }
+
+    public boolean isInteracted() {
+        return interacted;
+    }
+    public void update() {}
+
+    public void setInteracted(boolean interacted) {
+        this.interacted = interacted;
     }
 }

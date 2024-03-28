@@ -14,4 +14,8 @@ public class Config {
     public static int maxWorldRow = 90;
     public static int worldWidth = maxWorldCol * tileSize;
     public static int worldHeight = maxWorldRow * tileSize;
+    public static int inventorySize =20;
+    public static int fixedPosition=20;
+
+
 }

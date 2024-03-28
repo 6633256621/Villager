@@ -6,7 +6,8 @@ public class LoadUtility {
     //player image
     public static Image down,down2,down3,up,up2,up3,left,left2,left3,right,right2,right3,
                         downleft,downleft2,downleft3,downright,downright2,downright3,
-                        upleft,upleft2,upleft3,upright,upright2,upright3;
+                        upleft,upleft2,upleft3,upright,upright2,upright3, slime_jump_1,
+                        slime_jump_2, slime_jump_3;
 
     //group of load
     static {
@@ -39,5 +40,11 @@ public class LoadUtility {
         downleft = new Image(ClassLoader.getSystemResourceAsStream("player/downleft.png"));
         downleft2 = new Image(ClassLoader.getSystemResourceAsStream("player/downleft2.png"));
         downleft3 = new Image(ClassLoader.getSystemResourceAsStream("player/downleft3.png"));
+    }
+
+    public static void slimeLoad() {
+        slime_jump_1 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_jump_1.png"));
+        slime_jump_2 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_jump_2.png"));
+        slime_jump_3 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_jump_3.png"));
     }
 }

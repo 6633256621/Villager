@@ -5,6 +5,7 @@ import panel.GamePanel;
 import render.Renderable;
 
 public abstract class Object implements Renderable {
+    protected int worldX,worldY;
     protected int z;
     protected boolean destroyed;//default is false
     protected boolean visible;
@@ -46,5 +47,20 @@ public abstract class Object implements Renderable {
 
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
+    }
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
+    }
+
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
     }
 }
