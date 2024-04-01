@@ -47,7 +47,6 @@ public class GamePanel extends Canvas {
         //Debug
         long drawStart = System.nanoTime();
 
-
         gc.setFill(Color.BLACK);
         tileManager.draw(gc);
         for (Renderable entity : RenderableHolder.getInstance().getObjects()) {

@@ -10,13 +10,14 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import object.monster.Slime;
 import panel.GamePanel;
 import panel.RootPane;
 import render.RenderableHolder;
 import utility.InputUtility;
 import utility.UserInterface;
-
-
+import java.util.Timer;
+import java.util.TimerTask;
 public class Main extends Application {
     public static void Main(String[] args) {
         launch(args);

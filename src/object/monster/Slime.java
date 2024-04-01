@@ -121,20 +121,39 @@ public class Slime extends Entity {
             worldY += sideSpeed;
         }
     }
+    private void follow() {
+        direction = "downleft";
+        if (!isCollisionOn()) {
+            if (player.getWorldX()-worldX>0) {
+                worldX+=2;
+            }
+            if (player.getWorldX()-worldX<0) {
+                worldX-=2;
+            }
+            if (player.getWorldY()-worldY>0) {
+                worldY+=2;
+            }
+            if (player.getWorldY()-worldY<0) {
+                worldY-=2;
+            }
+        }
+    }
 
 
     // set bouncing slime
     private void setAction() {
-        if (spriteCounter > 30) {
+        if (spriteCounter > 120) {
             spriteCounter = 0;
         } else {
 
-            if (spriteCounter < 10) {
+            if (spriteCounter < 30) {
                 spriteNum = 1;
-            } else if (spriteCounter > 10 && spriteCounter <= 20) {
+            } else if (spriteCounter > 30 && spriteCounter <= 60) {
                 spriteNum = 2;
-            } else if (spriteCounter > 20) {
+            } else if (spriteCounter > 60 && spriteCounter <= 90) {
                 spriteNum = 3;
+            } else if (spriteCounter > 90) {
+                spriteNum = 4;
             }
         }
 
@@ -147,6 +166,9 @@ public class Slime extends Entity {
         if (spriteNum == 3) {
             def = slime_jump_3;
         }
+        if (spriteNum == 4) {
+            def = slime_jump_2;
+        }
     }
 
     // fetch house position
@@ -156,6 +178,7 @@ public class Slime extends Entity {
         spriteCounter++;
         gp.collisionChecker.checkTile(this);
         setAction();
+        follow();
 
         //if collision is false,player can move
         setCollisionOn(false);
