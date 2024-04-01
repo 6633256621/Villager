@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 import utility.LoadUtility;
+
 import static utility.LoadUtility.*;
 
 public class Slime extends Entity {
@@ -31,12 +32,12 @@ public class Slime extends Entity {
     public Slime(int x, int y) {
         super();
         //spawn position
-        worldX = Config.tileSize * (x+Config.fixedPosition);
-        worldY = Config.tileSize * (y+Config.fixedPosition);
-        z=2;
-        direction="down";
-        speed=3;
-        sideSpeed=this.sidespeed(speed);
+        worldX = Config.tileSize * (x + Config.fixedPosition);
+        worldY = Config.tileSize * (y + Config.fixedPosition);
+        z = 2;
+        direction = "down";
+        speed = 3;
+        sideSpeed = this.sidespeed(speed);
         def = slime_jump_1;
         playerLoad();
         setStatus();
@@ -53,6 +54,7 @@ public class Slime extends Entity {
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
     }
+
     private void setStatus() {
         //status
         setMaxLife(2);
@@ -121,21 +123,31 @@ public class Slime extends Entity {
             worldY += sideSpeed;
         }
     }
+
     private void follow() {
-        direction = "downleft";
-        if (!isCollisionOn()) {
-            if (player.getWorldX()-worldX>0) {
-                worldX+=2;
-            }
-            if (player.getWorldX()-worldX<0) {
-                worldX-=2;
-            }
-            if (player.getWorldY()-worldY>0) {
-                worldY+=2;
-            }
-            if (player.getWorldY()-worldY<0) {
-                worldY-=2;
-            }
+        if (player.getWorldY() - worldY > 0&&player.getWorldX() - worldX < 0) {
+            downleft();
+        }
+        else if (player.getWorldY() - worldY < 0&&player.getWorldX() - worldX < 0) {
+            upleft();
+        }
+        else if (player.getWorldX() - worldX < 0&&player.getWorldY() - worldY > 0) {
+            downright();
+        }
+        else if (player.getWorldX() - worldX > 0&&player.getWorldY() - worldY < 0) {
+            upright();
+        }
+        else if (player.getWorldY() - worldY > 0) {
+            down();
+        }
+        else if (player.getWorldY() - worldY < 0) {
+            up();
+        }
+        else if (player.getWorldX() - worldX < 0) {
+            left();
+        }
+        else if (player.getWorldX() - worldX > 0) {
+            right();
         }
     }
 
@@ -179,7 +191,6 @@ public class Slime extends Entity {
         gp.collisionChecker.checkTile(this);
         setAction();
         follow();
-
         //if collision is false,player can move
         setCollisionOn(false);
     }
