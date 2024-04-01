@@ -2,6 +2,7 @@ package utility;
 
 import config.GameState;
 import javafx.scene.input.KeyCode;
+import object.Trader;
 
 import java.util.ArrayList;
 
@@ -11,18 +12,19 @@ public class InputUtility {
     private static ArrayList<KeyCode> lastKeyPressed = new ArrayList<>();
     //array of all button which is interacted
     private static ArrayList<KeyCode> keyPressed = new ArrayList<>();
-    private static int i =0;
+    private static int i = 0;
+
     public static boolean isKeyPressed(KeyCode keycode) {
-        if(keycode.equals(KeyCode.RIGHT)&&keyPressed.contains(keycode)) {
+        if (keycode.equals(KeyCode.RIGHT) && keyPressed.contains(keycode)) {
         }
         return keyPressed.contains(keycode);
     }
 
     public static void setKeyPressed(KeyCode keycode, boolean pressed) {
         //if pressed add to array
-        if (!keycode.equals(KeyCode.R)&&!keycode.equals(KeyCode.P)&&!keycode.equals(KeyCode.J)&&
-                !(keycode.equals(KeyCode.UP)||keycode.equals(KeyCode.DOWN)||keycode.equals(KeyCode.LEFT)||keycode.equals(KeyCode.RIGHT))
-        ){
+        if (!keycode.equals(KeyCode.R) && !keycode.equals(KeyCode.P) && !keycode.equals(KeyCode.J) &&
+                !(keycode.equals(KeyCode.UP) || keycode.equals(KeyCode.DOWN) || keycode.equals(KeyCode.LEFT) || keycode.equals(KeyCode.RIGHT))
+        ) {
             if (pressed) {
                 //normal
                 if (!keyPressed.contains(keycode)) {
@@ -37,7 +39,7 @@ public class InputUtility {
     }
 
     public static void setKeyTriggered(KeyCode keycode, boolean pressed) {
-        if (keycode.equals(KeyCode.R)||keycode.equals(KeyCode.P)||keycode.equals(KeyCode.J)){
+        if (keycode.equals(KeyCode.R) || keycode.equals(KeyCode.P) || keycode.equals(KeyCode.J)) {
             if (pressed) {
                 if (!keyPressed.contains(keycode) && !isClicked) {
                     keyPressed.add(keycode);
@@ -61,19 +63,19 @@ public class InputUtility {
             }
         }
     }
+
     public static void setOneTimeTriggered(KeyCode keycode, boolean pressed) {
 
-        if (keycode.equals(KeyCode.UP)||keycode.equals(KeyCode.DOWN)||keycode.equals(KeyCode.LEFT)||keycode.equals(KeyCode.RIGHT)||keycode.equals(KeyCode.ENTER)){
+        if (keycode.equals(KeyCode.UP) || keycode.equals(KeyCode.DOWN) || keycode.equals(KeyCode.LEFT) || keycode.equals(KeyCode.RIGHT) || keycode.equals(KeyCode.ENTER)|| keycode.equals(KeyCode.SPACE)) {
             if (pressed) {
                 if (keyPressHandled) {
                     keyPressed.remove(keycode);
                     keyPressHandled = true;
-                }
-                else if (!keyPressHandled&&!keyPressed.contains(keycode)) {
+                } else if (!keyPressHandled && !keyPressed.contains(keycode)) {
                     keyPressed.add(keycode);
                     keyPressHandled = true;
-                    if(keyPressed.contains(KeyCode.R)|| GameState.chestState){
-                        if (keyPressed.contains(KeyCode.J)){
+                    if (keyPressed.contains(KeyCode.R) || GameState.chestState|| GameState.traderState) {
+                        if (keyPressed.contains(KeyCode.J)) {
                             if (keycode.equals(KeyCode.UP)) {
                                 UserInterface.leftSlotRow--;
                                 if (UserInterface.leftSlotRow < 0) {
@@ -122,6 +124,20 @@ public class InputUtility {
                                 if (UserInterface.rightSlotCol > 4) {
                                     UserInterface.rightSlotCol = 4;
                                 }
+                            }
+                        }
+                    }
+                    if (GameState.traderState && !GameState.chooseState) {
+                        if (keycode.equals(KeyCode.UP)) {
+                            Trader.optionCol--;
+                            if (Trader.optionCol < 0) {
+                                Trader.optionCol = 0;
+                            }
+                        }
+                        if (keycode.equals(KeyCode.DOWN)) {
+                            Trader.optionCol++;
+                            if (Trader.optionCol > 1) {
+                                Trader.optionCol = 1;
                             }
                         }
                     }

@@ -35,6 +35,7 @@ public class UserInterface {
             drawCharacterScreen(gc);
             drawInventory(p,gc,"right");
         }
+        drawMoney(gc);
     }
 
     public void drawCharacterScreen(GraphicsContext gc) {
@@ -85,6 +86,13 @@ public class UserInterface {
         gc.drawImage(p.getCurrentWeapon().getImage(), last - 20, y + Config.tileSize * 7 + 15, Config.tileSize, Config.tileSize);
         gc.drawImage(p.getCurrentShield().getImage(), last - 20, y + Config.tileSize * 8 + 15, Config.tileSize, Config.tileSize);
 
+    }
+    public void drawMoney(GraphicsContext gc) {
+        gc.setFill(Color.WHITE);
+        gc.setFont(customFont);
+        gc.setFont(new Font(40));
+        gc.fillText("Money : "+p.getMoney(),Config.tileSize*27,Config.tileSize*17);
+        gc.setFont(new Font(20));
     }
 
     public static String drawInventory(Storable e,GraphicsContext gc,String side) {

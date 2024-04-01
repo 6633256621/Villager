@@ -49,11 +49,8 @@ public class Main extends Application {
                 gamepanel.paintComponent();
                 logic.logicUpdate();
                 renderableHolder.update();
-                System.out.println("Available fonts:");
-                for (String fontFamily : Font.getFamilies()) {
-                    System.out.println(fontFamily);
-                }
                 InputUtility.getKeyPressed().remove(KeyCode.ENTER);
+                InputUtility.getKeyPressed().remove(KeyCode.SPACE);
             }
         };
         animation.start();//start animation timer

@@ -32,7 +32,7 @@ public class Chest extends Item implements Storable {
         if (isInteracted()) {
             GameState.chestState=true;
             drawStoreFrame();
-            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
+            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)&&GameState.chestState) {
                 if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
                     pickUp("left");
                 } else {

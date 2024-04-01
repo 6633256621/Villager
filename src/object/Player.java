@@ -79,10 +79,9 @@ public class Player extends Entity implements Storable {
         setDex(1);
         setExp(0);
         setNextLevelExp(5);
-        setMoney(0);
+        setMoney(100);
         setAttack(getAttack());
         setDefense(getDefense());
-        setMoney(0);
     }
 //    private void pickUpObject(int i) {
 //        if (inventory.size()!=Config.inventorySize) {

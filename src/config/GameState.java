@@ -1,7 +1,7 @@
 package config;
 
 public class GameState {
-    public static boolean chestState,traderState;
+    public static boolean chestState,traderState,chooseState;
     public static boolean normalState;
     public static void update() {
         normalState= !chestState && !traderState;
