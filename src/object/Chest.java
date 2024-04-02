@@ -13,8 +13,11 @@ import utility.UserInterface;
 
 import java.util.ArrayList;
 
+import static object.Trader.drawInfoScreen;
+
 public class Chest extends Item implements Storable {
     private ArrayList<Item> inventory;
+    GraphicsContext gc = gp.getGraphicsContext2D();
     int slotCol,slotRow;
     private Player player = Player.getInstance();
     public Chest(int x, int y) {
@@ -31,6 +34,9 @@ public class Chest extends Item implements Storable {
     public void update() {
         if (isInteracted()) {
             GameState.chestState=true;
+            drawInfoScreen(gc);
+            gc.setFill(Color.WHITE);
+            gc.fillText("[Press J to change side of the windows]",Config.tileSize*14.35, Config.tileSize*2);
             drawStoreFrame();
             if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)&&GameState.chestState) {
                 if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
