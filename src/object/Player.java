@@ -58,8 +58,6 @@ public class Player extends Entity implements Storable {
         inventory = new ArrayList<>(20);
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new IronSword());
-        inventory.add(new IronShield());
     }
     private void setRectangle() {
         solidArea = new Rectangle();
