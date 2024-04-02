@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import panel.GamePanel;
 
+import java.util.Objects;
+
 public class UserInterface {
     GamePanel gp;
     Font arial_40;
@@ -35,7 +37,7 @@ public class UserInterface {
             drawCharacterScreen(gc);
             drawInventory(p,gc,"right");
         }
-        drawMoney(gc);
+        drawMoney(gc,customFont,p);
     }
 
     public void drawCharacterScreen(GraphicsContext gc) {
@@ -87,9 +89,9 @@ public class UserInterface {
         gc.drawImage(p.getCurrentShield().getImage(), last - 20, y + Config.tileSize * 8 + 15, Config.tileSize, Config.tileSize);
 
     }
-    public void drawMoney(GraphicsContext gc) {
+    public static void drawMoney(GraphicsContext gc,Font font,Player p) {
         gc.setFill(Color.WHITE);
-        gc.setFont(customFont);
+        gc.setFont(font);
         gc.setFont(new Font(40));
         gc.fillText("Money : "+p.getMoney(),Config.tileSize*27,Config.tileSize*17);
         gc.setFont(new Font(20));
@@ -135,10 +137,17 @@ public class UserInterface {
         int cursorWidth = Config.tileSize;
         int cursorHeight = Config.tileSize;
         // Draw cursor
-        gc.setFill(Color.WHITE);
-        gc.setLineWidth(3);
-        gc.strokeRoundRect(cursorX,cursorY,cursorWidth,cursorHeight,10,10);
-        gc.setLineWidth(1);
+        if ((Objects.equals(side, "left") &&InputUtility.getKeyPressed().contains(KeyCode.J))){
+            gc.setFill(Color.WHITE);
+            gc.setLineWidth(3);
+            gc.strokeRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            gc.setLineWidth(1);
+        } else if (Objects.equals(side, "right") &&!InputUtility.getKeyPressed().contains(KeyCode.J)) {
+            gc.setFill(Color.WHITE);
+            gc.setLineWidth(3);
+            gc.strokeRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+            gc.setLineWidth(1);
+        }
 
         int dFrameX = frameX;
         int dFrameY = frameY +frameHeight;
