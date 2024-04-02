@@ -78,6 +78,7 @@ public class InputUtility {
                         if (keyPressed.contains(KeyCode.J)) {
                             if (keycode.equals(KeyCode.UP)) {
                                 UserInterface.leftSlotRow--;
+                                Trader.buyingRow--;
                                 if (UserInterface.leftSlotRow < 0) {
                                     UserInterface.leftSlotRow = 0;
                                 }
@@ -90,6 +91,7 @@ public class InputUtility {
                             }
                             if (keycode.equals(KeyCode.DOWN)) {
                                 UserInterface.leftSlotRow++;
+                                Trader.buyingRow++;
                                 if (UserInterface.leftSlotRow > 3) {
                                     UserInterface.leftSlotRow = 3;
                                 }
