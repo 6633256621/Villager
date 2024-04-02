@@ -79,6 +79,9 @@ public class InputUtility {
                             if (keycode.equals(KeyCode.UP)) {
                                 UserInterface.leftSlotRow--;
                                 Trader.buyingRow--;
+                                if (Trader.buyingRow < 0) {
+                                    Trader.buyingRow = 0;
+                                }
                                 if (UserInterface.leftSlotRow < 0) {
                                     UserInterface.leftSlotRow = 0;
                                 }
