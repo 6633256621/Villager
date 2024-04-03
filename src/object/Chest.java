@@ -37,6 +37,7 @@ public class Chest extends Item implements Storable {
             drawInfoScreen(gc);
             gc.setFill(Color.WHITE);
             gc.fillText("[Press J to change side of the windows]",Config.tileSize*14.35, Config.tileSize*2);
+            gc.fillText("[Press ENTER to transfer the items]",Config.tileSize*14.85, Config.tileSize*3);
             drawStoreFrame();
             if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)&&GameState.chestState) {
                 if (InputUtility.getKeyPressed().contains(KeyCode.J)) {

@@ -1,12 +1,19 @@
 package object.weapon;
 
 import javafx.scene.image.Image;
+import object.Item;
 import object.Thing;
 
 public abstract class BaseShield extends Thing {
     protected Image image;
     protected int defenseValue=0;
     int price = 0;
+
+    @Override
+    public void use(int index) {
+        getPlayer().getInventory().add(getPlayer().getCurrentShield());
+        getPlayer().setCurrentShield((BaseShield) getPlayer().getInventory().get(index));
+    }
 
     public int getDefenseValue() {
         return defenseValue;

@@ -8,8 +8,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import object.Thing;
 import panel.GamePanel;
 
+import java.security.Key;
 import java.util.Objects;
 
 public class UserInterface {
@@ -34,6 +36,9 @@ public class UserInterface {
 //        gc.setFill(Color.BLACK);
 //        gc.fillText("Key = ",50,50);
         if (InputUtility.isKeyPressed(KeyCode.R)) {
+            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
+                ((Thing) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"));
+            }
             drawCharacterScreen(gc);
             drawInventory(p,gc,"right");
         }

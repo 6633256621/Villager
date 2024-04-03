@@ -1,10 +1,9 @@
 package object;
 
-import javafx.scene.canvas.GraphicsContext;
 import panel.GamePanel;
 import render.Renderable;
 
-public abstract class Object implements Renderable {
+public abstract class OBJ implements Renderable {
     protected int worldX,worldY;
     protected int z;
     protected boolean destroyed;//default is false

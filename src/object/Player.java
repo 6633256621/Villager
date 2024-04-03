@@ -310,6 +310,13 @@ public class Player extends Entity implements Storable {
         return money;
     }
 
+    public void setCurrentWeapon(BaseWeapon currentWeapon) {
+        this.currentWeapon = currentWeapon;
+    }
+
+    public void setCurrentShield(BaseShield currentShield) {
+        this.currentShield = currentShield;
+    }
 
     //setter
     public void setSpeed(int speed) {

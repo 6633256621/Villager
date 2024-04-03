@@ -1,9 +1,8 @@
 package object;
 
 import javafx.scene.shape.Rectangle;
-import panel.GamePanel;
 
-public abstract class Entity extends Object{
+public abstract class Entity extends OBJ {
     protected int speed;
     protected Rectangle solidArea;
     protected int solidAreaDefaultX,solidAreaDefaultY;

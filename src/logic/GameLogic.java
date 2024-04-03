@@ -3,9 +3,8 @@ package logic;
 import config.Config;
 import config.GameState;
 import object.*;
-import object.Object;
+import object.OBJ;
 import object.monster.Slime;
-import object.potion.HealthPotion;
 import render.RenderableHolder;
 import utility.CollisionChecker;
 import utility.ObjectSetter;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class GameLogic {
     //container for entity and object
-    private List<Object> gameObjectContainer;
+    private List<OBJ> gameObjectContainer;
     public ObjectSetter objectSetter = new ObjectSetter(this);
     public CollisionChecker collisionChecker = new CollisionChecker(null,this);
     //each
@@ -39,7 +38,7 @@ public class GameLogic {
 
 
     //function for add object to container
-    public void addNewObject(Object object) {
+    public void addNewObject(OBJ object) {
         gameObjectContainer.add(object);
         renderableHolder.add(object);
     }
@@ -47,7 +46,7 @@ public class GameLogic {
     //fetch
     public void logicUpdate() {
         GameState.update();
-        for(Object e:gameObjectContainer) {
+        for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {
                 ee.update();
             } else if(e instanceof Item ee) {
@@ -75,7 +74,7 @@ public class GameLogic {
         return player;
     }
 
-    public List<Object> getGameObjectContainer() {
+    public List<OBJ> getGameObjectContainer() {
         return gameObjectContainer;
     }
 

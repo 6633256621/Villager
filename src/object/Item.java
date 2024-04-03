@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 
 
-public abstract class Item extends Object {
+public abstract class Item extends OBJ{
     protected Image image;
     protected String name;
     protected String description;
