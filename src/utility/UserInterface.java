@@ -3,12 +3,16 @@ package utility;
 import com.sun.javafx.tk.FontLoader;
 import config.Config;
 import interfacep.Storable;
+import javafx.scene.image.Image;
 import object.Player;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import object.Thing;
+import object.potion.Potion;
+import object.weapon.BaseShield;
+import object.weapon.BaseWeapon;
 import panel.GamePanel;
 
 import java.security.Key;
@@ -31,18 +35,57 @@ public class UserInterface {
         p = Player.getInstance();
         customFont = new Font("Georgia",20);
     }
+    public void drawHeart(GraphicsContext gc) {
+        int heart = p.getLife();
+        int leftheart = p.getMaxLife();
+        int big = p.getLife()/2;
+        int bigleftheart = p.getMaxLife()/2;
+        boolean half = !(heart%2==0);
+        boolean deadhalf = !(leftheart%2==0);
+        int i=0;
+        while (i<big) {
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/fullheart.png")),i*25,10);
+            i++;
+        }
+        if (half) {
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfheart.png")),i*25,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfdeadheart.png")),i*25+11,10);
+            i++;
+        }
+        while (i<bigleftheart) {
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/deadheart.png")),i*25,10);
+            i++;
+        }
+        if (deadhalf) {
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfdeadheartl.png")),i*25,10);
+        }
+    }
     public void draw(GraphicsContext gc) {
 //        gc.setFont(arial_40);
 //        gc.setFill(Color.BLACK);
 //        gc.fillText("Key = ",50,50);
         if (InputUtility.isKeyPressed(KeyCode.R)) {
             if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
-                ((Thing) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"));
+                if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseWeapon) {
+                    p.getInventory().add(p.getCurrentWeapon());
+                    p.setCurrentWeapon((BaseWeapon) p.getInventory().get(getItemIndexOnSlot("right")));
+                    p.getInventory().remove(getItemIndexOnSlot("right"));
+                }
+                else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseShield) {
+                    p.getInventory().add(p.getCurrentShield());
+                    p.setCurrentShield((BaseShield) p.getInventory().get(getItemIndexOnSlot("right")));
+                    p.getInventory().remove(getItemIndexOnSlot("right"));
+                }
+                else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Potion) {
+                    ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"),p);
+                    p.getInventory().remove(getItemIndexOnSlot("right"));
+                }
             }
             drawCharacterScreen(gc);
             drawInventory(p,gc,"right");
         }
         drawMoney(gc,customFont,p);
+        drawHeart(gc);
     }
 
     public void drawCharacterScreen(GraphicsContext gc) {

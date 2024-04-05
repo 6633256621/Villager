@@ -2,10 +2,11 @@ package object.potion;
 
 import config.Config;
 import javafx.scene.image.Image;
+import object.Player;
 import object.Thing;
 import object.weapon.BaseShield;
 
-public class HealthPotion extends Thing {
+public class HealthPotion extends Potion {
     public HealthPotion() {
         super();
         z=2;
@@ -14,11 +15,6 @@ public class HealthPotion extends Thing {
         price=5;
         description="["+name+"]\nFor healing";
         collision=false;
-    }
-    @Override
-    public void use(int index) {
-        getPlayer().getInventory().add(getPlayer().getCurrentShield());
-        getPlayer().setCurrentShield((BaseShield) getPlayer().getInventory().get(index));
     }
     public HealthPotion(int x, int y) {
         super();
@@ -31,5 +27,10 @@ public class HealthPotion extends Thing {
         setWorldX(x * Config.tileSize);
         setWorldY(y * Config.tileSize);
         collision=false;
+    }
+
+    @Override
+    public void use(int index, Player p) {
+        p.setLife(p.getLife()+1);
     }
 }

@@ -71,8 +71,8 @@ public class Player extends Entity implements Storable {
     private void setStatus() {
         //status
         setLevel(1);
-        setMaxLife(3);
-        setLife(getMaxLife());
+        setMaxLife(8);
+        setLife(3);
         setStrength(1);
         setDex(1);
         setExp(0);
@@ -328,7 +328,8 @@ public class Player extends Entity implements Storable {
     }
 
     public void setLife(int life) {
-        this.life = life;
+        this.life = Math.min(life,getMaxLife());
+        this.life = Math.max(getLife(),0);
     }
 
     public void setStrength(int strength) {
@@ -382,4 +383,5 @@ public class Player extends Entity implements Storable {
     public ArrayList<Item> getInventory() {
         return inventory;
     }
+
 }
