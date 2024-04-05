@@ -66,19 +66,21 @@ public class UserInterface {
 //        gc.fillText("Key = ",50,50);
         if (InputUtility.isKeyPressed(KeyCode.R)) {
             if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
-                if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseWeapon) {
-                    p.getInventory().add(p.getCurrentWeapon());
-                    p.setCurrentWeapon((BaseWeapon) p.getInventory().get(getItemIndexOnSlot("right")));
-                    p.getInventory().remove(getItemIndexOnSlot("right"));
-                }
-                else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseShield) {
-                    p.getInventory().add(p.getCurrentShield());
-                    p.setCurrentShield((BaseShield) p.getInventory().get(getItemIndexOnSlot("right")));
-                    p.getInventory().remove(getItemIndexOnSlot("right"));
-                }
-                else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Potion) {
-                    ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"),p);
-                    p.getInventory().remove(getItemIndexOnSlot("right"));
+                try {
+                    if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseWeapon) {
+                        p.getInventory().add(p.getCurrentWeapon());
+                        p.setCurrentWeapon((BaseWeapon) p.getInventory().get(getItemIndexOnSlot("right")));
+                        p.getInventory().remove(getItemIndexOnSlot("right"));
+                    } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseShield) {
+                        p.getInventory().add(p.getCurrentShield());
+                        p.setCurrentShield((BaseShield) p.getInventory().get(getItemIndexOnSlot("right")));
+                        p.getInventory().remove(getItemIndexOnSlot("right"));
+                    } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Potion) {
+                        ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"), p);
+                        p.getInventory().remove(getItemIndexOnSlot("right"));
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println(e);
                 }
             }
             drawCharacterScreen(gc);
