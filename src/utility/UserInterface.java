@@ -156,7 +156,7 @@ public class UserInterface {
             frameX = Config.tileSize;
         }
 
-        int frameY = Config.tileSize;
+        int frameY = Config.tileSize*3;
         int frameWidth = Config.tileSize * 6;
         int frameHeight = Config.tileSize * 5;
         UserInterface.drawSubWindow(frameX, frameY, frameWidth, frameHeight, gc);
