@@ -19,7 +19,7 @@ public class GameLogic {
     public CollisionChecker collisionChecker = new CollisionChecker(null,this);
     //each
     private Player player;
-    ArrayList<Slime> slimeList = new ArrayList<>(20);
+    public static ArrayList<Slime> slimeList = new ArrayList<>(20);
     private Chest chest1;
     private RenderableHolder renderableHolder = RenderableHolder.getInstance();
 
