@@ -2,6 +2,8 @@ package utility;
 
 import config.GameState;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import object.Trader;
 
 import java.util.ArrayList;
@@ -154,6 +156,25 @@ public class InputUtility {
                 keyPressed.remove(keycode);
                 keyPressHandled = false;
             }
+        }
+    }
+    public class MouseInputUtility {
+        private static boolean mouseClicked;
+
+        public static void handleMousePressed(MouseEvent event) {
+            if (event.isPrimaryButtonDown()) {
+                if (!mouseClicked) {
+                    mouseClicked = true;
+                }
+            }
+        }
+
+        public static boolean isMouseClicked() {
+            if (mouseClicked) {
+                mouseClicked = false; // Automatically reset after one click
+                return true;
+            }
+            return false;
         }
     }
 

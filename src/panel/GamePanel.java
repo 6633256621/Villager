@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import object.Player;
 import render.Renderable;
 import render.RenderableHolder;
 import tile.TileManager;
@@ -46,13 +47,17 @@ public class GamePanel extends Canvas {
     public void paintComponent() {
         //Debug
         long drawStart = System.nanoTime();
-
         gc.setFill(Color.BLACK);
         tileManager.draw(gc);
         for (Renderable entity : RenderableHolder.getInstance().getObjects()) {
             if (entity.isVisible()) {
                 entity.draw(gc);//draw each entity
             }
+        }
+        if (GameState.nightState) {
+            // Apply a semi-transparent overlay with a moonlit night effect
+            gc.setFill(Color.rgb(10, 20, 40, 0.5)); // Adjust the RGB values and alpha for darkness and tint
+            gc.fillRect(0, 0, Config.screenWidth, Config.screenHeight);
         }
         if(GameState.normalState){
             ui.draw(gc);
@@ -68,6 +73,7 @@ public class GamePanel extends Canvas {
         }
     }
     public void addlistener() {
+        setOnMousePressed(InputUtility.MouseInputUtility::handleMousePressed);
         setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {

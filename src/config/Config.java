@@ -1,4 +1,5 @@
 package config;
+import javafx.scene.image.Image;
 
 public class Config {
     public static int originalTileSize = 16;//16X16
@@ -16,6 +17,8 @@ public class Config {
     public static int worldHeight = maxWorldRow * tileSize;
     public static int inventorySize =20;
     public static int fixedPosition=20;
+    public static int day=1;
 
-
+    public static Image sunPic = new Image(ClassLoader.getSystemResourceAsStream("days/sun2.png"));
+    public static Image moonPic = new Image(ClassLoader.getSystemResourceAsStream("days/moon.png"));
 }
