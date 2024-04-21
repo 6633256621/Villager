@@ -46,6 +46,7 @@ public class Slime extends Entity {
     }
 
     private void setRectangle() {
+        // solid area
         solidArea = new Rectangle();
         solidArea.setX(0);
         solidArea.setY(2);
@@ -53,6 +54,8 @@ public class Slime extends Entity {
         solidArea.setHeight(28);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
+
+        attackArea = new Rectangle(30,28);
     }
 
     private void setStatus() {

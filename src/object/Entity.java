@@ -5,8 +5,11 @@ import javafx.scene.shape.Rectangle;
 public abstract class Entity extends OBJ {
     protected int speed;
     protected Rectangle solidArea;
+    protected Rectangle attackArea;
+
     protected int solidAreaDefaultX,solidAreaDefaultY;
     protected boolean collisionOn=false;
+    protected boolean collision = false;
     protected String direction;
     //Constructor
     public Entity() {
@@ -69,4 +72,8 @@ public abstract class Entity extends OBJ {
     public void update() {
 
     }
+    public boolean isCollision() {
+        return collision;
+    }
+
 }

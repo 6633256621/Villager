@@ -6,6 +6,7 @@ import javafx.scene.shape.Shape;
 import logic.GameLogic;
 import object.Entity;
 import object.Item;
+import object.monster.Slime;
 import panel.GamePanel;
 
 public class CollisionChecker {
@@ -219,6 +220,86 @@ public class CollisionChecker {
                 entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
                 e.getSolidArea().setX(e.getSolidAreaDefaultX());
                 e.getSolidArea().setY(e.getSolidAreaDefaultY());
+            }
+        }
+        return index;
+    }
+
+    public int checkSlime(Entity entity, Slime[] target) {
+        int index = 999;
+        for (int i = 0; i < target.length; i++) {
+            if (target[i] != null) {
+                entity.getSolidArea().setX(entity.getWorldX() + entity.getSolidArea().getX());
+                entity.getSolidArea().setY(entity.getWorldY() + entity.getSolidArea().getY());
+                target[i].getSolidArea().setX(target[i].getWorldX() + target[i].getSolidArea().getX());
+                target[i].getSolidArea().setY(target[i].getWorldY() + target[i].getSolidArea().getY());
+
+                switch (entity.getDirection()) {
+                    case "up":
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "upleft":
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "downright":
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "downleft":
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                    case "upright":
+                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                        if (entity.getSolidArea().getBoundsInParent().intersects(target[i].getSolidArea().getBoundsInParent())) {
+                                entity.setCollisionOn(true);
+                                index = i;
+                        }
+                        break;
+                }
+                entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
+                entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
+                target[i].getSolidArea().setX(target[i].getSolidAreaDefaultX());
+                target[i].getSolidArea().setY(target[i].getSolidAreaDefaultY());
             }
         }
         return index;
