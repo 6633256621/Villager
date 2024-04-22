@@ -10,6 +10,7 @@ import utility.CollisionChecker;
 import utility.ObjectSetter;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameLogic {
@@ -42,9 +43,16 @@ public class GameLogic {
         gameObjectContainer.add(object);
         renderableHolder.add(object);
     }
+    public void removeObject(OBJ object) {
+        gameObjectContainer.remove(object);
+        renderableHolder.remove(object);
+    }
 
     //fetch
     public void logicUpdate() {
+        for (Slime e:slimeList) {
+            System.out.println(e.getLife());
+        }
         GameState.update();
         for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {
@@ -57,6 +65,19 @@ public class GameLogic {
         }
         int objIndex = collisionChecker.checkObject(player,true);
         pickUpObject(objIndex);
+        slimeCheck();
+    }
+    public void slimeCheck() {
+        try {
+            for (Slime e : slimeList) {
+                if (e.getLife() <= 0) {
+                    removeObject(e);
+                    slimeList.remove(e);
+                }
+            }
+        } catch (ConcurrentModificationException e) {
+            System.out.println(e);
+        }
     }
 
     public void pickUpObject(int i) {

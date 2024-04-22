@@ -227,8 +227,8 @@ public class CollisionChecker {
         return index;
     }
 
-    public int checkSlime(Entity entity, ArrayList<Slime> target) {
-        int index = 999;
+    public ArrayList<Integer> checkSlime(Entity entity, ArrayList<Slime> target) {
+        ArrayList<Integer> index = new ArrayList<>();
         for (int i = 0; i < target.size(); i++) {
             if (target.get(i) != null) {
                 entity.getSolidArea().setX(entity.getWorldX() + entity.getSolidArea().getX());
@@ -240,61 +240,61 @@ public class CollisionChecker {
                     case "up":
                         entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "down":
                         entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "left":
                         entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "right":
                         entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "upleft":
                         entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                         entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "downright":
                         entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
                         entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "downleft":
                         entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
                         entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                     case "upright":
                         entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
                         entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                         if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
-                                entity.setCollisionOn(true);
-                                index = i;
+                            entity.setCollisionOn(true);
+                            index.add(i);
                         }
                         break;
                 }

@@ -1,5 +1,7 @@
 package render;
 
+import object.OBJ;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,6 +24,9 @@ public class RenderableHolder {
             }
             return -1;
         };
+    }
+    public void remove(OBJ object) {
+        objects.remove(object);
     }
 
     //add entity to array and sort with z

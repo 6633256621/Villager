@@ -55,12 +55,11 @@ public class Slime extends Entity {
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
 
-        attackArea = new Rectangle(30,28);
     }
 
     private void setStatus() {
         //status
-        setMaxLife(2);
+        setMaxLife(4);
         setLife(getMaxLife());
         setStrength(1);
         setAttack(1);
@@ -243,10 +242,6 @@ public class Slime extends Entity {
         this.maxLife = maxLife;
     }
 
-    public void setLife(int life) {
-        this.life = life;
-    }
-
     public void setStrength(int strength) {
         this.strength = strength;
     }
@@ -258,6 +253,9 @@ public class Slime extends Entity {
     public void setDefense(int defense) {
         this.defense = defense;
     }
-
+    public void setLife(int life) {
+        this.life = Math.min(life, getMaxLife());
+        this.life = Math.max(getLife(), 0);
+    }
 
 }
