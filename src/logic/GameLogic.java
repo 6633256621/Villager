@@ -20,7 +20,7 @@ public class GameLogic {
     public CollisionChecker collisionChecker = new CollisionChecker(null,this);
     //each
     private Player player;
-    public static ArrayList<Slime> slimeList = new ArrayList<>(20);
+    public static ArrayList<Entity> slimeList = new ArrayList<>(20);
     private Chest chest1;
     private RenderableHolder renderableHolder = RenderableHolder.getInstance();
 
@@ -50,8 +50,8 @@ public class GameLogic {
 
     //fetch
     public void logicUpdate() {
-        for (Slime e:slimeList) {
-            System.out.println(e.getLife());
+        for (Entity e:slimeList) {
+            System.out.println(e.isCollisionOn());
         }
         GameState.update();
         for(OBJ e:gameObjectContainer) {
@@ -66,10 +66,21 @@ public class GameLogic {
         int objIndex = collisionChecker.checkObject(player,true);
         pickUpObject(objIndex);
         slimeCheck();
+        boolean contactPlayer;
+        for (Entity e : slimeList) {
+            collisionChecker.checkSlime(e, slimeList);
+            contactPlayer = collisionChecker.checkPlayer(e);
+            if (contactPlayer && !player.isInvincible()) {
+                player.setLife(player.getLife() - 1);
+                player.setInvincible(true);
+            }
+        }
+//        collisionChecker.checkSlime(player, slimeList);
+//        player.contactMonster(monsterIndex.getFirst());
     }
     public void slimeCheck() {
         try {
-            for (Slime e : slimeList) {
+            for (Entity e : slimeList) {
                 if (e.getLife() <= 0) {
                     removeObject(e);
                     slimeList.remove(e);
@@ -108,7 +119,7 @@ public class GameLogic {
         return instance;
     }
 
-    public ArrayList<Slime> getSlimeList() {
+    public ArrayList<Entity> getSlimeList() {
         return slimeList;
     }
 

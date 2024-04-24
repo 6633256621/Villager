@@ -1,5 +1,6 @@
 package object.monster;
 
+import javafx.scene.paint.Color;
 import logic.GameLogic;
 import object.Entity;
 import object.Player;
@@ -8,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
+import utility.CollisionChecker;
 import utility.LoadUtility;
 
 import static utility.LoadUtility.*;
@@ -21,7 +23,7 @@ public class Slime extends Entity {
     private int sideSpeed;
 
     //Character Attributes
-    private int maxLife, life, strength, attack, defense;
+    private int strength, attack, defense;
 
     GamePanel gp = GamePanel.getInstance();
     GameLogic gl;
@@ -193,7 +195,6 @@ public class Slime extends Entity {
         gp.collisionChecker.checkTile(this);
         setAction();
         follow();
-        //if collision is false,player can move
         setCollisionOn(false);
     }
 
@@ -209,17 +210,30 @@ public class Slime extends Entity {
                 worldY - Config.tileSize < player.getWorldY() + player.getScreenY()) {
             gc.drawImage(def, screenX, screenY, Config.tileSize, Config.tileSize);
         }
+
+        if (hpBarOn) {
+            drawHPBar(gc, screenX, screenY);
+
+            hpBarCounter++;
+            if (hpBarCounter > 600) {
+                hpBarCounter = 0;
+                hpBarOn = false;
+            }
+        }
     }
 
+    public void drawHPBar (GraphicsContext gc, int screenX, int screenY) {
+        double oneScale = (double)Config.tileSize/getMaxLife();
+        double hpBarValue = oneScale*getLife();
+
+        gc.setFill(Color.BLACK);
+        gc.fillRect(screenX-1, screenY - 16, Config.tileSize + 2, 12);
+
+        gc.setFill(Color.RED);
+        gc.fillRect(screenX, screenY - 15, hpBarValue, 10);
+    }
 
     // getter & setter
-    public int getMaxLife() {
-        return maxLife;
-    }
-
-    public int getLife() {
-        return life;
-    }
 
     public int getStrength() {
         return strength;
@@ -238,10 +252,6 @@ public class Slime extends Entity {
         this.speed = speed;
     }
 
-    public void setMaxLife(int maxLife) {
-        this.maxLife = maxLife;
-    }
-
     public void setStrength(int strength) {
         this.strength = strength;
     }
@@ -253,9 +263,6 @@ public class Slime extends Entity {
     public void setDefense(int defense) {
         this.defense = defense;
     }
-    public void setLife(int life) {
-        this.life = Math.min(life, getMaxLife());
-        this.life = Math.max(getLife(), 0);
-    }
+
 
 }

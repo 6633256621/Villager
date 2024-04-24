@@ -48,6 +48,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Villager");
         stage.setResizable(false);
+        stage.setFullScreen(true);
         stage.show();
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
