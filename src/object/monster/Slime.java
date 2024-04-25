@@ -16,11 +16,13 @@ import static utility.LoadUtility.*;
 
 public class Slime extends Entity {
     private Player player = Player.getInstance();
-
+    private boolean knockBack = false;
     //counter
     private int spriteCounter = 0;
     private int spriteNum = 1;
     private int sideSpeed;
+    private int defaultSpeed;
+    private int knockBackCounter=0;
 
     //Character Attributes
     private int strength, attack, defense;
@@ -38,7 +40,8 @@ public class Slime extends Entity {
         worldY = Config.tileSize * (y + Config.fixedPosition);
         z = 2;
         direction = "down";
-        speed = 3;
+        defaultSpeed=1;
+        speed = defaultSpeed;
         sideSpeed = this.sidespeed(speed);
         def = slime_jump_1;
         playerLoad();
@@ -191,11 +194,32 @@ public class Slime extends Entity {
 
 
     public void update() {
-        spriteCounter++;
-        gp.collisionChecker.checkTile(this);
-        setAction();
-        follow();
-        setCollisionOn(false);
+        if (knockBack) {
+                switch (player.getDirection()) {
+                    case "up" : worldY-=speed; break;
+                    case "down" : worldY+=speed; break;
+                    case "left" : worldX-=speed; break;
+                    case "right" : worldX+=speed; break;
+                    case "upright" : worldY-=speed; worldX+=speed; break;
+                    case "upleft" : worldY-=speed; worldX-=speed; break;
+                    case "downleft" : worldY+=speed; worldX-=speed; break;
+                    case "downright" : worldY+=speed; worldX+=speed; break;
+                }
+            knockBackCounter++;
+            if (knockBackCounter==10) {
+                knockBackCounter=0;
+                knockBack=false;
+                speed=defaultSpeed;
+                sideSpeed = this.sidespeed(speed);
+            }
+        }
+        else {
+            spriteCounter++;
+            gp.collisionChecker.checkTile(this);
+            setAction();
+            follow();
+            setCollisionOn(false);
+        }
     }
 
     //draw image
@@ -264,5 +288,11 @@ public class Slime extends Entity {
         this.defense = defense;
     }
 
+    public boolean isKnockBack() {
+        return knockBack;
+    }
 
+    public void setKnockBack(boolean knockBack) {
+        this.knockBack = knockBack;
+    }
 }
