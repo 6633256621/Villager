@@ -1,10 +1,10 @@
 package object;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Entity extends OBJ {
-    protected int speed;
+    protected int speed,
+            sideSpeed;
     protected Rectangle solidArea;
     protected Rectangle attackArea;
 
@@ -77,9 +77,14 @@ public abstract class Entity extends OBJ {
     public void setDirection(String direction) {
         this.direction = direction;
     }
-    public int sidespeed(int speed) {
-        return (int) (speed * (Math.cos(Math.toRadians(45.0))));
+    public void setSideSpeed(int speed) {
+        int sideSpeed =(int) (speed * (Math.cos(Math.toRadians(45.0))));
+        if (sideSpeed==0) {
+            sideSpeed=1;
+        }
+        this.sideSpeed=sideSpeed;
     }
+
 
     public boolean isInvincible() {
         return invincible;

@@ -56,9 +56,6 @@ public class GameLogic {
 
     //fetch
     public void logicUpdate() {
-        for (Entity e:slimeList) {
-            System.out.println(e.isCollisionOn());
-        }
         GameState.update();
         for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {

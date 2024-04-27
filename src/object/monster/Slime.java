@@ -19,10 +19,11 @@ public class Slime extends Entity {
     private Player player = Player.getInstance();
     private House house = House.getInstance();
     private boolean knockBack = false;
+    private boolean added=false;
     //counter
     private int spriteCounter = 0;
+    private int value=5;
     private int spriteNum = 1;
-    private int sideSpeed;
     private int defaultSpeed;
     private int knockBackCounter=0;
 
@@ -44,7 +45,7 @@ public class Slime extends Entity {
         direction = "down";
         defaultSpeed=3;
         speed = defaultSpeed;
-        sideSpeed = this.sidespeed(speed);
+        setSideSpeed(speed);
         def = slime_jump_1;
         playerLoad();
         setStatus();
@@ -212,12 +213,16 @@ public class Slime extends Entity {
                 knockBackCounter=0;
                 knockBack=false;
                 speed=defaultSpeed;
-                sideSpeed = this.sidespeed(speed);
+                setSideSpeed(speed);
             }
         }
         else {
             if (isDying()) {
                 drawDead(gp.getGc());
+                if (!added) {
+                    player.setMoney(player.getMoney()+this.value);
+                    added=true;
+                }
             } else {
                 spriteCounter++;
                 setAction();
