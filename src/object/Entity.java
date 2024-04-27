@@ -1,5 +1,6 @@
 package object;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Entity extends OBJ {
@@ -13,8 +14,11 @@ public abstract class Entity extends OBJ {
     protected String direction;
     protected boolean invincible = false;
     protected boolean hpBarOn = false;
+    protected boolean alive = true;
+    private boolean dying = false;
     protected int invincibleCounter = 0;
     protected int hpBarCounter = 0;
+    protected int dyingCounter = 0;
     private int life;
     private int maxLife;
 
@@ -132,5 +136,29 @@ public abstract class Entity extends OBJ {
 
     public void setHpBarCounter(int hpBarCounter) {
         this.hpBarCounter = hpBarCounter;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isDying() {
+        return dying;
+    }
+
+    public void setDying(boolean dying) {
+        this.dying = dying;
+    }
+
+    public int getDyingCounter() {
+        return dyingCounter;
+    }
+
+    public void setDyingCounter(int dyingCounter) {
+        this.dyingCounter = dyingCounter;
     }
 }

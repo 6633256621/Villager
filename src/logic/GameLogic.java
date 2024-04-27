@@ -2,9 +2,11 @@ package logic;
 
 import config.Config;
 import config.GameState;
+import javafx.scene.canvas.GraphicsContext;
 import object.*;
 import object.OBJ;
 import object.monster.Slime;
+import panel.GamePanel;
 import render.RenderableHolder;
 import utility.CollisionChecker;
 import utility.ObjectSetter;
@@ -23,6 +25,10 @@ public class GameLogic {
     public static ArrayList<Entity> slimeList = new ArrayList<>(20);
     private Chest chest1;
     private RenderableHolder renderableHolder = RenderableHolder.getInstance();
+    private House house = House.getInstance();
+    GamePanel gp = GamePanel.getInstance();
+    public GraphicsContext gc = gp.getGraphicsContext2D();
+
 
     //constructor(setup for all entity)
     public GameLogic() {
@@ -56,7 +62,9 @@ public class GameLogic {
         GameState.update();
         for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {
-                ee.update();
+                if (((Entity) e).isAlive()) {
+                    ee.update();
+                }
             } else if(e instanceof Item ee) {
                 ee.update();
             }else {
@@ -66,22 +74,29 @@ public class GameLogic {
         int objIndex = collisionChecker.checkObject(player,true);
         pickUpObject(objIndex);
         slimeCheck();
-        boolean contactPlayer;
+        house.update();
+        boolean contactPlayer, contactHouse;
         for (Entity e : slimeList) {
             collisionChecker.checkSlime(e, slimeList);
             contactPlayer = collisionChecker.checkPlayer(e);
+            contactHouse = collisionChecker.checkHouse(e, house);
             if (contactPlayer && !player.isInvincible()) {
                 player.setLife(player.getLife() - 1);
                 player.setInvincible(true);
             }
+            if (contactHouse && !house.isInvincible()) {
+                house.setLife(house.getLife() - 1);
+                house.setInvincible(true);
+            }
         }
-//        collisionChecker.checkSlime(player, slimeList);
-//        player.contactMonster(monsterIndex.getFirst());
     }
     public void slimeCheck() {
         try {
             for (Entity e : slimeList) {
                 if (e.getLife() <= 0) {
+                    e.setDying(true);
+                }
+                if (!e.isAlive()) {
                     removeObject(e);
                     slimeList.remove(e);
                 }
@@ -125,7 +140,7 @@ public class GameLogic {
 
     //
     public void addSlime() {
-        Slime slime1 = new Slime(20, 23);
+        Slime slime1 = new Slime(10, 23);
         Slime slime2 = new Slime(30, 37);
         slimeList.add(slime1);
         slimeList.add(slime2);

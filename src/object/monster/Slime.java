@@ -3,19 +3,21 @@ package object.monster;
 import javafx.scene.paint.Color;
 import logic.GameLogic;
 import object.Entity;
+import object.House;
+import object.OBJ;
 import object.Player;
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
-import utility.CollisionChecker;
 import utility.LoadUtility;
 
 import static utility.LoadUtility.*;
 
 public class Slime extends Entity {
     private Player player = Player.getInstance();
+    private House house = House.getInstance();
     private boolean knockBack = false;
     //counter
     private int spriteCounter = 0;
@@ -40,7 +42,7 @@ public class Slime extends Entity {
         worldY = Config.tileSize * (y + Config.fixedPosition);
         z = 2;
         direction = "down";
-        defaultSpeed=1;
+        defaultSpeed=3;
         speed = defaultSpeed;
         sideSpeed = this.sidespeed(speed);
         def = slime_jump_1;
@@ -131,29 +133,29 @@ public class Slime extends Entity {
         }
     }
 
-    private void follow() {
-        if (player.getWorldY() - worldY > 0&&player.getWorldX() - worldX < 0) {
+    private void follow(OBJ obj) {
+        if (obj.getWorldY() - worldY > 0&&obj.getWorldX() - worldX < 0) {
             downleft();
         }
-        else if (player.getWorldY() - worldY < 0&&player.getWorldX() - worldX < 0) {
+        else if (obj.getWorldY() - worldY < 0&&obj.getWorldX() - worldX < 0) {
             upleft();
         }
-        else if (player.getWorldX() - worldX < 0&&player.getWorldY() - worldY > 0) {
+        else if (obj.getWorldX() - worldX < 0&&obj.getWorldY() - worldY > 0) {
             downright();
         }
-        else if (player.getWorldX() - worldX > 0&&player.getWorldY() - worldY < 0) {
+        else if (obj.getWorldX() - worldX > 0&&obj.getWorldY() - worldY < 0) {
             upright();
         }
-        else if (player.getWorldY() - worldY > 0) {
+        else if (obj.getWorldY() - worldY > 0) {
             down();
         }
-        else if (player.getWorldY() - worldY < 0) {
+        else if (obj.getWorldY() - worldY < 0) {
             up();
         }
-        else if (player.getWorldX() - worldX < 0) {
+        else if (obj.getWorldX() - worldX < 0) {
             left();
         }
-        else if (player.getWorldX() - worldX > 0) {
+        else if (obj.getWorldX() - worldX > 0) {
             right();
         }
     }
@@ -161,17 +163,17 @@ public class Slime extends Entity {
 
     // set bouncing slime
     private void setAction() {
-        if (spriteCounter > 120) {
+        if (spriteCounter > 40) {
             spriteCounter = 0;
         } else {
 
-            if (spriteCounter < 30) {
+            if (spriteCounter <= 10) {
                 spriteNum = 1;
-            } else if (spriteCounter > 30 && spriteCounter <= 60) {
+            } else if (spriteCounter > 10 && spriteCounter <= 20) {
                 spriteNum = 2;
-            } else if (spriteCounter > 60 && spriteCounter <= 90) {
+            } else if (spriteCounter > 20 && spriteCounter <= 30) {
                 spriteNum = 3;
-            } else if (spriteCounter > 90) {
+            } else if (spriteCounter > 30) {
                 spriteNum = 4;
             }
         }
@@ -214,10 +216,26 @@ public class Slime extends Entity {
             }
         }
         else {
-            spriteCounter++;
+            if (isDying()) {
+                drawDead(gp.getGc());
+            } else {
+                spriteCounter++;
+                setAction();
+            }
             gp.collisionChecker.checkTile(this);
-            setAction();
-            follow();
+
+            // calculate distance from player to slime
+            double playerDist = Math.pow((player.getWorldY() - worldY), 2) + Math.pow((player.getWorldX() - worldX), 2);
+            playerDist = Math.sqrt(playerDist);
+            double houseDist = Math.pow((house.getWorldY() - worldY), 2) + Math.pow((house.getWorldX() - worldX), 2);
+            houseDist = Math.sqrt(houseDist);
+
+            if (playerDist <= 300 || houseDist > playerDist) {
+                follow(player);
+            } else {
+                follow(house);
+            }
+
             setCollisionOn(false);
         }
     }
@@ -243,6 +261,21 @@ public class Slime extends Entity {
                 hpBarCounter = 0;
                 hpBarOn = false;
             }
+        }
+    }
+
+    public void drawDead(GraphicsContext gc) {
+        setDyingCounter(getDyingCounter() + 1);
+
+        if (getDyingCounter() <= 10) {
+            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death1.png"));
+        } else if (getDyingCounter() > 10 && getDyingCounter() <= 20) {
+            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death2.png"));
+        } else if (getDyingCounter() > 20 && getDyingCounter() <= 30) {
+            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death3.png"));
+        } else if (getDyingCounter() > 30) {
+            setDying(false);
+            setAlive(false);
         }
     }
 

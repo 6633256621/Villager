@@ -6,6 +6,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import panel.GamePanel;
 
+import javax.xml.namespace.QName;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,7 +21,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         this.player = Player.getInstance();
-        tile = new Tile[15];
+        tile = new Tile[130];
         mapTileNum = new int[Config.maxWorldCol][Config.maxWorldRow];
         getTileImage();
         loadMap();
@@ -45,10 +46,57 @@ public class TileManager {
         tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/wood.png"));
         tile[7].collision=true;
         tile[8] = new Tile();
-        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/forest.png"));
+        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea1.png"));
         tile[8].collision=true;
-        for (int i = 0; i < 9; i++) {
+        tile[9] = new Tile();
+        tile[9].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea2.png"));
+        tile[9].collision=true;
+        tile[10] = new Tile();
+        tile[10].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea3.png"));
+        tile[10].collision=true;
+        tile[11] = new Tile();
+        tile[11].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea4.png"));
+        tile[11].collision=true;
+        tile[12] = new Tile();
+        tile[12].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaTop.png"));
+        tile[12].collision=true;
+        tile[13] = new Tile();
+        tile[13].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaRight.png"));
+        tile[13].collision=true;
+        tile[14] = new Tile();
+        tile[14].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaBottom.png"));
+        tile[14].collision=true;
+        tile[15] = new Tile();
+        tile[15].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaLeft.png"));
+        tile[15].collision=true;
+        tile[16] = new Tile();
+        tile[16].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/TopLeft.png"));
+        tile[16].collision=true;
+        tile[17] = new Tile();
+        tile[17].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/TopRight.png"));
+        tile[17].collision=true;
+        tile[18] = new Tile();
+        tile[18].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/BottomRight.png"));
+        tile[18].collision=true;
+        tile[19] = new Tile();
+        tile[19].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/BottomLeft.png"));
+        tile[19].collision=true;
+        setHouse();
+        for (int i = 0; i < 120; i++) {
             tile[i].makeScale(gp);
+        }
+    }
+
+    public void setHouse() {
+        int index = 20;
+        String name;
+        for (int i = 1 ; i <= 10 ; i++) {
+            for (int j = 1 ; j <= 10 ; j++) {
+                tile[index] = new Tile();
+                name = "objects/House/row-" + i + "-column-" + j + ".png";
+                tile[index].image = new Image(ClassLoader.getSystemResourceAsStream(name));
+                index++;
+            }
         }
     }
 

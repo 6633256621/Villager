@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import logic.GameLogic;
 import object.Entity;
+import object.House;
 import object.Item;
 import object.Player;
 import object.monster.Slime;
@@ -337,5 +338,57 @@ public class CollisionChecker {
         player.getSolidArea().setY(player.getSolidAreaDefaultY());
 
         return contactPlayer;
+    }
+
+    public boolean checkHouse (Entity entity, House house) {
+        boolean contactHouse = false;
+
+        entity.getSolidArea().setX(entity.getWorldX() + entity.getSolidArea().getX());
+        entity.getSolidArea().setY(entity.getWorldY() + entity.getSolidArea().getY());
+        house.getSolidArea().setX(house.getWorldX() + house.getSolidArea().getX());
+        house.getSolidArea().setY(house.getWorldY() + house.getSolidArea().getY());
+
+        switch (entity.getDirection()) {
+            case "up":
+                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                break;
+            case "down":
+                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                break;
+            case "left":
+                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                break;
+            case "right":
+                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                break;
+            case "upleft":
+                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                break;
+            case "downright":
+                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                break;
+            case "downleft":
+                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
+                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
+                break;
+            case "upright":
+                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
+                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
+                break;
+        }
+
+        if (entity.getSolidArea().getBoundsInParent().intersects(house.getSolidArea().getBoundsInParent())) {
+            entity.setCollisionOn(true);
+            contactHouse = true;
+        }
+
+        entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
+        entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
+        house.getSolidArea().setX(house.getSolidAreaDefaultX());
+        house.getSolidArea().setY(house.getSolidAreaDefaultY());
+
+        return contactHouse;
     }
 }
