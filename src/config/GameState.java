@@ -3,6 +3,7 @@ import javafx.scene.image.Image;
 
 public class GameState {
     public static boolean chestState,traderState,chooseState;
+    public static boolean start=false;
     public static boolean normalState;
     public static boolean nightState=false;
     public static boolean dayIncremented = false;

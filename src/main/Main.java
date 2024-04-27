@@ -17,6 +17,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import object.monster.Slime;
 import panel.GamePanel;
+import panel.MenuPane;
 import panel.RootPane;
 import render.RenderableHolder;
 import utility.InputUtility;
@@ -24,28 +25,34 @@ import utility.Timer;
 import utility.UserInterface;
 
 import java.util.TimerTask;
+
 public class Main extends Application {
     private final double TIME_DILATION_FACTOR = 240.0;
     private long startTime;
+
     public static void Main(String[] args) {
         launch(args);
     }
+
+    private boolean first = false;
 
     @Override
     public void start(Stage stage) throws Exception {
         startTime = System.nanoTime();
         //setup pane
-        RootPane rootpane = new RootPane();
+        RootPane rootpane = RootPane.getInstance();
+        MenuPane menuPane = new MenuPane();
         GamePanel gamepanel = GamePanel.getInstance();
         GraphicsContext gc = gamepanel.getGraphicsContext2D();
         GameLogic logic = new GameLogic();
         RenderableHolder renderableHolder = RenderableHolder.getInstance();
         Timer timer = new Timer();
         rootpane.getChildren().add(gamepanel);
+        rootpane.getChildren().add(menuPane);
         gamepanel.setFocusTraversable(true);
 
         //setup scene
-        Scene scene = new Scene(rootpane,Config.screenWidth,Config.screenHeight);
+        Scene scene = new Scene(rootpane, Config.screenWidth, Config.screenHeight);
         //setup stage
         stage.setScene(scene);
         stage.setTitle("Villager");
@@ -61,14 +68,17 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                double elapsedTime = (now - startTime) / 1_000_000_000.0;
-                elapsedTime *= TIME_DILATION_FACTOR;
-                gamepanel.paintComponent();
-                logic.logicUpdate();
-                renderableHolder.update();
-                timer.drawTime(elapsedTime,gc);
-                InputUtility.getKeyPressed().remove(KeyCode.ENTER);
-                InputUtility.getKeyPressed().remove(KeyCode.SPACE);
+                if (GameState.start) {
+                    System.out.println(RootPane.getInstance().getChildren().size());
+                    double elapsedTime = (now - startTime) / 1_000_000_000.0;
+                    elapsedTime *= TIME_DILATION_FACTOR;
+                    gamepanel.paintComponent();
+                    logic.logicUpdate();
+                    renderableHolder.update();
+                    timer.drawTime(elapsedTime, gc);
+                    InputUtility.getKeyPressed().remove(KeyCode.ENTER);
+                    InputUtility.getKeyPressed().remove(KeyCode.SPACE);
+                }
             }
         };
         animation.start();//start animation timer
