@@ -52,5 +52,4 @@ public class Timer {
         UserInterface.drawSubWindow(Config.tileSize*25-10,14,Config.tileSize*7,Config.tileSize,gc);
         gc.drawImage(GameState.dayPic,Config.tileSize*25+5,22,Config.tileSize*0.7,Config.tileSize*0.7);
     }
-    
 }

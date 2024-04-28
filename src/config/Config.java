@@ -15,9 +15,9 @@ public class Config {
     public static int maxWorldRow = 90;
     public static int worldWidth = maxWorldCol * tileSize;
     public static int worldHeight = maxWorldRow * tileSize;
-    public static int inventorySize =20;
-    public static int fixedPosition=20;
-    public static int day=1;
+    public static int inventorySize = 20;
+    public static int fixedPosition = 20;
+    public static int day = 1;
 
     public static Image sunPic = new Image(ClassLoader.getSystemResourceAsStream("days/sun2.png"));
     public static Image moonPic = new Image(ClassLoader.getSystemResourceAsStream("days/moon.png"));

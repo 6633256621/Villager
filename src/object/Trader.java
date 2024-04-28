@@ -2,15 +2,32 @@ package object;
 
 import config.Config;
 import config.GameState;
+import interfacep.Sellable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import object.potion.DexPotion;
+import object.potion.HealthPotion;
+import object.potion.SpeedPotion;
+import object.potion.StrengthPotion;
+import object.weapon.*;
+import utility.InputUtility;
 import utility.UserInterface;
 
+import java.util.ArrayList;
+
 public class Trader extends Item {
+    public static int optionCol = 0;
+    public static int buyingRow = 0;
+    public static int counter = 0;
     Player p = Player.getInstance();
     GraphicsContext gc = gp.getGraphicsContext2D();
+    private ArrayList<Item> sellingItem;
+    private Font customFont = new Font("Georgia", 20);
+
     public Trader() {
         super();
         z = 10;
@@ -20,6 +37,21 @@ public class Trader extends Item {
         setWorldX(64 * Config.tileSize);
         setWorldY(66 * Config.tileSize);
         setCollision(true);
+        setItem();
+    }
+
+    public void setItem() {
+        sellingItem = new ArrayList<>();
+        sellingItem.add(new HealthPotion());
+        sellingItem.add(new SpeedPotion());
+        sellingItem.add(new DexPotion());
+        sellingItem.add(new StrengthPotion());
+        sellingItem.add(new IronSword());
+        sellingItem.add(new IronShield());
+        sellingItem.add(new PowerfulSword());
+        sellingItem.add(new PowerfulShield());
+        sellingItem.add(new LegendarySword());
+        sellingItem.add(new LegendaryShield());
     }
 
     @Override
@@ -37,26 +69,153 @@ public class Trader extends Item {
     }
 
     public void update() {
+        checkPage();
         if (isInteracted()) {
-            GameState.traderState=true;
+            GameState.traderState = true;
             drawTradeFrame();
         } else {
-            GameState.traderState=false;
+            GameState.traderState = false;
+            GameState.chooseState = false;
         }
         setInteracted(false);
     }
 
-    public void drawTradeFrame() {
-        UserInterface.drawInventory(p,gc,"right");
+    private void checkPage() {
+        GameState.traderPage=(int) (double) (buyingRow / 3+1);
     }
 
-    public void drawSubWindow(int x, int y, int width, int height, GraphicsContext gc) {
-        gc.setFill(Color.BLACK);
-        gc.setGlobalAlpha(0.5);
-        gc.fillRoundRect(x, y, width, height, 35, 35);
-        gc.setGlobalAlpha(1);
-        gc.setStroke(Color.WHITE);
-        gc.strokeRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
-        gc.strokeRoundRect(x + 1, y + 1, width - 1, height - 1, 25, 25);
+
+    public void drawTradeFrame() {
+        UserInterface.drawMoney(gc, customFont, player);
+        if (GameState.chooseState) {
+            UserInterface.drawInventory(p, gc, "right");
+            UserInterface.drawMoney(gc, customFont, player);
+            if (optionCol == 0) {//buy
+                drawBuyScreen();
+            } else if (optionCol == 1) {//sell
+                drawSellScreen();
+            }
+        } else {
+            drawOptionFrame();
+            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
+                GameState.chooseState = true;
+            }
+        }
+    }
+
+    public void drawSellScreen() {
+        int value;
+        if (UserInterface.getItemIndexOnSlot("right") >= player.getInventory().size()) {
+            value = 0;
+        } else {
+            value = ((Sellable) (player.getInventory().get(UserInterface.getItemIndexOnSlot("right")))).getPrice();
+        }
+        UserInterface.drawSubWindow(Config.tileSize, Config.tileSize, 10 * Config.tileSize, 3 * Config.tileSize, gc);
+        if (InputUtility.getKeyPressed().contains(KeyCode.SPACE)) {
+            counter++;
+            if (counter > 1) {
+                counter = 0;
+                sell();
+            }
+        }
+        gc.setFill(Color.WHITE);
+        gc.fillText("[Press SPACE on slot you wish to sell]", Config.tileSize * 2.5, Config.tileSize * 2);
+        gc.fillText("Price For Sell : " + value, Config.tileSize * 4.5, Config.tileSize * 3);
+
+    }
+    public static void drawInfoScreen(GraphicsContext gc) {
+        UserInterface.drawSubWindow(Config.tileSize*13, Config.tileSize, 10 * Config.tileSize, 3 * Config.tileSize, gc);
+    }
+
+    private void drawBuyScreen() {
+        drawInfoScreen(gc);
+        gc.setFill(Color.WHITE);
+        gc.fillText("[Press SPACE on slot you wish to buy]",Config.tileSize*14.5, Config.tileSize*2);
+        gc.fillText("[Press J to change side of the windows]",Config.tileSize*14.35, Config.tileSize*3);
+        UserInterface.drawSubWindow(Config.tileSize, Config.tileSize, 10 * Config.tileSize, 11 * Config.tileSize, gc);
+        selectedItem(buyingRow % 3);
+        showItem(GameState.traderPage-1);
+        //item index = buying row
+        gc.fillText(""+GameState.traderPage,Config.tileSize+15, Config.tileSize+30);
+        if (InputUtility.getKeyPressed().contains(KeyCode.SPACE)) {
+            counter++;
+            if (counter > 1) {
+                counter = 0;
+                if (player.getInventory().size()<Config.inventorySize) {
+                    buy();
+                }
+            }
+        }
+    }
+    private void buy() {
+        if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
+            Sellable target;
+            target = (Sellable) sellingItem.get(buyingRow);
+            if (player.getMoney() >= target.getPrice()) {
+                player.setMoney(player.getMoney() - target.getPrice());
+                player.getInventory().add((Item) target);
+            }
+        }
+    }
+
+    private void showItem(int page) {
+        gc.setFill(Color.WHITE);
+        if (page * 3 < sellingItem.size()) {
+            gc.drawImage(sellingItem.get(page * 3).getImage(), Config.tileSize + 40, Config.tileSize + 50, Config.tileSize * 2, Config.tileSize * 2);
+            gc.fillText("Price : "+((Sellable) sellingItem.get(page*3)).getPrice(),4*Config.tileSize + 40,Config.tileSize + 70);
+            gc.fillText(sellingItem.get(page*3).getDescription(),4*Config.tileSize + 40,Config.tileSize*2 + 50);
+        }
+        if (page * 3 + 1 < sellingItem.size()) {
+            gc.drawImage(sellingItem.get(page * 3 + 1).getImage(), Config.tileSize + 40, Config.tileSize*3 + 120, Config.tileSize * 2, Config.tileSize * 2);
+            gc.fillText("Price : "+((Sellable) sellingItem.get(page*3+1)).getPrice(),4*Config.tileSize + 40,Config.tileSize*3 + 135);
+            gc.fillText(sellingItem.get(page*3+1).getDescription(),4*Config.tileSize + 40,Config.tileSize*5 + 65);
+        }
+        if (page * 3 + 2 < sellingItem.size()) {
+            gc.drawImage(sellingItem.get(page * 3 + 2).getImage(), Config.tileSize + 40, Config.tileSize*6 + 150, Config.tileSize * 2, Config.tileSize * 2);
+            gc.fillText("Price : "+((Sellable) sellingItem.get(page*3+2)).getPrice(),4*Config.tileSize + 40,Config.tileSize*6 + 170);
+            gc.fillText(sellingItem.get(page*3+2).getDescription(),4*Config.tileSize + 40,Config.tileSize*9 + 55);
+        }
+    }
+
+    private void selectedItem(int pos) {
+        if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
+            gc.setStroke(Color.WHITE);
+            gc.setLineWidth(2);
+            gc.strokeRoundRect(Config.tileSize + 20, Config.tileSize + (Config.tileSize * 3 * pos) + 25 + 25 * pos, 10 * Config.tileSize - 40, Config.tileSize * 3, 50, 50);
+        }
+    }
+
+    private int sell() {
+        Sellable target;
+        int price;
+        target = (Sellable) (player.getInventory().get(UserInterface.getItemIndexOnSlot("right")));
+        player.setMoney(player.getMoney() + target.getPrice());
+        price = target.getPrice();
+        player.getInventory().remove(UserInterface.getItemIndexOnSlot("right"));
+        return price;
+    }
+
+    public void drawOptionFrame() {
+        int frameX = 1;
+        int frameY = 1;
+        int frameWidth = 4;
+        int frameHeight = 3;
+        int slotXStart = frameX;
+        int slotYStart = frameY;
+        int cursorWidth = Config.tileSize * frameWidth - 30;
+        int cursorHeight = Config.tileSize - 10;
+        int cursorX = slotXStart * Config.tileSize + 15;
+        int cursorY = (slotYStart * Config.tileSize + (Config.tileSize * optionCol)) + 20;
+        UserInterface.drawSubWindow(Config.tileSize * frameX, Config.tileSize * frameY, Config.tileSize * frameWidth, Config.tileSize * frameHeight, gc);
+        gc.setFill(Color.WHITE);
+        gc.setLineWidth(3);
+        gc.strokeRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
+        gc.setLineWidth(1);
+        gc.setFont(customFont);
+        //Option 1
+        gc.fillText("Buy", Config.tileSize * (frameX) + 20, Config.tileSize * (frameY + 1));
+        //Option 2
+        gc.fillText("Sell", Config.tileSize * (frameX) + 20, Config.tileSize * (frameY + 2));
+        //Option 3
     }
 }

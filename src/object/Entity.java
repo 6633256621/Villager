@@ -5,6 +5,7 @@ import javafx.scene.shape.Rectangle;
 public abstract class Entity extends OBJ {
     protected int speed,
             sideSpeed;
+    private int strength, attack, defense;
     protected Rectangle solidArea;
     protected Rectangle attackArea;
 
@@ -165,5 +166,33 @@ public abstract class Entity extends OBJ {
 
     public void setDyingCounter(int dyingCounter) {
         this.dyingCounter = dyingCounter;
+    }
+
+    public int getSideSpeed() {
+        return sideSpeed;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
     }
 }

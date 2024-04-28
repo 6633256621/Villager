@@ -15,11 +15,11 @@ import utility.LoadUtility;
 
 import static utility.LoadUtility.*;
 
-public class Slime extends Entity {
+public abstract class Slime extends Entity {
     private Player player = Player.getInstance();
     private House house = House.getInstance();
     private boolean knockBack = false;
-    private boolean added=false;
+    private boolean added = false;
     //counter
     private int spriteCounter = 0;
     private int value=5;
@@ -28,8 +28,6 @@ public class Slime extends Entity {
     private int knockBackCounter=0;
 
     //Character Attributes
-    private int strength, attack, defense;
-
     GamePanel gp = GamePanel.getInstance();
     GameLogic gl;
 
@@ -43,7 +41,7 @@ public class Slime extends Entity {
         worldY = Config.tileSize * (y + Config.fixedPosition);
         z = 2;
         direction = "down";
-        defaultSpeed=3;
+        defaultSpeed = 3;
         speed = defaultSpeed;
         setSideSpeed(speed);
         def = slime_jump_1;
@@ -62,17 +60,9 @@ public class Slime extends Entity {
         solidArea.setHeight(28);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
-
     }
 
-    private void setStatus() {
-        //status
-        setMaxLife(4);
-        setLife(getMaxLife());
-        setStrength(1);
-        setAttack(1);
-        setDefense(1);
-    }
+    public abstract void setStatus();
 
     private void up() {
         direction = "up";
@@ -163,39 +153,9 @@ public class Slime extends Entity {
 
 
     // set bouncing slime
-    private void setAction() {
-        if (spriteCounter > 40) {
-            spriteCounter = 0;
-        } else {
-
-            if (spriteCounter <= 10) {
-                spriteNum = 1;
-            } else if (spriteCounter > 10 && spriteCounter <= 20) {
-                spriteNum = 2;
-            } else if (spriteCounter > 20 && spriteCounter <= 30) {
-                spriteNum = 3;
-            } else if (spriteCounter > 30) {
-                spriteNum = 4;
-            }
-        }
-
-        if (spriteNum == 1) {
-            def = slime_jump_1;
-        }
-        if (spriteNum == 2) {
-            def = slime_jump_2;
-        }
-        if (spriteNum == 3) {
-            def = slime_jump_3;
-        }
-        if (spriteNum == 4) {
-            def = slime_jump_2;
-        }
-    }
+    public abstract void setAction();
 
     // fetch house position
-
-
     public void update() {
         if (knockBack) {
                 switch (player.getDirection()) {
@@ -247,42 +207,9 @@ public class Slime extends Entity {
 
     //draw image
     @Override
-    public void draw(GraphicsContext gc) {
-        int screenX = worldX - player.getWorldX() + player.getScreenX();
-        int screenY = worldY - player.getWorldY() + player.getScreenY();
+    public abstract void draw(GraphicsContext gc);
 
-        if (worldX + Config.tileSize > player.getWorldX() - player.getScreenX() &&
-                worldX - Config.tileSize < player.getWorldX() + player.getScreenX() &&
-                worldY + Config.tileSize > player.getWorldY() - player.getScreenY() &&
-                worldY - Config.tileSize < player.getWorldY() + player.getScreenY()) {
-            gc.drawImage(def, screenX, screenY, Config.tileSize, Config.tileSize);
-        }
-
-        if (hpBarOn) {
-            drawHPBar(gc, screenX, screenY);
-
-            hpBarCounter++;
-            if (hpBarCounter > 600) {
-                hpBarCounter = 0;
-                hpBarOn = false;
-            }
-        }
-    }
-
-    public void drawDead(GraphicsContext gc) {
-        setDyingCounter(getDyingCounter() + 1);
-
-        if (getDyingCounter() <= 10) {
-            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death1.png"));
-        } else if (getDyingCounter() > 10 && getDyingCounter() <= 20) {
-            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death2.png"));
-        } else if (getDyingCounter() > 20 && getDyingCounter() <= 30) {
-            def = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/slime_death3.png"));
-        } else if (getDyingCounter() > 30) {
-            setDying(false);
-            setAlive(false);
-        }
-    }
+    public abstract void drawDead(GraphicsContext gc);
 
     public void drawHPBar (GraphicsContext gc, int screenX, int screenY) {
         double oneScale = (double)Config.tileSize/getMaxLife();
@@ -296,34 +223,8 @@ public class Slime extends Entity {
     }
 
     // getter & setter
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
     }
 
     public boolean isKnockBack() {
@@ -333,4 +234,38 @@ public class Slime extends Entity {
     public void setKnockBack(boolean knockBack) {
         this.knockBack = knockBack;
     }
+
+    public Image getDef() {
+        return def;
+    }
+
+    public void setDef(Image def) {
+        this.def = def;
+    }
+
+    public int getSpriteCounter() {
+        return spriteCounter;
+    }
+
+    public void setSpriteCounter(int spriteCounter) {
+        this.spriteCounter = spriteCounter;
+    }
+
+    public int getSpriteNum() {
+        return spriteNum;
+    }
+
+    public void setSpriteNum(int spriteNum) {
+        this.spriteNum = spriteNum;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+
 }

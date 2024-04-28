@@ -1,8 +1,9 @@
 package object;
 
+import config.Status;
 import interfacep.Storable;
 import logic.GameLogic;
-import object.potion.HealthPotion;
+import object.monster.Slime;
 import object.weapon.*;
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,44 +22,54 @@ public class Player extends Entity implements Storable {
     public final int screenY;
     //counter
     private int spriteCounter = 0;
+    private int attackCounter = 0;
+    private int attackNum = 1;
     private int spriteNum = 1;
-    private int sideSpeed;
+    private int thirtyFiveCounter = 0;
+
+    private boolean isAttack = false;
+
 
     //Character Attributes
-    private int maxLife, life, strength, level, dex, attack, defense, exp, nextLevelExp, money;
+    private int strength,buffStrength, level, dex,buffDex,buffSpeed,defaultDex,defaultSpeed,defaultStrength, attack, defense, exp, nextLevelExp, money;
     private BaseWeapon currentWeapon = new NewbieSword();
     private BaseShield currentShield = new NewbieShield();
     private ArrayList<Item> inventory;
     public static Player instance = new Player();
+
     public static Player getInstance() {
         return instance;
     }
+
     GamePanel gp = GamePanel.getInstance();
+    GraphicsContext gc = gp.getGraphicsContext2D();
     GameLogic gl;
     private Image def;//display image at that moment
+    private Image attackDef;
+
     public Player() {
         super();
         //where to spawn
-        worldX = Config.tileSize * (23+Config.fixedPosition);
-        worldY = Config.tileSize * (21+Config.fixedPosition);
-        z=2;
+        worldX = Config.tileSize * (15 + Config.fixedPosition);
+        worldY = Config.tileSize * (15 + Config.fixedPosition);
+        z = 2;
         //where to draw
         screenX = Config.screenWidth / 2 - (Config.tileSize) / 2;
         screenY = Config.screenHeight / 2 - (Config.tileSize) / 2;
-        direction="down";
-        speed=3;
-        sideSpeed=this.sidespeed(speed);
+        direction = "down";
         def = down;
         playerLoad();
         setStatus();
         setRectangle();
         setItems();
     }
+
     private void setItems() {
         inventory = new ArrayList<>(20);
         inventory.add(currentWeapon);
         inventory.add(currentShield);
     }
+
     private void setRectangle() {
         solidArea = new Rectangle();
         solidArea.setX(8);
@@ -67,21 +78,34 @@ public class Player extends Entity implements Storable {
         solidArea.setHeight(32);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
+
+        attackArea = new Rectangle(Config.tileSize,Config.tileSize);
     }
+
     private void setStatus() {
         //status
         setLevel(1);
+        setDefaultSpeed(5);
+        setSpeed(getDefaultSpeed());
+        setSideSpeed(getSpeed());
+        setBuffSpeed(getDefaultSpeed()*2);
         setMaxLife(8);
-        setLife(3);
-        setStrength(1);
-        setDex(1);
+        setLife(8);
+        setDefaultStrength(1);
+        setStrength(getDefaultStrength());
+        setDefaultDex(1);
+        setDex(getDefaultDex());
         setExp(0);
         setNextLevelExp(5);
         setMoney(100);
         setAttack(getAttack());
         setDefense(getDefense());
+        setBuffDex(getDex()+1);
+        setBuffSpeed(getSpeed()+1);
+        setBuffStrength(getStrength()+1);
     }
-//    private void pickUpObject(int i) {
+
+    //    private void pickUpObject(int i) {
 //        if (inventory.size()!=Config.inventorySize) {
 //            inventory.add()
 //        }
@@ -217,31 +241,76 @@ public class Player extends Entity implements Storable {
             worldY += sideSpeed;
         }
     }
+    public void statusCheck() {
+        if (Status.speedBuff) {
+            setSpeed(buffSpeed);
+            setSideSpeed(getBuffSpeed());
+        }else {
+            setSpeed(defaultSpeed);
+            setSideSpeed(getDefaultSpeed());
+        }
+        if (Status.strengthBuff) {
+            setStrength(getBuffStrength());
+        }else {
+            setStrength(getDefaultStrength());
+        }
+        if (Status.dexBuff) {
+            setDex(getBuffDex());
+        }else {
+            setDex(getDefaultDex());
+        }
+
+    }
+
 
     //fetch position
     public void update() {
-        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
-            upleft();
-        } else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
-            upright();
-        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
-            downright();
-        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
-            downleft();
-        } else if (InputUtility.isKeyPressed(KeyCode.W)) {
-            up();
-        } else if (InputUtility.isKeyPressed(KeyCode.S)) {
-            down();
-        } else if (InputUtility.isKeyPressed(KeyCode.A)) {
-            left();
-        } else if (InputUtility.isKeyPressed(KeyCode.D)) {
-            right();
+        statusCheck();
+        if (InputUtility.MouseInputUtility.isMouseClicked()) {
+            isAttack = true;
+        }
+        if (isAttack) {
+            attackingCount();
+            thirtyFiveCounter++;
+            if (thirtyFiveCounter==1) {
+                findMonsterIndex();
+            }
+            if (thirtyFiveCounter == 46) {
+                thirtyFiveCounter = 0;
+                isAttack = false;
+            }
+        }
+        if (!isAttack) {
+            if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
+                upleft();
+            } else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
+                upright();
+            } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
+                downright();
+            } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
+                downleft();
+            } else if (InputUtility.isKeyPressed(KeyCode.W)) {
+                up();
+            } else if (InputUtility.isKeyPressed(KeyCode.S)) {
+                down();
+            } else if (InputUtility.isKeyPressed(KeyCode.A)) {
+                left();
+            } else if (InputUtility.isKeyPressed(KeyCode.D)) {
+                right();
+            }
         }
         setCollisionOn(false);
         gp.collisionChecker.checkTile(this);
 
         //if collision is false,player can move
 
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
 
         spriteCount();
     }
@@ -263,20 +332,143 @@ public class Player extends Entity implements Storable {
         }
     }
 
+    public void attackingCount() {
+        attackCounter++;
+        firstAttackCounter();
+        secondAttackCounter();
+        thirdAttackCounter();
+        resetAttackCounter();
+    }
 
+    public void firstAttackCounter() {
+        if (attackCounter <= 10) {
+            if (direction == "left" || direction == "downleft") {
+                attackDef = sworddownleft1;
+            }
+            if (direction == "right" || direction == "upright") {
+                attackDef = sworddownright1;
+            }
+            if (direction == "up" || direction == "upleft") {
+                attackDef = swordupright1;
+            }
+            if (direction == "down" || direction == "downright") {
+                attackDef = sworddownleft1;
+            }
+        }
+    }
+
+    public void secondAttackCounter() {
+        if (attackCounter > 10 && attackCounter <= 35) {
+            if (direction == "left" || direction == "downleft") {
+                attackDef = sworddownleft2;
+            }
+            if (direction == "right" || direction == "upright") {
+                attackDef = sworddownright2;
+            }
+            if (direction == "up" || direction == "upleft") {
+                attackDef = swordupright2;
+            }
+            if (direction == "down" || direction == "downright") {
+                attackDef = sworddownleft2;
+            }
+        }
+    }
+
+    public void thirdAttackCounter() {
+        if (attackCounter > 35 && attackCounter <= 45) {
+            if (direction == "left" || direction == "downleft") {
+                attackDef = sworddownleft3;
+            }
+            if (direction == "right" || direction == "upright") {
+                attackDef = sworddownright3;
+            }
+            if (direction == "up" || direction == "upleft") {
+                attackDef = swordupright3;
+            }
+            if (direction == "down" || direction == "downright") {
+                attackDef = sworddownleft3;
+            }
+        }
+    }
+
+    public void resetAttackCounter() {
+        if (attackCounter > 45) {
+            attackCounter = 0;
+            attackDef = null;
+        }
+    }
+
+    public void findMonsterIndex() {
+        int currentWorldX = worldX;
+        int currentWorldY = worldY;
+        int solidAreaWidth = (int) solidArea.getWidth();
+        int solidAreaHeight = (int) solidArea.getHeight();
+
+        switch (direction) {
+            case "up", "upleft": worldY-= (int) attackArea.getHeight()+30;break;
+            case "down", "downright": worldY+= (int) attackArea.getHeight();break;
+            case "left", "downleft": worldX-= (int) attackArea.getWidth()+30;break;
+            case "right", "upright": worldX+= (int) attackArea.getWidth();break;
+        }
+
+        ArrayList<Integer> monsterIndex = gp.getCollisionChecker().checkSlime(this,GameLogic.slimeList);
+        damageMonster(monsterIndex);
+
+        worldX=currentWorldX;
+        worldY=currentWorldY;
+        solidArea.setWidth(solidAreaWidth);
+        solidArea.setHeight(solidAreaHeight);
+    }
+
+    public void damageMonster(ArrayList<Integer> i) {
+        if (!i.isEmpty()) {
+            System.out.println("HIT!");
+            for (int e : i) {
+                knockBackSlime(GameLogic.slimeList.get(e));
+                GameLogic.slimeList.get(e).setLife((GameLogic.slimeList.get(e).getLife()-getAttack()));
+                GameLogic.slimeList.get(e).setHpBarOn(true);
+            }
+        } else {
+            System.out.println("MISS!");
+        }
+    }
+    public void knockBackSlime(Entity e) {
+        Slime slime = (Slime) e;
+        slime.setDirection(direction);
+        slime.setSpeed(slime.getSpeed()+10);
+        slime.setKnockBack(true);
+    }
 
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
+        if (invincible) {
+            gc.setGlobalAlpha(0.3);
+        }
         gc.drawImage(def, screenX, screenY, Config.tileSize, Config.tileSize);
-    }
-    public int getMaxLife() {
-        return maxLife;
+        if (direction == "left" || direction == "downleft") {
+            gc.drawImage(attackDef, screenX - Config.tileSize, screenY, Config.tileSize, Config.tileSize);
+        }
+        if (direction == "right" || direction == "upright") {
+            gc.drawImage(attackDef, screenX + Config.tileSize, screenY, Config.tileSize, Config.tileSize);
+        }
+        if (direction == "up" || direction == "upleft") {
+            gc.drawImage(attackDef, screenX, screenY - Config.tileSize, Config.tileSize, Config.tileSize);
+        }
+        if (direction == "down" || direction == "downright") {
+            gc.drawImage(attackDef, screenX, screenY + Config.tileSize, Config.tileSize, Config.tileSize);
+        }
+        gc.setGlobalAlpha(1);
     }
 
-    public int getLife() {
-        return life;
-    }
+//    public void contactMonster (int i) {
+//        if (i != 999) {
+//            if(!invincible) {
+//                setLife(getLife() - 1);
+//                invincible = true;
+//            }
+//        }
+//    }
 
     public int getStrength() {
         return strength;
@@ -295,7 +487,7 @@ public class Player extends Entity implements Storable {
     }
 
     public int getDefense() {
-        return getDex() * currentShield.getDefenseValue();
+        return getDex() * currentShield.getDefenseValue()/5;
     }
 
     public int getExp() {
@@ -321,15 +513,6 @@ public class Player extends Entity implements Storable {
     //setter
     public void setSpeed(int speed) {
         this.speed = speed;
-    }
-
-    public void setMaxLife(int maxLife) {
-        this.maxLife = maxLife;
-    }
-
-    public void setLife(int life) {
-        this.life = Math.min(life,getMaxLife());
-        this.life = Math.max(getLife(),0);
     }
 
     public void setStrength(int strength) {
@@ -384,4 +567,51 @@ public class Player extends Entity implements Storable {
         return inventory;
     }
 
+    public int getBuffSpeed() {
+        return buffSpeed;
+    }
+
+    public void setBuffSpeed(int buffSpeed) {
+        this.buffSpeed = buffSpeed;
+    }
+
+    public int getBuffDex() {
+        return buffDex;
+    }
+
+    public void setBuffDex(int buffDex) {
+        this.buffDex = buffDex;
+    }
+
+    public int getBuffStrength() {
+        return buffStrength;
+    }
+
+    public void setBuffStrength(int buffStrength) {
+        this.buffStrength = buffStrength;
+    }
+
+    public int getDefaultStrength() {
+        return defaultStrength;
+    }
+
+    public void setDefaultStrength(int defaultStrength) {
+        this.defaultStrength = defaultStrength;
+    }
+
+    public int getDefaultSpeed() {
+        return defaultSpeed;
+    }
+
+    public void setDefaultSpeed(int defaultSpeed) {
+        this.defaultSpeed = defaultSpeed;
+    }
+
+    public int getDefaultDex() {
+        return defaultDex;
+    }
+
+    public void setDefaultDex(int defaultDex) {
+        this.defaultDex = defaultDex;
+    }
 }

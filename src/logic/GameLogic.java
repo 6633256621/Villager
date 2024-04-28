@@ -5,7 +5,10 @@ import config.GameState;
 import javafx.scene.canvas.GraphicsContext;
 import object.*;
 import object.OBJ;
+import object.monster.BlueSlime;
+import object.monster.PinkSlime;
 import object.monster.Slime;
+import object.monster.YellowSlime;
 import panel.GamePanel;
 import render.RenderableHolder;
 import utility.CollisionChecker;
@@ -16,6 +19,8 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameLogic {
+    private static int spawnCounter = 0;
+
     //container for entity and object
     private List<OBJ> gameObjectContainer;
     public ObjectSetter objectSetter = new ObjectSetter(this);
@@ -42,7 +47,6 @@ public class GameLogic {
     private void setupGame() {
         objectSetter.setObject();
     }
-
 
     //function for add object to container
     public void addNewObject(OBJ object) {
@@ -78,11 +82,11 @@ public class GameLogic {
             contactPlayer = collisionChecker.checkPlayer(e);
             contactHouse = collisionChecker.checkHouse(e, house);
             if (contactPlayer && !player.isInvincible()) {
-                player.setLife(player.getLife() - 1);
+                player.setLife(player.getLife() - e.getAttack());
                 player.setInvincible(true);
             }
             if (contactHouse && !house.isInvincible()) {
-                house.setLife(house.getLife() - 1);
+                house.setLife(house.getLife() - e.getAttack());
                 house.setInvincible(true);
             }
         }
@@ -137,8 +141,8 @@ public class GameLogic {
 
     //
     public void addSlime() {
-        Slime slime1 = new Slime(10, 23);
-        Slime slime2 = new Slime(30, 37);
+        Slime slime1 = new PinkSlime(10, 23);
+        Slime slime2 = new PinkSlime(30, 37);
         slimeList.add(slime1);
         slimeList.add(slime2);
         addNewObject(slime1);

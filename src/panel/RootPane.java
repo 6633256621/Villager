@@ -1,23 +1,21 @@
 package panel;
 
-import utility.InputUtility;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import object.Player;
+import utility.InputUtility;
 
-public class Rootpane extends StackPane {
-    public void addlistener() {
-        setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), true);
-            }
-        });
-        setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                InputUtility.setKeyPressed(keyEvent.getCode(), false);
-            }
-        });
+public class RootPane extends StackPane {
+    public static RootPane instance = new RootPane();
+
+    public static RootPane getInstance() {
+        return instance;
+    }
+    public RootPane() {
+        this.setBackground(new Background(new BackgroundFill(Color.FORESTGREEN,null,null)));
     }
 }
