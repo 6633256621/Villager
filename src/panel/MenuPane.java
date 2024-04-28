@@ -15,10 +15,11 @@ import javafx.scene.paint.Color;
 import java.io.InputStream;
 
 public class MenuPane extends BorderPane {
-    Button play, how;
+    Button play, how, info; // Declare play, how, and info buttons
     Image background = new Image(ClassLoader.getSystemResourceAsStream("backgrounds/menu.jpg"));
     Image howPic = new Image(ClassLoader.getSystemResourceAsStream("buttons/how.png"));
     Image playPic = new Image(ClassLoader.getSystemResourceAsStream("buttons/play.png"));
+    Image infoPic = new Image(ClassLoader.getSystemResourceAsStream("buttons/info.png"));
     Image gifImage = new Image(ClassLoader.getSystemResourceAsStream("buttons/slime.gif")); // Change "your_gif.gif" to your actual GIF file
     BackgroundImage backgroundImage = new BackgroundImage(background,
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
@@ -55,7 +56,15 @@ public class MenuPane extends BorderPane {
         bottomRightBox.setAlignment(Pos.BOTTOM_RIGHT);
         bottomRightBox.setSpacing(10); // Adjust spacing as needed
         HBox.setMargin(how, new Insets(0, 10, 10, 0)); // Add margin to the right
-        this.setBottom(bottomRightBox);
+
+        // Set the info button in the bottom-left
+        HBox bottomLeftBox = new HBox(info);
+        bottomLeftBox.setAlignment(Pos.BOTTOM_LEFT);
+        bottomLeftBox.setSpacing(10); // Adjust spacing as needed
+        HBox.setMargin(info, new Insets(0, 1300, 10, 10)); // Add margin to the left
+        HBox bottom = new HBox();
+        bottom.getChildren().addAll(bottomLeftBox,bottomRightBox);
+        this.setBottom(bottom);
 
         // Set the play button in the center
         VBox centerBox = new VBox();
@@ -77,11 +86,21 @@ public class MenuPane extends BorderPane {
         how.setOnMouseEntered(e -> how.setStyle("-fx-background-color: #666666;"));
         how.setOnMouseExited(e -> how.setStyle("-fx-background-color: black;"));
 
+        // Add hover effect to the info button
+        info.setOnMouseEntered(e -> info.setStyle("-fx-background-color: #666666;"));
+        info.setOnMouseExited(e -> info.setStyle("-fx-background-color: black;"));
+
         // Add action for play button
         play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 Goto.startGame();
+            }
+        });
+        info.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Goto.infoScreen();
             }
         });
     }
@@ -102,8 +121,18 @@ public class MenuPane extends BorderPane {
         howImageView.setPreserveRatio(false);
         how.setGraphic(howImageView); // Set howPic as graphic for button
 
-
         how.setPrefWidth(Config.tileSize * 2);
         how.setPrefHeight(Config.tileSize * 2);
+
+        info = new Button(); // Initialize the info button
+        info.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+        ImageView infoImageView = new ImageView(infoPic); // Create ImageView for infoPic
+        infoImageView.setFitHeight(Config.tileSize * 2);
+        infoImageView.setFitWidth(Config.tileSize * 2);
+        infoImageView.setPreserveRatio(false);
+        info.setGraphic(infoImageView); // Set infoPic as graphic for button
+
+        info.setPrefWidth(Config.tileSize * 2);
+        info.setPrefHeight(Config.tileSize * 2);
     }
 }

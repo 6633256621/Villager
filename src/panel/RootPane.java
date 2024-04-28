@@ -1,5 +1,6 @@
 package panel;
 
+import config.Config;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
