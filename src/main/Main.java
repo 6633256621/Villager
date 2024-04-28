@@ -25,7 +25,10 @@ public class Main extends Application {
     public static void Main(String[] args) {
         launch(args);
     }
+<<<<<<< Updated upstream
     public static int count=0;
+=======
+>>>>>>> Stashed changes
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -44,7 +47,12 @@ public class Main extends Application {
         stage.setTitle("Villager");
         stage.setResizable(false);
         stage.show();
+<<<<<<< Updated upstream
 
+=======
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
+>>>>>>> Stashed changes
         //animation timer for drawing
         AnimationTimer animation = new AnimationTimer() {
             @Override
@@ -61,4 +69,5 @@ public class Main extends Application {
         };
         animation.start();//start animation timer
     }
+
 }
