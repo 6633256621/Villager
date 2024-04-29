@@ -104,10 +104,8 @@ public class TileManager {
         try {
             InputStream is = ClassLoader.getSystemResourceAsStream("maps/world01.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             int col = 0;
             int row = 0;
-
             while (col < Config.maxWorldCol && row < Config.maxWorldRow) {
                 String line = br.readLine();
 

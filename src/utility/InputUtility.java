@@ -70,91 +70,105 @@ public class InputUtility {
 
         if (keycode.equals(KeyCode.UP) || keycode.equals(KeyCode.DOWN) || keycode.equals(KeyCode.LEFT) || keycode.equals(KeyCode.RIGHT) || keycode.equals(KeyCode.ENTER)|| keycode.equals(KeyCode.SPACE)) {
             if (pressed) {
-                if (keyPressHandled) {
-                    keyPressed.remove(keycode);
-                    keyPressHandled = true;
-                } else if (!keyPressHandled && !keyPressed.contains(keycode)) {
-                    keyPressed.add(keycode);
-                    keyPressHandled = true;
-                    if (keyPressed.contains(KeyCode.R) || GameState.chestState|| GameState.traderState) {
-                        if (keyPressed.contains(KeyCode.J)) {
-                            if (keycode.equals(KeyCode.UP)) {
-                                UserInterface.leftSlotRow--;
-                                Trader.buyingRow--;
-                                if (Trader.buyingRow < 0) {
-                                    Trader.buyingRow = 0;
-                                }
-                                if (UserInterface.leftSlotRow < 0) {
-                                    UserInterface.leftSlotRow = 0;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.LEFT)) {
-                                UserInterface.leftSlotCol--;
-                                if (UserInterface.leftSlotCol < 0) {
-                                    UserInterface.leftSlotCol = 0;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.DOWN)) {
-                                UserInterface.leftSlotRow++;
-                                Trader.buyingRow++;
-                                if (UserInterface.leftSlotRow > 3) {
-                                    UserInterface.leftSlotRow = 3;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.RIGHT)) {
-                                UserInterface.leftSlotCol++;
-                                if (UserInterface.leftSlotCol > 4) {
-                                    UserInterface.leftSlotCol = 4;
-                                }
-                            }
-                        } else {
-                            if (keycode.equals(KeyCode.UP)) {
-                                UserInterface.rightSlotRow--;
-                                if (UserInterface.rightSlotRow < 0) {
-                                    UserInterface.rightSlotRow = 0;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.LEFT)) {
-                                UserInterface.rightSlotCol--;
-                                if (UserInterface.rightSlotCol < 0) {
-                                    UserInterface.rightSlotCol = 0;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.DOWN)) {
-                                UserInterface.rightSlotRow++;
-                                if (UserInterface.rightSlotRow > 3) {
-                                    UserInterface.rightSlotRow = 3;
-                                }
-                            }
-                            if (keycode.equals(KeyCode.RIGHT)) {
-                                UserInterface.rightSlotCol++;
-                                if (UserInterface.rightSlotCol > 4) {
-                                    UserInterface.rightSlotCol = 4;
-                                }
-                            }
-                        }
-                    }
-                    if (GameState.traderState && !GameState.chooseState) {
-                        if (keycode.equals(KeyCode.UP)) {
-                            Trader.optionCol--;
-                            if (Trader.optionCol < 0) {
-                                Trader.optionCol = 0;
-                            }
-                        }
-                        if (keycode.equals(KeyCode.DOWN)) {
-                            Trader.optionCol++;
-                            if (Trader.optionCol > 1) {
-                                Trader.optionCol = 1;
-                            }
-                        }
-                    }
-                }
-
+                checkPress(keycode);
             }
             //if release then remove from array
             else {
                 keyPressed.remove(keycode);
                 keyPressHandled = false;
+            }
+        }
+    }
+    private static void checkPress(KeyCode keycode) {
+
+        if (keyPressHandled) {
+            keyPressed.remove(keycode);
+            keyPressHandled = true;
+        } else if (!keyPressHandled && !keyPressed.contains(keycode)) {
+            keyPressed.add(keycode);
+            keyPressHandled = true;
+            if (keyPressed.contains(KeyCode.R) || GameState.chestState|| GameState.traderState) {
+                if (keyPressed.contains(KeyCode.J)) {
+                    pressJ(keycode);
+                } else {
+                    notPressJ(keycode);
+                }
+            }
+            if (GameState.traderState && !GameState.chooseState) {
+                traderCheck(keycode);
+            }
+        }
+
+
+    }
+    private static void traderCheck(KeyCode keycode) {
+        if (keycode.equals(KeyCode.UP)) {
+            Trader.optionCol--;
+            if (Trader.optionCol < 0) {
+                Trader.optionCol = 0;
+            }
+        }
+        if (keycode.equals(KeyCode.DOWN)) {
+            Trader.optionCol++;
+            if (Trader.optionCol > 1) {
+                Trader.optionCol = 1;
+            }
+        }
+    }
+    private static void pressJ(KeyCode keycode){
+        if (keycode.equals(KeyCode.UP)) {
+            UserInterface.leftSlotRow--;
+            Trader.buyingRow--;
+            if (Trader.buyingRow < 0) {
+                Trader.buyingRow = 0;
+            }
+            if (UserInterface.leftSlotRow < 0) {
+                UserInterface.leftSlotRow = 0;
+            }
+        }
+        if (keycode.equals(KeyCode.LEFT)) {
+            UserInterface.leftSlotCol--;
+            if (UserInterface.leftSlotCol < 0) {
+                UserInterface.leftSlotCol = 0;
+            }
+        }
+        if (keycode.equals(KeyCode.DOWN)) {
+            UserInterface.leftSlotRow++;
+            Trader.buyingRow++;
+            if (UserInterface.leftSlotRow > 3) {
+                UserInterface.leftSlotRow = 3;
+            }
+        }
+        if (keycode.equals(KeyCode.RIGHT)) {
+            UserInterface.leftSlotCol++;
+            if (UserInterface.leftSlotCol > 4) {
+                UserInterface.leftSlotCol = 4;
+            }
+        }
+    }
+    private static void notPressJ(KeyCode keycode) {
+        if (keycode.equals(KeyCode.UP)) {
+            UserInterface.rightSlotRow--;
+            if (UserInterface.rightSlotRow < 0) {
+                UserInterface.rightSlotRow = 0;
+            }
+        }
+        if (keycode.equals(KeyCode.LEFT)) {
+            UserInterface.rightSlotCol--;
+            if (UserInterface.rightSlotCol < 0) {
+                UserInterface.rightSlotCol = 0;
+            }
+        }
+        if (keycode.equals(KeyCode.DOWN)) {
+            UserInterface.rightSlotRow++;
+            if (UserInterface.rightSlotRow > 3) {
+                UserInterface.rightSlotRow = 3;
+            }
+        }
+        if (keycode.equals(KeyCode.RIGHT)) {
+            UserInterface.rightSlotCol++;
+            if (UserInterface.rightSlotCol > 4) {
+                UserInterface.rightSlotCol = 4;
             }
         }
     }

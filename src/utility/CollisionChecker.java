@@ -106,6 +106,10 @@ public class CollisionChecker {
                 break;
         }
     }
+    private void checkTileFourDirection(int entityLeftCol,int entityRightCol,int entityTopRow,int entityBottomRow) {
+
+    }
+
 
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
