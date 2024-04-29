@@ -64,4 +64,5 @@ public class InfoPane extends VBox {
         // Set margin to center the VBox
         VBox.setMargin(this, new Insets(150, 0, 0, 0));
     }
+
 }
