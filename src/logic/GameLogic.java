@@ -170,49 +170,58 @@ public class GameLogic {
     //
     public void addSlime() {
         if (Config.day < 5) {
-            if (getSlimeCounter()%4 == 0) {
-                slimeList.add(new BlueSlime(25, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter()%4 == 1) {
-                slimeList.add(new BlueSlime(50, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter()%4 == 2) {
-                slimeList.add(new BlueSlime(25, 50));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter()%4 == 3) {
-                slimeList.add(new BlueSlime(10, 25));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            }
+            firstPhase();
         } else if (Config.day >= 5 && Config.day < 10) {
-            if (getSlimeCounter() % 4 == 0) {
-                slimeList.add(new YellowSlime(25, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 1) {
-                slimeList.add(new YellowSlime(50, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 2) {
-                slimeList.add(new YellowSlime(25, 50));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 3) {
-                slimeList.add(new YellowSlime(10, 25));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            }
+            secondPhase();
         } else if (Config.day >= 10) {
-            if (getSlimeCounter() % 4 == 0) {
-                slimeList.add(new PinkSlime(25, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 1) {
-                slimeList.add(new PinkSlime(50, 10));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 2) {
-                slimeList.add(new PinkSlime(25, 50));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            } else if (getSlimeCounter() % 4 == 3) {
-                slimeList.add(new PinkSlime(10, 25));
-                addNewObject(slimeList.get(getSlimeCounter()));
-            }
+            thirdPhase();
         }
         setSlimeCounter(getSlimeCounter() + 1);
+    }
+    public void firstPhase() {
+        if (getSlimeCounter()%4 == 0) {
+            slimeList.add(new BlueSlime(25, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter()%4 == 1) {
+            slimeList.add(new BlueSlime(50, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter()%4 == 2) {
+            slimeList.add(new BlueSlime(25, 50));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter()%4 == 3) {
+            slimeList.add(new BlueSlime(10, 25));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        }
+    }
+    public void secondPhase() {
+        if (getSlimeCounter() % 4 == 0) {
+            slimeList.add(new YellowSlime(25, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 1) {
+            slimeList.add(new YellowSlime(50, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 2) {
+            slimeList.add(new YellowSlime(25, 50));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 3) {
+            slimeList.add(new YellowSlime(10, 25));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        }
+    }
+    public void thirdPhase() {
+        if (getSlimeCounter() % 4 == 0) {
+            slimeList.add(new PinkSlime(25, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 1) {
+            slimeList.add(new PinkSlime(50, 10));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 2) {
+            slimeList.add(new PinkSlime(25, 50));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        } else if (getSlimeCounter() % 4 == 3) {
+            slimeList.add(new PinkSlime(10, 25));
+            addNewObject(slimeList.get(getSlimeCounter()));
+        }
     }
 
     public void clearSlime() {
