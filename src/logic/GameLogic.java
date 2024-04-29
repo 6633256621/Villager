@@ -24,22 +24,28 @@ public class GameLogic {
 
     //container for entity and object
     private List<OBJ> gameObjectContainer;
-    public ObjectSetter objectSetter = new ObjectSetter(this);
-    public CollisionChecker collisionChecker = new CollisionChecker(null,this);
+    public ObjectSetter objectSetter;
+    public CollisionChecker collisionChecker;
     //each
     private Player player;
-    public static ArrayList<Entity> slimeList = new ArrayList<>(20);
+    public static ArrayList<Entity> slimeList;
     private Chest chest1;
-    private RenderableHolder renderableHolder = RenderableHolder.getInstance();
-    private House house = House.getInstance();
-    GamePanel gp = GamePanel.getInstance();
-    public GraphicsContext gc = gp.getGraphicsContext2D();
-
+    private RenderableHolder renderableHolder;
+    private House house;
+    GamePanel gp;
+    public GraphicsContext gc;
 
     //constructor(setup for all entity)
     public GameLogic() {
         gameObjectContainer = new ArrayList<>();
         player = Player.getInstance();
+        objectSetter = new ObjectSetter(this);
+        collisionChecker = new CollisionChecker(null,this);
+        slimeList = new ArrayList<>(20);
+        renderableHolder = RenderableHolder.getInstance();
+        house = House.getInstance();
+        gp = GamePanel.getInstance();
+        gc = gp.getGraphicsContext2D();
         chest1 = new Chest(23+ Config.fixedPosition,7+ Config.fixedPosition);
         addNewObject(player);
         addNewObject(chest1);
@@ -63,6 +69,15 @@ public class GameLogic {
     public void logicUpdate() {
         GameState.update();
         setSpawnCounter(getSpawnCounter() + 1);
+        checkState();
+        allObjectUpdate();
+        int objIndex = collisionChecker.checkObject(player,true);
+        pickUpObject(objIndex);
+        slimeCheck();
+        house.update();
+        checkHit();
+    }
+    private void checkState() {
         if (GameState.nightState) {
             if (getSlimeCounter() < Config.day * 2 && getSpawnCounter() > 120) {
                 setSpawnCounter(0);
@@ -74,6 +89,8 @@ public class GameLogic {
         }
         System.out.println("number of slime : " + getSlimeCounter());
         System.out.println("slimeList : " + slimeList.size());
+    }
+    private void allObjectUpdate() {
         for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {
                 if (((Entity) e).isAlive()) {
@@ -85,26 +102,8 @@ public class GameLogic {
                 System.out.println("dunno this instance");
             }
         }
-        int objIndex = collisionChecker.checkObject(player,true);
-        pickUpObject(objIndex);
-        slimeCheck();
-        house.update();
-        boolean contactPlayer, contactHouse;
-        for (Entity e : slimeList) {
-            collisionChecker.checkSlime(e, slimeList);
-            contactPlayer = collisionChecker.checkPlayer(e);
-            contactHouse = collisionChecker.checkHouse(e, house);
-            if (contactPlayer && !player.isInvincible()) {
-                player.setLife(player.getLife() - e.getAttack());
-                player.setInvincible(true);
-            }
-            if (contactHouse && !house.isInvincible()) {
-                house.setLife(house.getLife() - e.getAttack());
-                house.setInvincible(true);
-            }
-        }
     }
-    public void slimeCheck() {
+    private void slimeCheck() {
         try {
             for (Entity e : slimeList) {
                 if (e.getLife() <= 0) {
@@ -120,12 +119,28 @@ public class GameLogic {
         }
     }
 
-    public void pickUpObject(int i) {
+    private void pickUpObject(int i) {
         if (i != 999) {
             if(!((Item) getGameObjectContainer().get(i)).isCollision()){
                 player.getInventory().add((Item) getGameObjectContainer().get(i));
                 renderableHolder.getObjects().remove(getGameObjectContainer().get(i));
                 getGameObjectContainer().remove(i);
+            }
+        }
+    }
+    private void checkHit() {
+        boolean contactPlayer, contactHouse;
+        for (Entity e : slimeList) {
+            collisionChecker.checkSlime(e, slimeList);
+            contactPlayer = collisionChecker.checkPlayer(e);
+            contactHouse = collisionChecker.checkHouse(e, house);
+            if (contactPlayer && !player.isInvincible()) {
+                player.setLife(player.getLife() - e.getAttack());
+                player.setInvincible(true);
+            }
+            if (contactHouse && !house.isInvincible()) {
+                house.setLife(house.getLife() - e.getAttack());
+                house.setInvincible(true);
             }
         }
     }
