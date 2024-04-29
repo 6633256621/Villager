@@ -9,6 +9,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import logic.GameLogic;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -24,6 +25,7 @@ import utility.InputUtility;
 import utility.Timer;
 import utility.UserInterface;
 
+import java.net.URL;
 import java.util.TimerTask;
 
 public class Main extends Application {
@@ -61,6 +63,20 @@ public class Main extends Application {
         stage.show();
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
+
+        URL resource = getClass().getResource("bgMusic.mp3");
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+        mediaPlayer.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.play();
+            }
+        });
 
         // Apply the ColorAdjust effect to the canvas
 

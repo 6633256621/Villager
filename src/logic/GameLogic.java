@@ -19,7 +19,8 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameLogic {
-    private static int spawnCounter = 0;
+    private int spawnCounter = 0;
+    private int slimeCounter = 0;
 
     //container for entity and object
     private List<OBJ> gameObjectContainer;
@@ -61,6 +62,18 @@ public class GameLogic {
     //fetch
     public void logicUpdate() {
         GameState.update();
+        setSpawnCounter(getSpawnCounter() + 1);
+        if (GameState.nightState) {
+            if (getSlimeCounter() < Config.day * 2 && getSpawnCounter() > 120) {
+                setSpawnCounter(0);
+                addSlime();
+            }
+        }
+        if (!GameState.nightState) {
+            clearSlime();
+        }
+        System.out.println("number of slime : " + getSlimeCounter());
+        System.out.println("slimeList : " + slimeList.size());
         for(OBJ e:gameObjectContainer) {
             if (e instanceof Entity ee) {
                 if (((Entity) e).isAlive()) {
@@ -141,12 +154,76 @@ public class GameLogic {
 
     //
     public void addSlime() {
-        Slime slime1 = new PinkSlime(10, 23);
-        Slime slime2 = new PinkSlime(30, 37);
-        slimeList.add(slime1);
-        slimeList.add(slime2);
-        addNewObject(slime1);
-        addNewObject(slime2);
+        if (Config.day < 5) {
+            if (getSlimeCounter()%4 == 0) {
+                slimeList.add(new BlueSlime(25, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter()%4 == 1) {
+                slimeList.add(new BlueSlime(50, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter()%4 == 2) {
+                slimeList.add(new BlueSlime(25, 50));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter()%4 == 3) {
+                slimeList.add(new BlueSlime(10, 25));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            }
+        } else if (Config.day >= 5 && Config.day < 10) {
+            if (getSlimeCounter() % 4 == 0) {
+                slimeList.add(new YellowSlime(25, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 1) {
+                slimeList.add(new YellowSlime(50, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 2) {
+                slimeList.add(new YellowSlime(25, 50));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 3) {
+                slimeList.add(new YellowSlime(10, 25));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            }
+        } else if (Config.day >= 10) {
+            if (getSlimeCounter() % 4 == 0) {
+                slimeList.add(new PinkSlime(25, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 1) {
+                slimeList.add(new PinkSlime(50, 10));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 2) {
+                slimeList.add(new PinkSlime(25, 50));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            } else if (getSlimeCounter() % 4 == 3) {
+                slimeList.add(new PinkSlime(10, 25));
+                addNewObject(slimeList.get(getSlimeCounter()));
+            }
+        }
+        setSlimeCounter(getSlimeCounter() + 1);
+    }
+
+    public void clearSlime() {
+        if (slimeList.size() > 0) {
+            for (int i = 0; i < slimeList.size(); i++) {
+                removeObject(slimeList.get(i));
+            }
+            slimeList.clear();
+            setSlimeCounter(0);
+        }
+    }
+
+    public int getSpawnCounter() {
+        return spawnCounter;
+    }
+
+    public void setSpawnCounter(int spawnCounter) {
+        this.spawnCounter = spawnCounter;
+    }
+
+    public int getSlimeCounter() {
+        return slimeCounter;
+    }
+
+    public void setSlimeCounter(int slimeCounter) {
+        this.slimeCounter = slimeCounter;
     }
 }
 

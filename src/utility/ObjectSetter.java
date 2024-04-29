@@ -22,6 +22,5 @@ public class ObjectSetter {
         gl.addNewObject(new Trader());
         gl.addNewObject(new Trader());
         gl.addNewObject(house);
-        gl.addSlime();
     }
 }

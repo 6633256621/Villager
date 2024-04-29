@@ -6,6 +6,7 @@ import config.Status;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import logic.GameLogic;
 
 public class Timer {
     public void drawTime(double elapsedTime, GraphicsContext gc) {
