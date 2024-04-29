@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class InfoPane extends VBox {
-    Image page = new Image(ClassLoader.getSystemResourceAsStream("buttons/background.jpg"));
+    Image page = new Image(ClassLoader.getSystemResourceAsStream("buttons/background.png"));
 
     public InfoPane() {
         super();
@@ -28,7 +28,7 @@ public class InfoPane extends VBox {
         // Create VBox for "Made By" label and align it to top center
         VBox madeByBox = new VBox();
         madeByBox.setAlignment(Pos.TOP_CENTER);
-        madeByBox.setPadding(new Insets(0, 0, 50, 0)); // Add top padding to push it down
+        madeByBox.setPadding(new Insets(0, 0, 0, 0)); // Add top padding to push it down
 
         // Create and configure the "Made By" label
         Label titleLabel = new Label("Made By");
