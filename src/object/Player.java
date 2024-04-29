@@ -105,12 +105,6 @@ public class Player extends Entity implements Storable {
         setBuffSpeed(getSpeed()+1);
         setBuffStrength(getStrength()+1);
     }
-
-    //    private void pickUpObject(int i) {
-//        if (inventory.size()!=Config.inventorySize) {
-//            inventory.add()
-//        }
-//    }
     private void up() {
         if (spriteNum == 1) {
             def = up;
@@ -270,36 +264,7 @@ public class Player extends Entity implements Storable {
         if (InputUtility.MouseInputUtility.isMouseClicked()) {
             isAttack = true;
         }
-        if (isAttack) {
-            attackingCount();
-            thirtyFiveCounter++;
-            if (thirtyFiveCounter==1) {
-                findMonsterIndex();
-            }
-            if (thirtyFiveCounter == 46) {
-                thirtyFiveCounter = 0;
-                isAttack = false;
-            }
-        }
-        if (!isAttack) {
-            if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
-                upleft();
-            } else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
-                upright();
-            } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
-                downright();
-            } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
-                downleft();
-            } else if (InputUtility.isKeyPressed(KeyCode.W)) {
-                up();
-            } else if (InputUtility.isKeyPressed(KeyCode.S)) {
-                down();
-            } else if (InputUtility.isKeyPressed(KeyCode.A)) {
-                left();
-            } else if (InputUtility.isKeyPressed(KeyCode.D)) {
-                right();
-            }
-        }
+        attackCheck();
         setCollisionOn(false);
         gp.collisionChecker.checkTile(this);
 
@@ -314,6 +279,41 @@ public class Player extends Entity implements Storable {
         }
 
         spriteCount();
+    }
+    private void attackCheck() {
+        if (isAttack) {
+            attackingCount();
+            thirtyFiveCounter++;
+            if (thirtyFiveCounter==1) {
+                findMonsterIndex();
+            }
+            if (thirtyFiveCounter == 46) {
+                thirtyFiveCounter = 0;
+                isAttack = false;
+            }
+        }
+        if (!isAttack) {
+            move();
+        }
+    }
+    private void move() {
+        if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
+            upleft();
+        } else if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.D)) {
+            upright();
+        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.D)) {
+            downright();
+        } else if (InputUtility.isKeyPressed(KeyCode.S) && InputUtility.isKeyPressed(KeyCode.A)) {
+            downleft();
+        } else if (InputUtility.isKeyPressed(KeyCode.W)) {
+            up();
+        } else if (InputUtility.isKeyPressed(KeyCode.S)) {
+            down();
+        } else if (InputUtility.isKeyPressed(KeyCode.A)) {
+            left();
+        } else if (InputUtility.isKeyPressed(KeyCode.D)) {
+            right();
+        }
     }
 
     //sprite counter so my player can walk
@@ -461,15 +461,6 @@ public class Player extends Entity implements Storable {
         }
         gc.setGlobalAlpha(1);
     }
-
-//    public void contactMonster (int i) {
-//        if (i != 999) {
-//            if(!invincible) {
-//                setLife(getLife() - 1);
-//                invincible = true;
-//            }
-//        }
-//    }
 
     public int getStrength() {
         return strength;
