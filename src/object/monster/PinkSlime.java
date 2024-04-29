@@ -40,7 +40,9 @@ public class PinkSlime extends Slime {
                 setSpriteNum(4);
             }
         }
-
+        setPicture();
+    }
+    private void setPicture() {
         if (getSpriteNum() == 1) {
             setDef(slime_jump_1);
         }

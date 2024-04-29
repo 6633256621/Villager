@@ -16,30 +16,37 @@ import utility.LoadUtility;
 import static utility.LoadUtility.*;
 
 public abstract class Slime extends Entity {
-    private Player player = Player.getInstance();
-    private House house = House.getInstance();
-    private boolean knockBack = false;
-    private boolean added = false;
+    private Player player;
+    private House house;
+    private boolean knockBack;
+    private boolean added;
     //counter
-    private int spriteCounter = 0;
-    private int value=5;
-    private int spriteNum = 1;
+    private int spriteCounter;
+    private int value;
+    private int spriteNum;
     private int defaultSpeed;
-    private int knockBackCounter=0;
+    private int knockBackCounter;
 
     //Character Attributes
     GamePanel gp = GamePanel.getInstance();
-    GameLogic gl;
 
     //display image at that moment
     private Image def;
 
     public Slime(int x, int y) {
         super();
+        player = Player.getInstance();
+        house = House.getInstance();
+        knockBack = false;
+        added = false;
         //spawn position
         worldX = Config.tileSize * (x + Config.fixedPosition);
         worldY = Config.tileSize * (y + Config.fixedPosition);
         z = 2;
+        spriteCounter = 0;
+        value=5;
+        spriteNum = 1;
+        knockBackCounter=0;
         direction = "down";
         defaultSpeed = 3;
         speed = defaultSpeed;
@@ -158,23 +165,7 @@ public abstract class Slime extends Entity {
     // fetch house position
     public void update() {
         if (knockBack) {
-                switch (player.getDirection()) {
-                    case "up" : worldY-=speed; break;
-                    case "down" : worldY+=speed; break;
-                    case "left" : worldX-=speed; break;
-                    case "right" : worldX+=speed; break;
-                    case "upright" : worldY-=speed; worldX+=speed; break;
-                    case "upleft" : worldY-=speed; worldX-=speed; break;
-                    case "downleft" : worldY+=speed; worldX-=speed; break;
-                    case "downright" : worldY+=speed; worldX+=speed; break;
-                }
-            knockBackCounter++;
-            if (knockBackCounter==10) {
-                knockBackCounter=0;
-                knockBack=false;
-                speed=defaultSpeed;
-                setSideSpeed(speed);
-            }
+            knockbackAction();
         }
         else {
             if (isDying()) {
@@ -188,20 +179,41 @@ public abstract class Slime extends Entity {
                 setAction();
             }
             gp.collisionChecker.checkTile(this);
-
-            // calculate distance from player to slime
-            double playerDist = Math.pow((player.getWorldY() - worldY), 2) + Math.pow((player.getWorldX() - worldX), 2);
-            playerDist = Math.sqrt(playerDist);
-            double houseDist = Math.pow((house.getWorldY() - worldY), 2) + Math.pow((house.getWorldX() - worldX), 2);
-            houseDist = Math.sqrt(houseDist);
-
-            if (playerDist <= 300 || houseDist > playerDist) {
-                follow(player);
-            } else {
-                follow(house);
-            }
-
+            calculateDistance();
             setCollisionOn(false);
+        }
+    }
+    private void calculateDistance() {
+        // calculate distance from player to slime
+        double playerDist = Math.pow((player.getWorldY() - worldY), 2) + Math.pow((player.getWorldX() - worldX), 2);
+        playerDist = Math.sqrt(playerDist);
+        double houseDist = Math.pow((house.getWorldY() - worldY), 2) + Math.pow((house.getWorldX() - worldX), 2);
+        houseDist = Math.sqrt(houseDist);
+
+        if (playerDist <= 300 || houseDist > playerDist) {
+            follow(player);
+        } else {
+            follow(house);
+        }
+
+    }
+    private void knockbackAction() {
+        switch (player.getDirection()) {
+            case "up" : worldY-=speed; break;
+            case "down" : worldY+=speed; break;
+            case "left" : worldX-=speed; break;
+            case "right" : worldX+=speed; break;
+            case "upright" : worldY-=speed; worldX+=speed; break;
+            case "upleft" : worldY-=speed; worldX-=speed; break;
+            case "downleft" : worldY+=speed; worldX-=speed; break;
+            case "downright" : worldY+=speed; worldX+=speed; break;
+        }
+        knockBackCounter++;
+        if (knockBackCounter==10) {
+            knockBackCounter=0;
+            knockBack=false;
+            speed=defaultSpeed;
+            setSideSpeed(speed);
         }
     }
 

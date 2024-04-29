@@ -178,7 +178,7 @@ public class GameLogic {
         }
         setSlimeCounter(getSlimeCounter() + 1);
     }
-    public void firstPhase() {
+    private void firstPhase() {
         if (getSlimeCounter()%4 == 0) {
             slimeList.add(new BlueSlime(25, 10));
             addNewObject(slimeList.get(getSlimeCounter()));
@@ -193,7 +193,7 @@ public class GameLogic {
             addNewObject(slimeList.get(getSlimeCounter()));
         }
     }
-    public void secondPhase() {
+    private void secondPhase() {
         if (getSlimeCounter() % 4 == 0) {
             slimeList.add(new YellowSlime(25, 10));
             addNewObject(slimeList.get(getSlimeCounter()));
@@ -208,7 +208,7 @@ public class GameLogic {
             addNewObject(slimeList.get(getSlimeCounter()));
         }
     }
-    public void thirdPhase() {
+    private void thirdPhase() {
         if (getSlimeCounter() % 4 == 0) {
             slimeList.add(new PinkSlime(25, 10));
             addNewObject(slimeList.get(getSlimeCounter()));
