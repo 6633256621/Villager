@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class PowerfulShield extends BaseShield{
     public PowerfulShield() {
-        setDefenseValue(10);
+        setDefenseValue(15);
         image = new Image(ClassLoader.getSystemResourceAsStream("image/shield/powerful_shield.png"));
         price = 50;
         name = "Powerful Shield";

@@ -37,7 +37,9 @@ public class Main extends Application {
     }
 
     private boolean firstTime = false;
-    public static MediaPlayer mediaPlayer;
+    public static MediaPlayer songPlayer,swordPlayer,slimeDeadPlayer;
+
+    public static URL menuMusic,gameMusic;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -65,17 +67,18 @@ public class Main extends Application {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
 
-        URL resource = getClass().getResource("sounds/bohemian.mp3");
-        mediaPlayer = new MediaPlayer(new Media(resource.toString()));
-        mediaPlayer.setOnEndOfMedia(new Runnable() {
+        menuMusic = getClass().getResource("sounds/bohemian.mp3");
+        gameMusic = getClass().getResource("sounds/bgMusic.mp3");
+        songPlayer = new MediaPlayer(new Media(menuMusic.toString()));
+        songPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
-                mediaPlayer.seek(Duration.ZERO);
+                songPlayer.seek(Duration.ZERO);
             }
         });
-        mediaPlayer.setOnReady(new Runnable() {
+        songPlayer.setOnReady(new Runnable() {
             @Override
             public void run() {
-                mediaPlayer.play();
+                songPlayer.play();
             }
         });
 
@@ -107,8 +110,22 @@ public class Main extends Application {
     private static void fadeOutSound() {
         // Gradually decrease volume to 0 over 3 seconds
         Timeline fadeOut = new Timeline(
-                new KeyFrame(Duration.seconds(0), new KeyValue(mediaPlayer.volumeProperty(), mediaPlayer.getVolume())),
-                new KeyFrame(Duration.seconds(3), new KeyValue(mediaPlayer.volumeProperty(), 0)));
+                new KeyFrame(Duration.seconds(0), new KeyValue(songPlayer.volumeProperty(), songPlayer.getVolume())),
+                new KeyFrame(Duration.seconds(3), new KeyValue(songPlayer.volumeProperty(), 0)));
+        fadeOut.setOnFinished(event -> {
+            songPlayer.stop(); // Stop the current media player
+            songPlayer = new MediaPlayer(new Media(gameMusic.toString())); // Create a new media player with gameMusic URL
+            songPlayer.setOnEndOfMedia(() -> songPlayer.seek(Duration.ZERO));
+            songPlayer.setOnReady(() -> songPlayer.play());
+            fadeInSound();
+        });
         fadeOut.play();
+    }
+    private static void fadeInSound() {
+        // Gradually increase volume from 0 to original volume over 3 seconds
+        Timeline fadeIn = new Timeline(
+                new KeyFrame(Duration.seconds(0), new KeyValue(songPlayer.volumeProperty(), 0)),
+                new KeyFrame(Duration.seconds(4), new KeyValue(songPlayer.volumeProperty(), 1)));
+        fadeIn.play();
     }
 }

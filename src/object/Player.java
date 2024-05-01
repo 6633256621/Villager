@@ -2,7 +2,10 @@ package object;
 
 import config.Status;
 import interfacep.Storable;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import logic.GameLogic;
+import main.Main;
 import object.monster.Slime;
 import object.weapon.*;
 import config.Config;
@@ -13,9 +16,11 @@ import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 import utility.InputUtility;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 
+import static main.Main.swordPlayer;
 import static utility.LoadUtility.*;
 
 public class Player extends Entity implements Storable {
@@ -29,6 +34,8 @@ public class Player extends Entity implements Storable {
     private int thirtyFiveCounter = 0;
 
     private boolean isAttack = false;
+
+    private URL swordURL;
 
 
     //Character Attributes
@@ -63,6 +70,12 @@ public class Player extends Entity implements Storable {
         setStatus();
         setRectangle();
         setItems();
+        setSound();
+    }
+
+    private void setSound() {
+        swordURL = getClass().getResource("sounds/sword.mp3");
+
     }
 
     private void setItems() {
@@ -285,6 +298,7 @@ public class Player extends Entity implements Storable {
             attackingCount();
             thirtyFiveCounter++;
             if (thirtyFiveCounter==1) {
+                playSwordSound();
                 findMonsterIndex();
             }
             if (thirtyFiveCounter == 46) {
@@ -295,6 +309,11 @@ public class Player extends Entity implements Storable {
         if (!isAttack) {
             move();
         }
+    }
+    private void playSwordSound() {
+        swordPlayer = new MediaPlayer(new Media(swordURL.toString()));
+        swordPlayer.setVolume(0.5);
+        swordPlayer.play();
     }
     private void move() {
         if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {

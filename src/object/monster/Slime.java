@@ -1,7 +1,10 @@
 package object.monster;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import logic.GameLogic;
+import main.Main;
 import object.Entity;
 import object.House;
 import object.OBJ;
@@ -13,6 +16,10 @@ import javafx.scene.shape.Rectangle;
 import panel.GamePanel;
 import utility.LoadUtility;
 
+import java.net.URL;
+
+import static main.Main.slimeDeadPlayer;
+import static main.Main.swordPlayer;
 import static utility.LoadUtility.*;
 
 public abstract class Slime extends Entity {
@@ -32,6 +39,7 @@ public abstract class Slime extends Entity {
 
     //display image at that moment
     private Image def;
+    private URL slimeURL;
 
     public Slime(int x, int y) {
         super();
@@ -55,7 +63,14 @@ public abstract class Slime extends Entity {
         playerLoad();
         setStatus();
         setRectangle();
+        slimeURL = getClass().getResource("sounds/slime.mp3");
         LoadUtility.slimeLoad();
+    }
+
+    protected void playSlimeSound() {
+        slimeDeadPlayer = new MediaPlayer(new Media(slimeURL.toString()));
+        slimeDeadPlayer.setVolume(0.5);
+        slimeDeadPlayer.play();
     }
 
     private void setRectangle() {
@@ -63,8 +78,8 @@ public abstract class Slime extends Entity {
         solidArea = new Rectangle();
         solidArea.setX(0);
         solidArea.setY(2);
-        solidArea.setWidth(30);
-        solidArea.setHeight(28);
+        solidArea.setWidth(50);
+        solidArea.setHeight(50);
         solidAreaDefaultX = (int) solidArea.getX();
         solidAreaDefaultY = (int) solidArea.getY();
     }

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class NewbieShield extends BaseShield{
     public NewbieShield() {
-        setDefenseValue(1);
+        setDefenseValue(5);
         image = new Image(ClassLoader.getSystemResourceAsStream("image/shield/newbie_shield.png"));
         price = 10;
         name = "Newbie Shield";

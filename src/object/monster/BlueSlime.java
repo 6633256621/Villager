@@ -84,6 +84,10 @@ public class BlueSlime extends Slime {
     public void drawDead(GraphicsContext gc) {
         setDyingCounter(getDyingCounter() + 1);
 
+        if (getDyingCounter()==1) {
+            playSlimeSound();
+        }
+
         if (getDyingCounter() <= 10) {
             setDef(new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_death1.png")));
         } else if (getDyingCounter() > 10 && getDyingCounter() <= 20) {
