@@ -29,57 +29,57 @@ public class TileManager {
 
     public void getTileImage() {
         tile[0] = new Tile();
-        tile[0].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/plain.png"));
+        tile[0].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/plain.png"));
         tile[1] = new Tile();
-        tile[1].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/flower1.png"));
+        tile[1].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/flower1.png"));
         tile[2] = new Tile();
-        tile[2].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/flower2.png"));
+        tile[2].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/flower2.png"));
         tile[3] = new Tile();
-        tile[3].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/rock1.png"));
+        tile[3].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/rock1.png"));
         tile[4] = new Tile();
-        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/rock2.png"));
+        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/rock2.png"));
         tile[5] = new Tile();
-        tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass1.png"));
+        tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/grass1.png"));
         tile[6] = new Tile();
-        tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/grass2.png"));
+        tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/grass2.png"));
         tile[7] = new Tile();
-        tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/wood.png"));
+        tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/wood.png"));
         tile[7].collision=true;
         tile[8] = new Tile();
-        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea1.png"));
+        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea1.png"));
         tile[8].collision=true;
         tile[9] = new Tile();
-        tile[9].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea2.png"));
+        tile[9].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea2.png"));
         tile[9].collision=true;
         tile[10] = new Tile();
-        tile[10].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea3.png"));
+        tile[10].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea3.png"));
         tile[10].collision=true;
         tile[11] = new Tile();
-        tile[11].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/Sea4.png"));
+        tile[11].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea4.png"));
         tile[11].collision=true;
         tile[12] = new Tile();
-        tile[12].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaTop.png"));
+        tile[12].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/SeaTop.png"));
         tile[12].collision=true;
         tile[13] = new Tile();
-        tile[13].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaRight.png"));
+        tile[13].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/SeaRight.png"));
         tile[13].collision=true;
         tile[14] = new Tile();
-        tile[14].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaBottom.png"));
+        tile[14].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/SeaBottom.png"));
         tile[14].collision=true;
         tile[15] = new Tile();
-        tile[15].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/SeaLeft.png"));
+        tile[15].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/SeaLeft.png"));
         tile[15].collision=true;
         tile[16] = new Tile();
-        tile[16].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/TopLeft.png"));
+        tile[16].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/TopLeft.png"));
         tile[16].collision=true;
         tile[17] = new Tile();
-        tile[17].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/TopRight.png"));
+        tile[17].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/TopRight.png"));
         tile[17].collision=true;
         tile[18] = new Tile();
-        tile[18].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/BottomRight.png"));
+        tile[18].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/BottomRight.png"));
         tile[18].collision=true;
         tile[19] = new Tile();
-        tile[19].image = new Image(ClassLoader.getSystemResourceAsStream("tiles/BottomLeft.png"));
+        tile[19].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/BottomLeft.png"));
         tile[19].collision=true;
         setHouse();
         for (int i = 0; i < 120; i++) {
@@ -93,7 +93,7 @@ public class TileManager {
         for (int i = 1 ; i <= 10 ; i++) {
             for (int j = 1 ; j <= 10 ; j++) {
                 tile[index] = new Tile();
-                name = "objects/House/row-" + i + "-column-" + j + ".png";
+                name = "image/objects/House/row-" + i + "-column-" + j + ".png";
                 tile[index].image = new Image(ClassLoader.getSystemResourceAsStream(name));
                 index++;
             }
@@ -102,7 +102,7 @@ public class TileManager {
 
     public void loadMap() {
         try {
-            InputStream is = ClassLoader.getSystemResourceAsStream("maps/world01.txt");
+            InputStream is = ClassLoader.getSystemResourceAsStream("image/maps/world01.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int col = 0;
             int row = 0;

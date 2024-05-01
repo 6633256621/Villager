@@ -5,9 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class BlueSlime extends Slime {
-    private Image slime_jump_1 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_jumping_1.png"));
-    private Image slime_jump_2 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_jumping_2.png"));
-    private Image slime_jump_3 = new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_jumping_3.png"));
+    private Image slime_jump_1 = new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_jumping_1.png"));
+    private Image slime_jump_2 = new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_jumping_2.png"));
+    private Image slime_jump_3 = new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_jumping_3.png"));
 
     public BlueSlime(int x, int y) {
         super(x, y);
@@ -85,11 +85,11 @@ public class BlueSlime extends Slime {
         setDyingCounter(getDyingCounter() + 1);
 
         if (getDyingCounter() <= 10) {
-            setDef(new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_death1.png")));
+            setDef(new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_death1.png")));
         } else if (getDyingCounter() > 10 && getDyingCounter() <= 20) {
-            setDef(new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_death2.png")));
+            setDef(new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_death2.png")));
         } else if (getDyingCounter() > 20 && getDyingCounter() <= 30) {
-            setDef(new Image(ClassLoader.getSystemResourceAsStream("monster/slime/Blue/slime_death3.png")));
+            setDef(new Image(ClassLoader.getSystemResourceAsStream("image/slime/Blue/slime_death3.png")));
         } else if (getDyingCounter() > 30) {
             setDying(false);
             setAlive(false);

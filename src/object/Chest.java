@@ -26,7 +26,7 @@ public class Chest extends Item implements Storable {
         inventory.add(new HealthPotion());
         z=1;
         name = "Chest";
-        image = new Image(ClassLoader.getSystemResourceAsStream("objects/normal_chest.png"));
+        image = new Image(ClassLoader.getSystemResourceAsStream("image/objects/normal_chest.png"));
         setWorldX(x * Config.tileSize);
         setWorldY(y * Config.tileSize);
         setCollision(true);

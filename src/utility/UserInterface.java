@@ -44,20 +44,20 @@ public class UserInterface {
         boolean deadhalf = !(leftheart%2==0);
         int i=0;
         while (i<big) {
-            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/fullheart.png")),i*25,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("image/heart/fullheart.png")),i*25,10);
             i++;
         }
         if (half) {
-            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfheart.png")),i*25,10);
-            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfdeadheart.png")),i*25+11,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("image/heart/halfheart.png")),i*25,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("image/heart/halfdeadheart.png")),i*25+11,10);
             i++;
         }
         while (i<bigleftheart) {
-            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/deadheart.png")),i*25,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("image/heart/deadheart.png")),i*25,10);
             i++;
         }
         if (deadhalf) {
-            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("heart/halfdeadheartl.png")),i*25,10);
+            gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("image/heart/halfdeadheartl.png")),i*25,10);
         }
     }
     public void draw(GraphicsContext gc) {

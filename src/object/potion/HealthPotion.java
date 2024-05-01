@@ -10,7 +10,7 @@ public class HealthPotion extends Potion {
     public HealthPotion() {
         super();
         z=2;
-        image = new Image(ClassLoader.getSystemResourceAsStream("items/red_potion.png"));
+        image = new Image(ClassLoader.getSystemResourceAsStream("image/items/red_potion.png"));
         name ="Health Potion";
         price=5;
         description="["+name+"]\nFor healing";

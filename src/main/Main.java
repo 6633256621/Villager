@@ -2,6 +2,7 @@ package main;
 
 import config.Config;
 import config.GameState;
+import javafx.animation.*;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.KeyCode;
@@ -11,7 +12,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import logic.GameLogic;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -36,7 +36,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    private boolean first = false;
+    private boolean firstTime = false;
+    public static MediaPlayer mediaPlayer;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -64,8 +65,8 @@ public class Main extends Application {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
 
-        URL resource = getClass().getResource("bgMusic.mp3");
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(resource.toString()));
+        URL resource = getClass().getResource("sounds/bohemian.mp3");
+        mediaPlayer = new MediaPlayer(new Media(resource.toString()));
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             public void run() {
                 mediaPlayer.seek(Duration.ZERO);
@@ -85,6 +86,10 @@ public class Main extends Application {
             @Override
             public void handle(long now) {
                 if (GameState.start) {
+                    if(!firstTime) {
+                        fadeOutSound();
+                        firstTime=true;
+                    }
                     System.out.println(RootPane.getInstance().getChildren().size());
                     double elapsedTime = (now - startTime) / 1_000_000_000.0;
                     elapsedTime *= TIME_DILATION_FACTOR;
@@ -98,5 +103,12 @@ public class Main extends Application {
             }
         };
         animation.start();//start animation timer
+    }
+    private static void fadeOutSound() {
+        // Gradually decrease volume to 0 over 3 seconds
+        Timeline fadeOut = new Timeline(
+                new KeyFrame(Duration.seconds(0), new KeyValue(mediaPlayer.volumeProperty(), mediaPlayer.getVolume())),
+                new KeyFrame(Duration.seconds(3), new KeyValue(mediaPlayer.volumeProperty(), 0)));
+        fadeOut.play();
     }
 }

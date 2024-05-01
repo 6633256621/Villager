@@ -19,6 +19,6 @@ public class Config {
     public static int fixedPosition = 20;
     public static int day = 1;
 
-    public static Image sunPic = new Image(ClassLoader.getSystemResourceAsStream("days/sun2.png"));
-    public static Image moonPic = new Image(ClassLoader.getSystemResourceAsStream("days/moon.png"));
+    public static Image sunPic = new Image(ClassLoader.getSystemResourceAsStream("image/days/sun2.png"));
+    public static Image moonPic = new Image(ClassLoader.getSystemResourceAsStream("image/days/moon.png"));
 }

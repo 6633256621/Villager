@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 public class InfoPane extends VBox {
-    Image page = new Image(ClassLoader.getSystemResourceAsStream("buttons/background.png"));
+    Image page = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/background.png"));
 
     public InfoPane() {
         super();

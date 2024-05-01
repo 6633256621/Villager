@@ -16,10 +16,10 @@ import java.io.InputStream;
 
 public class MenuPane extends BorderPane {
     Button play, info; // Declare play, how, and info buttons
-    Image background = new Image(ClassLoader.getSystemResourceAsStream("backgrounds/menu.jpg"));
-    Image playPic = new Image(ClassLoader.getSystemResourceAsStream("buttons/play.png"));
-    Image infoPic = new Image(ClassLoader.getSystemResourceAsStream("buttons/info.png"));
-    Image gifImage = new Image(ClassLoader.getSystemResourceAsStream("buttons/slime.gif")); // Change "your_gif.gif" to your actual GIF file
+    Image background = new Image(ClassLoader.getSystemResourceAsStream("image/backgrounds/menu.jpg"));
+    Image playPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/play.png"));
+    Image infoPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/info.png"));
+    Image gifImage = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/slime.gif")); // Change "your_gif.gif" to your actual GIF file
     BackgroundImage backgroundImage = new BackgroundImage(background,
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT, new BackgroundSize(

@@ -3,9 +3,11 @@ import config.GameState;
 import javafx.animation.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import main.Main;
 
 public class Goto {
     public static void startGame() {
