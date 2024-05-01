@@ -14,7 +14,6 @@ public class Timer {
         // Start the clock from 06:00 instead of 00:00
         long startingTime = 6 * 3600; // 6 hours * 3600 seconds/hour
         long adjustedTime = ((long) elapsedTime + startingTime) % (24 * 3600); // Ensure time wraps around at 24:00
-
         gc.setFont(new Font("Georgia", 30));
         gc.setFill(Color.WHITE); // Set the color to white for clear visibility
         String formattedTime = formatTime(adjustedTime);
