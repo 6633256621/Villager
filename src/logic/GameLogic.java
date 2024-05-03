@@ -11,6 +11,7 @@ import object.items.Item;
 import object.monster.BlueSlime;
 import object.monster.PinkSlime;
 import object.monster.YellowSlime;
+import panel.GameOverPane;
 import panel.GamePanel;
 import render.RenderableHolder;
 import utility.CollisionChecker;
@@ -140,10 +141,16 @@ public class GameLogic {
             if (contactPlayer && !player.isInvincible()) {
                 player.setLife(player.getLife() - e.getAttack());
                 player.setInvincible(true);
+                if (player.getLife() <= 0) {
+                    GameOverPane.gameOver();
+                }
             }
             if (contactHouse && !house.isInvincible()) {
                 house.setLife(house.getLife() - e.getAttack());
                 house.setInvincible(true);
+                if (house.getLife() <= 0) {
+                    GameOverPane.gameOver();
+                }
             }
         }
     }

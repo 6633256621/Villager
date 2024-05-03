@@ -5,6 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import object.Player;
+import panel.GameOverPane;
 
 public class House extends Item {
     private int life, maxLife;

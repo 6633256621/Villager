@@ -1,5 +1,6 @@
 package object;
 
+import config.GameState;
 import config.Status;
 import interfacep.Storable;
 import javafx.scene.media.Media;
@@ -13,6 +14,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
+import panel.GameOverPane;
 import panel.GamePanel;
 import utility.InputUtility;
 
