@@ -2,6 +2,8 @@ package utility;
 
 import com.sun.javafx.tk.FontLoader;
 import config.Config;
+import config.GameState;
+import config.Status;
 import interfacep.Storable;
 import javafx.scene.image.Image;
 import object.Player;
@@ -29,6 +31,9 @@ public class UserInterface {
     public static int leftSlotRow = 0;
     public static int rightSlotCol = 0;
     public static int rightSlotRow = 0;
+    Image defenseImage = new Image(ClassLoader.getSystemResourceAsStream("image/items/def.png"));
+    Image speedImage = new Image(ClassLoader.getSystemResourceAsStream("image/items/speed.png"));
+    Image attackImage = new Image(ClassLoader.getSystemResourceAsStream("image/items/atk.png"));
 
 
     public UserInterface(GamePanel gp) {
@@ -92,6 +97,16 @@ public class UserInterface {
         }
         drawMoney(gc,customFont,p);
         drawHeart(gc);
+        drawStatus(gc);
+    }
+    public void drawStatus(GraphicsContext gc) {
+        if (Status.speedBuff) {
+            gc.drawImage(speedImage,0,30,Config.tileSize,Config.tileSize);
+        } if (Status.strengthBuff) {
+            gc.drawImage(attackImage,0,70,Config.tileSize,Config.tileSize);
+        } if (Status.dexBuff) {
+            gc.drawImage(defenseImage,0,110,Config.tileSize,Config.tileSize);
+        }
     }
 
     public void drawCharacterScreen(GraphicsContext gc) {
