@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import logic.GameLogic;
 import object.items.Hammer;
 import object.items.Item;
 import object.potion.DexPotion;
@@ -72,15 +73,24 @@ public class Trader extends Item {
     }
 
     public void update() {
-        checkPage();
-        if (isInteracted()) {
-            GameState.traderState = true;
-            drawTradeFrame();
+        if (GameState.nightState) {
+            setVisible(false);
+            setCollision(false);
         } else {
-            GameState.traderState = false;
-            GameState.chooseState = false;
+            setVisible(true);
+            setCollision(true);
         }
-        setInteracted(false);
+        if (isVisible()){
+            checkPage();
+            if (isInteracted()) {
+                GameState.traderState = true;
+                drawTradeFrame();
+            } else {
+                GameState.traderState = false;
+                GameState.chooseState = false;
+            }
+            setInteracted(false);
+        }
     }
 
     private void checkPage() {
