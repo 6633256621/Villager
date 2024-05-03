@@ -18,7 +18,7 @@ public class HealthPotion extends Potion {
     }
 
     @Override
-    public void use(int index, Player p) {
+    public void use( Player p) {
         p.setLife(p.getLife()+1);
     }
 }

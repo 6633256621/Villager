@@ -1,10 +1,10 @@
-package object;
+package object.items;
 
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import object.Player;
 
 public class House extends Item {
     private int life, maxLife;
@@ -72,7 +72,8 @@ public class House extends Item {
     }
 
     public void setLife(int life) {
-        this.life = Math.max(life, 0);
+        this.life = Math.min(life, getMaxLife());
+        this.life = Math.max(getLife(), 0);
     }
 
     public int getMaxLife() {

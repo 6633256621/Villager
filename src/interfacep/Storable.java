@@ -1,6 +1,6 @@
 package interfacep;
 
-import object.Item;
+import object.items.Item;
 
 import java.util.ArrayList;
 

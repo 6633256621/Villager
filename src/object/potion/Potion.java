@@ -4,5 +4,5 @@ import object.Player;
 import object.Thing;
 
 public abstract class Potion extends Thing {
-    public abstract void use(int index, Player p);
+    public abstract void use( Player p);
 }

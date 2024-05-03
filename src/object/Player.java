@@ -5,7 +5,7 @@ import interfacep.Storable;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import logic.GameLogic;
-import main.Main;
+import object.items.Item;
 import object.monster.Slime;
 import object.weapon.*;
 import config.Config;

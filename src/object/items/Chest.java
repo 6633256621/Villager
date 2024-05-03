@@ -1,4 +1,4 @@
-package object;
+package object.items;
 
 import config.Config;
 import config.GameState;
@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import object.Player;
 import object.potion.HealthPotion;
 import utility.InputUtility;
 import utility.UserInterface;

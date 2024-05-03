@@ -1,8 +1,6 @@
 package object.weapon;
 
 import javafx.scene.image.Image;
-import object.Item;
-import object.Player;
 import object.Thing;
 
 public abstract class BaseShield extends Thing {

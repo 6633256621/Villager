@@ -2,11 +2,9 @@ package utility;
 
 import config.Config;
 import logic.GameLogic;
-import object.House;
+import object.items.House;
 import object.Trader;
-import object.monster.Slime;
 import object.potion.HealthPotion;
-import panel.GamePanel;
 
 public class ObjectSetter {
     GameLogic gl;

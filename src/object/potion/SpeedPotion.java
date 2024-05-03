@@ -16,7 +16,7 @@ public class SpeedPotion extends Potion{
     }
 
     @Override
-    public void use(int index, Player p) {
+    public void use( Player p) {
         Status.speedBuff=true;
     }
 }

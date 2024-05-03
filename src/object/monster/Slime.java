@@ -3,10 +3,8 @@ package object.monster;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import logic.GameLogic;
-import main.Main;
 import object.Entity;
-import object.House;
+import object.items.House;
 import object.OBJ;
 import object.Player;
 import config.Config;
@@ -19,7 +17,6 @@ import utility.LoadUtility;
 import java.net.URL;
 
 import static main.Main.slimeDeadPlayer;
-import static main.Main.swordPlayer;
 import static utility.LoadUtility.*;
 
 public abstract class Slime extends Entity {

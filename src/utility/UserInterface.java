@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import object.Thing;
+import object.items.Hammer;
 import object.potion.Potion;
 import object.weapon.BaseShield;
 import object.weapon.BaseWeapon;
@@ -76,7 +77,10 @@ public class UserInterface {
                         p.setCurrentShield((BaseShield) p.getInventory().get(getItemIndexOnSlot("right")));
                         p.getInventory().remove(getItemIndexOnSlot("right"));
                     } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Potion) {
-                        ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use(getItemIndexOnSlot("right"), p);
+                        ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use( p);
+                        p.getInventory().remove(getItemIndexOnSlot("right"));
+                    } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Hammer) {
+                        ((Hammer) p.getInventory().get(getItemIndexOnSlot("right"))).use();
                         p.getInventory().remove(getItemIndexOnSlot("right"));
                     }
                 } catch (IndexOutOfBoundsException e) {

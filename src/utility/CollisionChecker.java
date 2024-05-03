@@ -1,14 +1,11 @@
 package utility;
 
 import config.Config;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import logic.GameLogic;
 import object.Entity;
-import object.House;
-import object.Item;
+import object.items.House;
+import object.items.Item;
 import object.Player;
-import object.monster.Slime;
 import panel.GamePanel;
 
 import java.util.ArrayList;

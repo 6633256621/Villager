@@ -16,7 +16,7 @@ public class StrengthPotion extends Potion{
     }
 
     @Override
-    public void use(int index, Player p) {
+    public void use( Player p) {
         Status.strengthBuff=true;
     }
 }

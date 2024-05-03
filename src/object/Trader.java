@@ -9,6 +9,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import object.items.Hammer;
+import object.items.Item;
 import object.potion.DexPotion;
 import object.potion.HealthPotion;
 import object.potion.SpeedPotion;
@@ -23,7 +25,7 @@ public class Trader extends Item {
     public static int optionCol = 0;
     public static int buyingRow = 0;
     public static int counter = 0;
-    Player p = Player.getInstance();
+    Player player = Player.getInstance();
     GraphicsContext gc = gp.getGraphicsContext2D();
     private ArrayList<Item> sellingItem;
     private Font customFont = new Font("Georgia", 20);
@@ -52,6 +54,7 @@ public class Trader extends Item {
         sellingItem.add(new PowerfulShield());
         sellingItem.add(new LegendarySword());
         sellingItem.add(new LegendaryShield());
+        sellingItem.add(new Hammer());
     }
 
     @Override
@@ -88,7 +91,7 @@ public class Trader extends Item {
     public void drawTradeFrame() {
         UserInterface.drawMoney(gc, customFont, player);
         if (GameState.chooseState) {
-            UserInterface.drawInventory(p, gc, "right");
+            UserInterface.drawInventory(player, gc, "right");
             UserInterface.drawMoney(gc, customFont, player);
             if (optionCol == 0) {//buy
                 drawBuyScreen();

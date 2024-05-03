@@ -1,13 +1,15 @@
-package object;
+package object.items;
 
 import config.Config;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
+import object.OBJ;
+import object.Player;
 import panel.GamePanel;
 
 
-public abstract class Item extends OBJ{
+public abstract class Item extends OBJ {
     protected Image image;
     protected String name;
     protected String description;
