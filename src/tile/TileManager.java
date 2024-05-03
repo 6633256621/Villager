@@ -82,7 +82,34 @@ public class TileManager {
         tile[19].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/BottomLeft.png"));
         tile[19].collision=true;
         setHouse();
-        for (int i = 0; i < 120; i++) {
+        tile[120] = new Tile();
+        tile[120].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 11.png"));
+        tile[120].collision=true;
+        tile[121] = new Tile();
+        tile[121].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 12.png"));
+        tile[121].collision=true;
+        tile[122] = new Tile();
+        tile[122].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 13.png"));
+        tile[122].collision=true;
+        tile[123] = new Tile();
+        tile[123].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 21.png"));
+        tile[123].collision=true;
+        tile[124] = new Tile();
+        tile[124].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 22.png"));
+        tile[124].collision=true;
+        tile[125] = new Tile();
+        tile[125].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 23.png"));
+        tile[125].collision=true;
+        tile[126] = new Tile();
+        tile[126].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 31.png"));
+        tile[126].collision=true;
+        tile[127] = new Tile();
+        tile[127].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 32.png"));
+        tile[127].collision=true;
+        tile[128] = new Tile();
+        tile[128].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 33.png"));
+        tile[128].collision=true;
+        for (int i = 0; i < 129; i++) {
             tile[i].makeScale(gp);
         }
     }
@@ -95,6 +122,17 @@ public class TileManager {
                 tile[index] = new Tile();
                 name = "image/objects/House/row-" + i + "-column-" + j + ".png";
                 tile[index].image = new Image(ClassLoader.getSystemResourceAsStream(name));
+                if (index >= 20 && index <= 29) {               // Set house top collision
+                    tile[index].setCollision(true);
+                } else if (index >= 30 && index <= 109) {       // Set house side collision
+                    if (index%10 == 0 || index %10 == 9) {
+                        tile[index].setCollision(true);
+                    }
+                } else if (index >= 110 && index <= 119) {      // Set house bottom collision
+                    if (index != 115 && index != 116) {         // Set collision except for the house door
+                        tile[index].setCollision(true);
+                    }
+                }
                 index++;
             }
         }

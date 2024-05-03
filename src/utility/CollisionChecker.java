@@ -34,80 +34,56 @@ public class CollisionChecker {
         int entityTopRow = entityTopWorldY / Config.tileSize;
         int entityBottomRow = entityBottomWorldY / Config.tileSize;
 
-        int tileNum1, tileNum2;
+        int tileNum1 = 0, tileNum2 = 0;
         switch (entity.getDirection()) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityTopRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityRightCol][entityTopRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityRightCol][entityBottomRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityTopRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityBottomRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityRightCol][entityTopRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityRightCol][entityBottomRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "upright":
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / Config.tileSize;
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityRightCol][entityTopRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityRightCol][entityTopRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "upleft":
                 entityTopRow = (entityTopWorldY - entity.getSpeed()) / Config.tileSize;
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityTopRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityTopRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "downright":
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / Config.tileSize;
                 entityRightCol = (entityRightWorldX + entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityRightCol][entityBottomRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityRightCol][entityBottomRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
             case "downleft":
                 entityBottomRow = (entityBottomWorldY + entity.getSpeed()) / Config.tileSize;
                 entityLeftCol = (entityLeftWorldX - entity.getSpeed()) / Config.tileSize;
                 tileNum1 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.getTileManager().getMapTileNum()[entityLeftCol][entityBottomRow];
-                if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
-                    entity.setCollisionOn(true);
-                }
                 break;
         }
-    }
-    private void checkTileFourDirection(int entityLeftCol,int entityRightCol,int entityTopRow,int entityBottomRow) {
-
+        if (gp.getTileManager().getTile()[tileNum1].isCollision() || gp.getTileManager().getTile()[tileNum2].isCollision()) {
+            entity.setCollisionOn(true);
+        }
     }
 
 
@@ -125,104 +101,41 @@ public class CollisionChecker {
                     switch (entity.getDirection()) {
                         case "up":
                             entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "down":
                             entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "left":
                             entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "right":
                             entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "upleft":
                             entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                             entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "downright":
                             entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
                             entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "downleft":
                             entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
                             entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
                         case "upright":
                             entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
                             entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                            if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
-                                if (e.isCollision()) {
-                                    entity.setCollisionOn(true);
-                                }
-                                if (player) {
-                                    index = i;
-                                }
-                                e.setInteracted(true);
-                            }
                             break;
+                    }
+                    if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
+                        if (e.isCollision() && !(e instanceof  House)) {
+                            entity.setCollisionOn(true);
+                        }
+                        if (player) {
+                            index = i;
+                        }
+                        e.setInteracted(true);
                     }
                 }
                 entity.getSolidArea().setX(entity.getSolidAreaDefaultX());

@@ -19,6 +19,7 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameLogic {
+    int day;
     private int spawnCounter = 0;
     private int slimeCounter = 0;
 
@@ -46,7 +47,7 @@ public class GameLogic {
         house = House.getInstance();
         gp = GamePanel.getInstance();
         gc = gp.getGraphicsContext2D();
-        chest1 = new Chest(23+ Config.fixedPosition,7+ Config.fixedPosition);
+        chest1 = new Chest(26+ Config.fixedPosition,22+ Config.fixedPosition);
         addNewObject(player);
         addNewObject(chest1);
         setupGame();
@@ -79,16 +80,16 @@ public class GameLogic {
     }
     private void checkState() {
         if (GameState.nightState) {
-            if (getSlimeCounter() < Config.day * 2 && getSpawnCounter() > 120) {
+            if (getSlimeCounter() < day * 2 && getSpawnCounter() > 120) {
                 setSpawnCounter(0);
                 addSlime();
             }
         }
         if (!GameState.nightState) {
             clearSlime();
+            setSlimeCounter(0);
+            day = Config.day;
         }
-        System.out.println("number of slime : " + getSlimeCounter());
-        System.out.println("slimeList : " + slimeList.size());
     }
     private void allObjectUpdate() {
         for(OBJ e:gameObjectContainer) {
