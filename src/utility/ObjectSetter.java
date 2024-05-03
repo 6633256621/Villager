@@ -18,6 +18,7 @@ public class ObjectSetter {
         gl.getGameObjectContainer().getLast().setWorldX((29+Config.fixedPosition)*Config.tileSize);
         gl.getGameObjectContainer().getLast().setWorldY((13+Config.fixedPosition)*Config.tileSize);
         gl.addNewObject(new Trader());
+        gl.addNewObject(new Trader());
         gl.addNewObject(house);
     }
 }

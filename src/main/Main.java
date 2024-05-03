@@ -93,7 +93,6 @@ public class Main extends Application {
                         fadeOutSound();
                         firstTime=true;
                     }
-                    System.out.println(RootPane.getInstance().getChildren().size());
                     double elapsedTime = (now - startTime) / 1_000_000_000.0;
                     elapsedTime *= TIME_DILATION_FACTOR;
                     gamepanel.paintComponent();
