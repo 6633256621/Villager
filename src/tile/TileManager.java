@@ -21,7 +21,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         this.player = Player.getInstance();
-        tile = new Tile[130];
+        tile = new Tile[139];
         mapTileNum = new int[Config.maxWorldCol][Config.maxWorldRow];
         getTileImage();
         loadMap();
@@ -29,24 +29,24 @@ public class TileManager {
 
     public void getTileImage() {
         tile[0] = new Tile();
-        tile[0].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/plain.png"));
+        tile[0].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land1.png"));
         tile[1] = new Tile();
-        tile[1].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/flower1.png"));
+        tile[1].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land4.png"));
         tile[2] = new Tile();
-        tile[2].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/flower2.png"));
+        tile[2].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land5.png"));
         tile[3] = new Tile();
-        tile[3].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/rock1.png"));
+        tile[3].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land7.png"));
         tile[4] = new Tile();
-        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/rock2.png"));
+        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land7.png"));
         tile[5] = new Tile();
-        tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/grass1.png"));
+        tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land6.png"));
         tile[6] = new Tile();
-        tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/grass2.png"));
+        tile[6].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Leaf.png"));
         tile[7] = new Tile();
         tile[7].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/wood.png"));
         tile[7].collision=true;
         tile[8] = new Tile();
-        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea1.png"));
+        tile[8].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/patravee.png"));
         tile[8].collision=true;
         tile[9] = new Tile();
         tile[9].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Sea2.png"));
@@ -109,7 +109,27 @@ public class TileManager {
         tile[128] = new Tile();
         tile[128].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Beach 33.png"));
         tile[128].collision=true;
-        for (int i = 0; i < 129; i++) {
+        tile[129] = new Tile();
+        tile[129].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 11.png"));
+        tile[130] = new Tile();
+        tile[130].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 12.png"));
+        tile[131] = new Tile();
+        tile[131].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 13.png"));
+        tile[132] = new Tile();
+        tile[132].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 21.png"));
+        tile[133] = new Tile();
+        tile[133].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 22.png"));
+        tile[134] = new Tile();
+        tile[134].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 23.png"));
+        tile[135] = new Tile();
+        tile[135].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 31.png"));
+        tile[136] = new Tile();
+        tile[136].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 32.png"));
+        tile[137] = new Tile();
+        tile[137].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 33.png"));
+        tile[138] = new Tile();
+        tile[138].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Pathm.png"));
+        for (int i = 0; i < 139; i++) {
             tile[i].makeScale(gp);
         }
     }
