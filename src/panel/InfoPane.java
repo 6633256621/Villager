@@ -8,7 +8,6 @@ import javafx.scene.layout.*;
 
 public class InfoPane extends VBox {
     Image page = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/background.png"));
-
     public InfoPane() {
         super();
         this.setAlignment(Pos.CENTER); // Center align the content of the VBox

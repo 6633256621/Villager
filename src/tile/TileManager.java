@@ -21,7 +21,7 @@ public class TileManager {
     public TileManager(GamePanel gp) {
         this.gp = gp;
         this.player = Player.getInstance();
-        tile = new Tile[139];
+        tile = new Tile[157];
         mapTileNum = new int[Config.maxWorldCol][Config.maxWorldRow];
         getTileImage();
         loadMap();
@@ -37,7 +37,7 @@ public class TileManager {
         tile[3] = new Tile();
         tile[3].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land7.png"));
         tile[4] = new Tile();
-        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land7.png"));
+        tile[4].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/rock.png"));
         tile[5] = new Tile();
         tile[5].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Land6.png"));
         tile[6] = new Tile();
@@ -129,7 +129,49 @@ public class TileManager {
         tile[137].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Path 33.png"));
         tile[138] = new Tile();
         tile[138].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Pathm.png"));
-        for (int i = 0; i < 139; i++) {
+        tile[139] = new Tile();
+        tile[139].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 11.png"));
+        tile[140] = new Tile();
+        tile[140].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 12.png"));
+        tile[141] = new Tile();
+        tile[141].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 13.png"));
+        tile[142] = new Tile();
+        tile[142].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 21.png"));
+        tile[143] = new Tile();
+        tile[143].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 22.png"));
+        tile[144] = new Tile();
+        tile[144].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 23.png"));
+        tile[145] = new Tile();
+        tile[145].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 31.png"));
+        tile[146] = new Tile();
+        tile[146].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 32.png"));
+        tile[147] = new Tile();
+        tile[147].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 33.png"));
+        tile[148] = new Tile();
+        tile[148].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 41.png"));
+        tile[148].collision=true;
+        tile[149] = new Tile();
+        tile[149].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 42.png"));
+        tile[149].collision=true;
+        tile[150] = new Tile();
+        tile[150].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 43.png"));
+        tile[150].collision=true;
+        tile[151] = new Tile();
+        tile[151].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 51.png"));
+        tile[151].collision=true;
+        tile[152] = new Tile();
+        tile[152].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 52.png"));
+        tile[152].collision=true;
+        tile[153] = new Tile();
+        tile[153].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/bridge 53.png"));
+        tile[153].collision=true;
+        tile[154] = new Tile();
+        tile[154].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Pathm2.png"));
+        tile[155] = new Tile();
+        tile[155].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Pathm3.png"));
+        tile[156] = new Tile();
+        tile[156].image = new Image(ClassLoader.getSystemResourceAsStream("image/tiles/Pathm4.png"));
+        for (int i = 0; i < 157; i++) {
             tile[i].makeScale(gp);
         }
     }
