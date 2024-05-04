@@ -14,7 +14,7 @@ public class HealthPotion extends Potion {
         name ="Health Potion";
         price=5;
         description="["+name+"]\nFor healing";
-        collision=false;
+        isCollision=false;
     }
 
     @Override

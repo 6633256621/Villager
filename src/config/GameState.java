@@ -2,14 +2,14 @@ package config;
 import javafx.scene.image.Image;
 
 public class GameState {
-    public static boolean chestState,traderState,chooseState;
-    public static boolean start = false;
-    public static boolean normalState;
-    public static boolean nightState = false;
-    public static boolean dayIncremented = false;
+    public static boolean isChestState,isTraderState,isChooseState;
+    public static boolean isStart = false;
+    public static boolean isNormalState;
+    public static boolean isNightState = false;
+    public static boolean isDayIncremented = false;
     public static void update() {
-        normalState= !chestState && !traderState;
-        if (!nightState) {
+        isNormalState= !isChestState && !isTraderState;
+        if (!isNightState) {
             dayPic = Config.sunPic;
         } else {
             dayPic = Config.moonPic;

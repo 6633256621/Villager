@@ -6,8 +6,8 @@ import render.Renderable;
 public abstract class OBJ implements Renderable {
     protected int worldX,worldY;
     protected int z;
-    protected boolean destroyed;//default is false
-    protected boolean visible;
+    protected boolean isDestroyed;//default is false
+    protected boolean isVisible;
     protected GamePanel gp;
     @Override
     public int getZ() {
@@ -19,33 +19,20 @@ public abstract class OBJ implements Renderable {
     }
 
     public void setVisible(boolean visible) {
-        this.visible = visible;
+        this.isVisible = visible;
     }
-    //@Override
-    //public void draw() {
-        //depend on that object
-        //So I won't deploy on this abstract class
-    //}
 
     @Override
     public boolean isVisible() {
-        return visible;
-    }
-
-    public GamePanel getGp() {
-        return gp;
-    }
-
-    public void setGp(GamePanel gp) {
-        this.gp = gp;
+        return isVisible;
     }
 
     public boolean isDestroyed() {
-        return destroyed;
+        return isDestroyed;
     }
 
     public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
+        this.isDestroyed = destroyed;
     }
     public int getWorldX() {
         return worldX;

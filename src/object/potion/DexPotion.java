@@ -12,7 +12,7 @@ public class DexPotion extends Potion{
         name ="DEX Potion";
         price=5;
         description="["+name+"]\nFor increase DEX";
-        collision=false;
+        isCollision=false;
     }
 
     @Override

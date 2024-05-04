@@ -11,8 +11,8 @@ import panel.GamePanel;
 import java.util.ArrayList;
 
 public class CollisionChecker {
-    GamePanel gp;
-    GameLogic gl;
+    private GamePanel gp;
+    private GameLogic gl;
     private Player player = Player.getInstance();
 
     public CollisionChecker(GamePanel gp, GameLogic gl) {
@@ -95,36 +95,8 @@ public class CollisionChecker {
                     e.getSolidArea().setX(e.getWorldX() + e.getSolidArea().getX());
                     e.getSolidArea().setY(e.getWorldY() + e.getSolidArea().getY());
 
-                    switch (entity.getDirection()) {
-                        case "up":
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                            break;
-                        case "down":
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            break;
-                        case "left":
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                            break;
-                        case "right":
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                            break;
-                        case "upleft":
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                            break;
-                        case "downright":
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            break;
-                        case "downleft":
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                            break;
-                        case "upright":
-                            entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                            entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                            break;
-                    }
+                    setEntitySolidArea(entity);
+
                     if (entity.getSolidArea().getBoundsInParent().intersects(e.getSolidArea().getBoundsInParent())) {
                         if (e.isCollision() && !(e instanceof  House)) {
                             entity.setCollisionOn(true);
@@ -153,36 +125,7 @@ public class CollisionChecker {
                 target.get(i).getSolidArea().setX(target.get(i).getWorldX() + target.get(i).getSolidArea().getX());
                 target.get(i).getSolidArea().setY(target.get(i).getWorldY() + target.get(i).getSolidArea().getY());
 
-                switch (entity.getDirection()) {
-                    case "up":
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                        break;
-                    case "down":
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                        break;
-                    case "left":
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                        break;
-                    case "right":
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                        break;
-                    case "upleft":
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                        break;
-                    case "downright":
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                        break;
-                    case "downleft":
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                        break;
-                    case "upright":
-                        entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                        entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                        break;
-                }
+                setEntitySolidArea(entity);
 
                 if (entity.getSolidArea().getBoundsInParent().intersects(target.get(i).getSolidArea().getBoundsInParent())) {
                     if (target.get(i) != entity) {
@@ -210,36 +153,7 @@ public class CollisionChecker {
         player.getSolidArea().setX(player.getWorldX() + player.getSolidArea().getX());
         player.getSolidArea().setY(player.getWorldY() + player.getSolidArea().getY());
 
-        switch (entity.getDirection()) {
-            case "up":
-                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                break;
-            case "down":
-                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                break;
-            case "left":
-                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                break;
-            case "right":
-                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                break;
-            case "upleft":
-                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                break;
-            case "downright":
-                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                break;
-            case "downleft":
-                entity.getSolidArea().setX(entity.getSolidArea().getX() - entity.getSpeed());
-                entity.getSolidArea().setY(entity.getSolidArea().getY() + entity.getSpeed());
-                break;
-            case "upright":
-                entity.getSolidArea().setX(entity.getSolidArea().getX() + entity.getSpeed());
-                entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
-                break;
-        }
+        setEntitySolidArea(entity);
 
         if (entity.getSolidArea().getBoundsInParent().intersects(player.getSolidArea().getBoundsInParent())) {
             entity.setCollisionOn(true);
@@ -262,6 +176,22 @@ public class CollisionChecker {
         house.getSolidArea().setX(house.getWorldX() + house.getSolidArea().getX());
         house.getSolidArea().setY(house.getWorldY() + house.getSolidArea().getY());
 
+        setEntitySolidArea(entity);
+
+        if (entity.getSolidArea().getBoundsInParent().intersects(house.getSolidArea().getBoundsInParent())) {
+            entity.setCollisionOn(true);
+            contactHouse = true;
+        }
+
+        entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
+        entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
+        house.getSolidArea().setX(house.getSolidAreaDefaultX());
+        house.getSolidArea().setY(house.getSolidAreaDefaultY());
+
+        return contactHouse;
+    }
+
+    public void setEntitySolidArea(Entity entity) {
         switch (entity.getDirection()) {
             case "up":
                 entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
@@ -292,17 +222,5 @@ public class CollisionChecker {
                 entity.getSolidArea().setY(entity.getSolidArea().getY() - entity.getSpeed());
                 break;
         }
-
-        if (entity.getSolidArea().getBoundsInParent().intersects(house.getSolidArea().getBoundsInParent())) {
-            entity.setCollisionOn(true);
-            contactHouse = true;
-        }
-
-        entity.getSolidArea().setX(entity.getSolidAreaDefaultX());
-        entity.getSolidArea().setY(entity.getSolidAreaDefaultY());
-        house.getSolidArea().setX(house.getSolidAreaDefaultX());
-        house.getSolidArea().setY(house.getSolidAreaDefaultY());
-
-        return contactHouse;
     }
 }

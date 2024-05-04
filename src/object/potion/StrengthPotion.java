@@ -12,7 +12,7 @@ public class StrengthPotion extends Potion{
         name ="Strength Potion";
         price=5;
         description="["+name+"]\nFor increase strength";
-        collision=false;
+        isCollision=false;
     }
 
     @Override

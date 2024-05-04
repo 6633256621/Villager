@@ -13,10 +13,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class TileManager {
-    GamePanel gp;
-    Player player;
-    Tile[] tile;
-    int mapTileNum[][];
+    private GamePanel gp;
+    private Player player;
+    private Tile[] tile;
+    private int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -262,15 +262,7 @@ public class TileManager {
         return tile;
     }
 
-    public void setTile(Tile[] tile) {
-        this.tile = tile;
-    }
-
     public int[][] getMapTileNum() {
         return mapTileNum;
-    }
-
-    public void setMapTileNum(int[][] mapTileNum) {
-        this.mapTileNum = mapTileNum;
     }
 }

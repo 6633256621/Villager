@@ -26,8 +26,8 @@ public class Trader extends Item {
     public static int optionCol = 0;
     public static int buyingRow = 0;
     public static int counter = 0;
-    Player player = Player.getInstance();
-    GraphicsContext gc = gp.getGraphicsContext2D();
+    private Player player = Player.getInstance();
+    private GraphicsContext gc = gp.getGraphicsContext2D();
     private ArrayList<Item> sellingItem;
     private Font customFont = new Font("Georgia", 20);
 
@@ -74,7 +74,7 @@ public class Trader extends Item {
     }
 
     public void update() {
-        if (GameState.nightState) {
+        if (GameState.isNightState) {
             setVisible(false);
             setCollision(false);
         } else {
@@ -84,11 +84,11 @@ public class Trader extends Item {
         if (isVisible()){
             checkPage();
             if (isInteracted()) {
-                GameState.traderState = true;
+                GameState.isTraderState = true;
                 drawTradeFrame();
             } else {
-                GameState.traderState = false;
-                GameState.chooseState = false;
+                GameState.isTraderState = false;
+                GameState.isChooseState = false;
             }
             setInteracted(false);
         }
@@ -101,7 +101,7 @@ public class Trader extends Item {
 
     public void drawTradeFrame() {
         UserInterface.drawMoney(gc, customFont, player);
-        if (GameState.chooseState) {
+        if (GameState.isChooseState) {
             UserInterface.drawInventory(player, gc, "right");
             UserInterface.drawMoney(gc, customFont, player);
             if (optionCol == 0) {//buy
@@ -112,7 +112,7 @@ public class Trader extends Item {
         } else {
             drawOptionFrame();
             if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)) {
-                GameState.chooseState = true;
+                GameState.isChooseState = true;
             }
         }
     }
@@ -137,6 +137,7 @@ public class Trader extends Item {
         gc.fillText("Price For Sell : " + value, Config.tileSize * 4.5, Config.tileSize * 3);
 
     }
+
     public static void drawInfoScreen(GraphicsContext gc) {
         UserInterface.drawSubWindow(Config.tileSize*13, Config.tileSize, 10 * Config.tileSize, 3 * Config.tileSize, gc);
     }
@@ -161,6 +162,7 @@ public class Trader extends Item {
             }
         }
     }
+
     private void buy() {
         if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
             Sellable target;
@@ -230,6 +232,5 @@ public class Trader extends Item {
         gc.fillText("Buy", Config.tileSize * (frameX) + 20, Config.tileSize * (frameY + 1));
         //Option 2
         gc.fillText("Sell", Config.tileSize * (frameX) + 20, Config.tileSize * (frameY + 2));
-        //Option 3
     }
 }

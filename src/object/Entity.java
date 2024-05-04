@@ -3,20 +3,18 @@ package object;
 import javafx.scene.shape.Rectangle;
 
 public abstract class Entity extends OBJ {
-    protected int speed,
-            sideSpeed;
+    protected int speed, sideSpeed;
     private int strength, attack, defense;
     protected Rectangle solidArea;
     protected Rectangle attackArea;
 
     protected int solidAreaDefaultX,solidAreaDefaultY;
-    protected boolean collisionOn=false;
-    protected boolean collision = false;
+    protected boolean isCollisionOn=false;
     protected String direction;
-    protected boolean invincible = false;
-    protected boolean hpBarOn = false;
-    protected boolean alive = true;
-    private boolean dying = false;
+    protected boolean isInvincible = false;
+    protected boolean isHpBarOn = false;
+    protected boolean isAlive = true;
+    private boolean isDying = false;
     protected int invincibleCounter = 0;
     protected int hpBarCounter = 0;
     protected int dyingCounter = 0;
@@ -56,11 +54,11 @@ public abstract class Entity extends OBJ {
     }
 
     public boolean isCollisionOn() {
-        return collisionOn;
+        return isCollisionOn;
     }
 
     public void setCollisionOn(boolean collisionOn) {
-        this.collisionOn = collisionOn;
+        this.isCollisionOn = collisionOn;
     }
 
     public int getSpeed() {
@@ -88,28 +86,14 @@ public abstract class Entity extends OBJ {
 
 
     public boolean isInvincible() {
-        return invincible;
+        return isInvincible;
     }
 
     public void setInvincible(boolean invincible) {
-        this.invincible = invincible;
+        this.isInvincible = invincible;
     }
 
-    public int getInvincibleCounter() {
-        return invincibleCounter;
-    }
-
-    public void setInvincibleCounter(int invincibleCounter) {
-        this.invincibleCounter = invincibleCounter;
-    }
-
-    public void update() {
-
-    }
-    public boolean isCollision() {
-        return collision;
-    }
-
+    public void update() {}
 
     public int getLife() {
         return life;
@@ -128,36 +112,24 @@ public abstract class Entity extends OBJ {
         this.maxLife = maxLife;
     }
 
-    public boolean isHpBarOn() {
-        return hpBarOn;
-    }
-
     public void setHpBarOn(boolean hpBarOn) {
-        this.hpBarOn = hpBarOn;
-    }
-
-    public int getHpBarCounter() {
-        return hpBarCounter;
-    }
-
-    public void setHpBarCounter(int hpBarCounter) {
-        this.hpBarCounter = hpBarCounter;
+        this.isHpBarOn = hpBarOn;
     }
 
     public boolean isAlive() {
-        return alive;
+        return isAlive;
     }
 
     public void setAlive(boolean alive) {
-        this.alive = alive;
+        this.isAlive = alive;
     }
 
     public boolean isDying() {
-        return dying;
+        return isDying;
     }
 
     public void setDying(boolean dying) {
-        this.dying = dying;
+        this.isDying = dying;
     }
 
     public int getDyingCounter() {
@@ -166,10 +138,6 @@ public abstract class Entity extends OBJ {
 
     public void setDyingCounter(int dyingCounter) {
         this.dyingCounter = dyingCounter;
-    }
-
-    public int getSideSpeed() {
-        return sideSpeed;
     }
 
     public int getStrength() {

@@ -13,9 +13,9 @@ public abstract class Item extends OBJ {
     protected Image image;
     protected String name;
     protected String description;
-    protected boolean collision = false;
-    protected boolean interacted;
-    Player player;
+    protected boolean isCollision = false;
+    protected boolean isInteracted;
+    protected Player player;
     protected Rectangle solidArea = new Rectangle(0,0,Config.tileSize,Config.tileSize);
     protected int solidAreaDefaultX = 0;
     protected int solidAreaDefaultY = 0;
@@ -58,11 +58,11 @@ public abstract class Item extends OBJ {
     }
 
     public boolean isCollision() {
-        return collision;
+        return isCollision;
     }
 
     public void setCollision(boolean collision) {
-        this.collision = collision;
+        this.isCollision = collision;
     }
 
     public Player getPlayer() {
@@ -89,16 +89,12 @@ public abstract class Item extends OBJ {
         return solidAreaDefaultY;
     }
 
-    public void setSolidArea(Rectangle solidArea) {
-        this.solidArea = solidArea;
-    }
-
     public boolean isInteracted() {
-        return interacted;
+        return isInteracted;
     }
     public void update() {}
 
     public void setInteracted(boolean interacted) {
-        this.interacted = interacted;
+        this.isInteracted = interacted;
     }
 }

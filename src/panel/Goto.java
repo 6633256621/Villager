@@ -40,7 +40,7 @@ public class Goto {
 
         // Play the first fill transition
         fillToBlack.play();
-        GameState.start = true;
+        GameState.isStart = true;
     }
 
     public static void infoScreen() {

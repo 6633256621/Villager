@@ -10,11 +10,9 @@ import java.util.ArrayList;
 
 public class InputUtility {
     private static boolean isClicked = false;
-    private static boolean keyPressHandled = false;
-    private static ArrayList<KeyCode> lastKeyPressed = new ArrayList<>();
+    private static boolean isKeyPressHandled = false;
     //array of all button which is interacted
     private static ArrayList<KeyCode> keyPressed = new ArrayList<>();
-    private static int i = 0;
 
     public static boolean isKeyPressed(KeyCode keycode) {
         if (keycode.equals(KeyCode.RIGHT) && keyPressed.contains(keycode)) {
@@ -75,26 +73,26 @@ public class InputUtility {
             //if release then remove from array
             else {
                 keyPressed.remove(keycode);
-                keyPressHandled = false;
+                isKeyPressHandled = false;
             }
         }
     }
     private static void checkPress(KeyCode keycode) {
 
-        if (keyPressHandled) {
+        if (isKeyPressHandled) {
             keyPressed.remove(keycode);
-            keyPressHandled = true;
-        } else if (!keyPressHandled && !keyPressed.contains(keycode)) {
+            isKeyPressHandled = true;
+        } else if (!isKeyPressHandled && !keyPressed.contains(keycode)) {
             keyPressed.add(keycode);
-            keyPressHandled = true;
-            if (keyPressed.contains(KeyCode.R) || GameState.chestState|| GameState.traderState) {
+            isKeyPressHandled = true;
+            if (keyPressed.contains(KeyCode.R) || GameState.isChestState|| GameState.isTraderState) {
                 if (keyPressed.contains(KeyCode.J)) {
                     pressJ(keycode);
                 } else {
                     notPressJ(keycode);
                 }
             }
-            if (GameState.traderState && !GameState.chooseState) {
+            if (GameState.isTraderState && !GameState.isChooseState) {
                 traderCheck(keycode);
             }
         }
@@ -146,6 +144,7 @@ public class InputUtility {
             }
         }
     }
+
     private static void notPressJ(KeyCode keycode) {
         if (keycode.equals(KeyCode.UP)) {
             UserInterface.rightSlotRow--;
@@ -172,28 +171,25 @@ public class InputUtility {
             }
         }
     }
+
     public class MouseInputUtility {
-        private static boolean mouseClicked;
+        private static boolean isMouseClicked;
 
         public static void handleMousePressed(MouseEvent event) {
             if (event.isPrimaryButtonDown()) {
-                if (!mouseClicked) {
-                    mouseClicked = true;
+                if (!isMouseClicked) {
+                    isMouseClicked = true;
                 }
             }
         }
 
         public static boolean isMouseClicked() {
-            if (mouseClicked) {
-                mouseClicked = false; // Automatically reset after one click
+            if (isMouseClicked) {
+                isMouseClicked = false; // Automatically reset after one click
                 return true;
             }
             return false;
         }
-    }
-
-    public static boolean isOnlyOneKeyPressed() {
-        return keyPressed.size() == 1;
     }
 
     public static ArrayList<KeyCode> getKeyPressed() {

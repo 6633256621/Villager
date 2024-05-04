@@ -1,8 +1,8 @@
+// Logic for game
 package logic;
 
 import config.Config;
 import config.GameState;
-import javafx.scene.canvas.GraphicsContext;
 import object.*;
 import object.OBJ;
 import object.items.Chest;
@@ -12,7 +12,6 @@ import object.monster.BlueSlime;
 import object.monster.PinkSlime;
 import object.monster.YellowSlime;
 import panel.GameOverPane;
-import panel.GamePanel;
 import render.RenderableHolder;
 import utility.CollisionChecker;
 import utility.ObjectSetter;
@@ -22,7 +21,7 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameLogic {
-    int day;
+    private int day;
     private int spawnCounter = 0;
     private int slimeCounter = 0;
 
@@ -36,8 +35,11 @@ public class GameLogic {
     private Chest chest1;
     private RenderableHolder renderableHolder;
     private House house;
-    GamePanel gp;
-    public GraphicsContext gc;
+    public static GameLogic instance;
+    public static GameLogic getInstance() {
+        instance = new GameLogic();
+        return instance;
+    }
 
     //constructor(setup for all entity)
     public GameLogic() {
@@ -48,13 +50,12 @@ public class GameLogic {
         slimeList = new ArrayList<>(20);
         renderableHolder = RenderableHolder.getInstance();
         house = House.getInstance();
-        gp = GamePanel.getInstance();
-        gc = gp.getGraphicsContext2D();
         chest1 = new Chest(26+ Config.fixedPosition,22+ Config.fixedPosition);
         addNewObject(player);
         addNewObject(chest1);
         setupGame();
     }
+
     private void setupGame() {
         objectSetter.setObject();
     }
@@ -82,13 +83,13 @@ public class GameLogic {
         checkHit();
     }
     private void checkState() {
-        if (GameState.nightState) {
+        if (GameState.isNightState) {
             if (getSlimeCounter() < day * 2 && getSpawnCounter() > 120) {
                 setSpawnCounter(0);
                 addSlime();
             }
         }
-        if (!GameState.nightState) {
+        if (!GameState.isNightState) {
             clearSlime();
             setSlimeCounter(0);
             day = Config.day;
@@ -141,43 +142,23 @@ public class GameLogic {
             if (contactPlayer && !player.isInvincible()) {
                 player.setLife(player.getLife() - e.getAttack());
                 player.setInvincible(true);
-                if (player.getLife() <= 0) {
-                    GameOverPane.gameOver();
-                }
             }
             if (contactHouse && !house.isInvincible()) {
                 house.setLife(house.getLife() - e.getAttack());
                 house.setInvincible(true);
-                if (house.getLife() <= 0) {
-                    GameOverPane.gameOver();
-                }
             }
+            checkGameOver();
         }
     }
 
-    //getter
-    public Player getPlayer() {
-        return player;
+    private void checkGameOver() {
+        if (player.getLife() <= 0 || house.getLife() <= 0) {
+            GameOverPane.gameOver();
+        } else {
+            // do nothing
+        }
     }
 
-    public List<OBJ> getGameObjectContainer() {
-        return gameObjectContainer;
-    }
-
-    public Chest getChest1() {
-        return chest1;
-    }
-    public static GameLogic instance;
-    public static GameLogic getInstance() {
-        instance = new GameLogic();
-        return instance;
-    }
-
-    public ArrayList<Entity> getSlimeList() {
-        return slimeList;
-    }
-
-    //
     public void addSlime() {
         if (Config.day < 5) {
             firstPhase();
@@ -235,13 +216,30 @@ public class GameLogic {
     }
 
     public void clearSlime() {
-        if (slimeList.size() > 0) {
+        if (!slimeList.isEmpty()) {
             for (int i = 0; i < slimeList.size(); i++) {
                 removeObject(slimeList.get(i));
             }
             slimeList.clear();
             setSlimeCounter(0);
         }
+    }
+
+    //getter
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<OBJ> getGameObjectContainer() {
+        return gameObjectContainer;
+    }
+
+    public Chest getChest1() {
+        return chest1;
+    }
+
+    public ArrayList<Entity> getSlimeList() {
+        return slimeList;
     }
 
     public int getSpawnCounter() {

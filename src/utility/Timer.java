@@ -27,24 +27,24 @@ public class Timer {
         }
         // Check if the adjusted time is 18:00
         if (formattedTime.equals("18:00")) {
-            GameState.nightState = true;
+            GameState.isNightState = true;
         }
         if (formattedTime.equals("06:00")) {
-            GameState.nightState = false;
+            GameState.isNightState = false;
         }
 
         // Check if the adjusted time is 00:00 and day hasn't been incremented yet
-        if (formattedTime.equals("00:00") && !GameState.dayIncremented) {
+        if (formattedTime.equals("00:00") && !GameState.isDayIncremented) {
             Config.day++; // Increment the day
             Status.dexBuff=false;
             Status.strengthBuff=false;
             Status.speedBuff=false;
-            GameState.dayIncremented = true; // Mark day as incremented
+            GameState.isDayIncremented = true; // Mark day as incremented
         }
 
         // Reset the dayIncremented flag if the adjusted time is not 00:00
         if (!formattedTime.equals("00:00")) {
-            GameState.dayIncremented = false;
+            GameState.isDayIncremented = false;
         }
 
         gc.fillText("Day : "+Config.day, Config.tileSize * 27, Config.tileSize);

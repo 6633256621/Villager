@@ -18,9 +18,9 @@ import static object.Trader.drawInfoScreen;
 
 public class Chest extends Item implements Storable {
     private ArrayList<Item> inventory;
-    GraphicsContext gc = gp.getGraphicsContext2D();
-    int slotCol,slotRow;
+    private GraphicsContext gc = gp.getGraphicsContext2D();
     private Player player = Player.getInstance();
+
     public Chest(int x, int y) {
         super();
         inventory = new ArrayList<>();
@@ -32,15 +32,16 @@ public class Chest extends Item implements Storable {
         setWorldY(y * Config.tileSize);
         setCollision(true);
     }
+
     public void update() {
         if (isInteracted()) {
-            GameState.chestState=true;
+            GameState.isChestState=true;
             drawInfoScreen(gc);
             gc.setFill(Color.WHITE);
             gc.fillText("[Press J to change side of the windows]",Config.tileSize*14.35, Config.tileSize*2);
             gc.fillText("[Press ENTER to transfer the items]",Config.tileSize*14.85, Config.tileSize*3);
             drawStoreFrame();
-            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)&&GameState.chestState) {
+            if (InputUtility.getKeyPressed().contains(KeyCode.ENTER)&&GameState.isChestState) {
                 if (InputUtility.getKeyPressed().contains(KeyCode.J)) {
                     pickUp("left");
                 } else {
@@ -48,14 +49,16 @@ public class Chest extends Item implements Storable {
                 }
             }
         } else {
-            GameState.chestState=false;
+            GameState.isChestState=false;
         }
         setInteracted(false);
     }
+
     private void drawStoreFrame() {
         UserInterface.drawInventory(this,gp.getGraphicsContext2D(),"left");
         UserInterface.drawInventory(player,gp.getGraphicsContext2D(),"right");
     }
+
     private void pickUp(String side) {
         Item target;
         if (side=="right") {
@@ -68,6 +71,7 @@ public class Chest extends Item implements Storable {
             player.getInventory().add(target);
         }
     }
+
     @Override
     public boolean isVisible() {
         return true;

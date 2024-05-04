@@ -31,11 +31,6 @@ import java.util.TimerTask;
 public class Main extends Application {
     private final double TIME_DILATION_FACTOR = 240.0;
     private long startTime;
-
-    public static void Main(String[] args) {
-        launch(args);
-    }
-
     private boolean firstTime = false;
     public static MediaPlayer songPlayer,swordPlayer,slimeDeadPlayer;
 
@@ -62,7 +57,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setTitle("Villager");
         stage.setResizable(false);
-        stage.setFullScreen(true);
+//        stage.setFullScreen(true);
         stage.show();
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setBrightness(-0.5); // Darken the canvas by reducing brightness
@@ -88,7 +83,7 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (GameState.start) {
+                if (GameState.isStart) {
                     if(!firstTime) {
                         fadeOutSound();
                         firstTime=true;

@@ -5,14 +5,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import object.Player;
-import panel.GameOverPane;
 
 public class House extends Item {
     private int life, maxLife;
-    protected boolean invincible = false;
+    protected boolean isInvincible = false;
     protected int invincibleCounter = 0;
-    Player p = Player.getInstance();
-    GraphicsContext gc = gp.getGraphicsContext2D();
 
     public static House instance = new House();
 
@@ -48,10 +45,10 @@ public class House extends Item {
     }
 
     public void update() {
-        if (invincible) {
+        if (isInvincible) {
             invincibleCounter++;
             if (invincibleCounter > 60) {
-                invincible = false;
+                isInvincible = false;
                 invincibleCounter = 0;
             }
         }
@@ -86,18 +83,11 @@ public class House extends Item {
     }
 
     public boolean isInvincible() {
-        return invincible;
+        return isInvincible;
     }
 
     public void setInvincible(boolean invincible) {
-        this.invincible = invincible;
+        this.isInvincible = invincible;
     }
 
-    public int getInvincibleCounter() {
-        return invincibleCounter;
-    }
-
-    public void setInvincibleCounter(int invincibleCounter) {
-        this.invincibleCounter = invincibleCounter;
-    }
 }

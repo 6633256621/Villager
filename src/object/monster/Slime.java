@@ -22,8 +22,8 @@ import static utility.LoadUtility.*;
 public abstract class Slime extends Entity {
     private Player player;
     private House house;
-    private boolean knockBack;
-    private boolean added;
+    private boolean isKnockBack;
+    private boolean isAdded;
     //counter
     private int spriteCounter;
     private int value;
@@ -32,7 +32,7 @@ public abstract class Slime extends Entity {
     private int knockBackCounter;
 
     //Character Attributes
-    GamePanel gp = GamePanel.getInstance();
+    private GamePanel gp = GamePanel.getInstance();
 
     //display image at that moment
     private Image def;
@@ -42,8 +42,8 @@ public abstract class Slime extends Entity {
         super();
         player = Player.getInstance();
         house = House.getInstance();
-        knockBack = false;
-        added = false;
+        isKnockBack = false;
+        isAdded = false;
         //spawn position
         worldX = Config.tileSize * (x + Config.fixedPosition);
         worldY = Config.tileSize * (y + Config.fixedPosition);
@@ -176,15 +176,15 @@ public abstract class Slime extends Entity {
 
     // fetch house position
     public void update() {
-        if (knockBack) {
+        if (isKnockBack) {
             knockbackAction();
         }
         else {
             if (isDying()) {
                 drawDead(gp.getGc());
-                if (!added) {
+                if (!isAdded) {
                     player.setMoney(player.getMoney()+this.value);
-                    added=true;
+                    isAdded=true;
                 }
             } else {
                 spriteCounter++;
@@ -223,7 +223,7 @@ public abstract class Slime extends Entity {
         knockBackCounter++;
         if (knockBackCounter==10) {
             knockBackCounter=0;
-            knockBack=false;
+            isKnockBack=false;
             speed=defaultSpeed;
             setSideSpeed(speed);
         }
@@ -251,12 +251,8 @@ public abstract class Slime extends Entity {
         this.speed = speed;
     }
 
-    public boolean isKnockBack() {
-        return knockBack;
-    }
-
     public void setKnockBack(boolean knockBack) {
-        this.knockBack = knockBack;
+        this.isKnockBack = knockBack;
     }
 
     public Image getDef() {

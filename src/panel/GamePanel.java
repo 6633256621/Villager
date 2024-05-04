@@ -20,7 +20,7 @@ import utility.UserInterface;
 
 public class GamePanel extends Canvas {
     public static GamePanel instance;
-    TileManager tileManager= new TileManager(this);
+    private TileManager tileManager= new TileManager(this);
 
     public GraphicsContext gc = this.getGraphicsContext2D();
     public UserInterface ui = new UserInterface(this);
@@ -40,8 +40,8 @@ public class GamePanel extends Canvas {
         gc.setFill(Color.FORESTGREEN);
         gc.fillRect(0, 0, Config.screenWidth, Config.screenHeight);
         this.addlistener();
-        GameState.chestState=false;
-        GameState.traderState=false;
+        GameState.isChestState=false;
+        GameState.isTraderState=false;
     }
 
     public void paintComponent() {
@@ -54,12 +54,12 @@ public class GamePanel extends Canvas {
                 entity.draw(gc);//draw each entity
             }
         }
-        if (GameState.nightState) {
+        if (GameState.isNightState) {
             // Apply a semi-transparent overlay with a moonlit night effect
             gc.setFill(Color.rgb(10, 20, 40, 0.5)); // Adjust the RGB values and alpha for darkness and tint
             gc.fillRect(0, 0, Config.screenWidth, Config.screenHeight);
         }
-        if(GameState.normalState){
+        if(GameState.isNormalState){
             ui.draw(gc);
         }
 
@@ -72,6 +72,7 @@ public class GamePanel extends Canvas {
             System.out.println("Draw Time :" + passed);
         }
     }
+
     public void addlistener() {
         setOnMousePressed(InputUtility.MouseInputUtility::handleMousePressed);
         setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -96,10 +97,6 @@ public class GamePanel extends Canvas {
         return tileManager;
     }
 
-    public void setTileManager(TileManager tileManager) {
-        this.tileManager = tileManager;
-    }
-
     public GraphicsContext getGc() {
         return gc;
     }
@@ -108,19 +105,8 @@ public class GamePanel extends Canvas {
         this.gc = gc;
     }
 
-    public UserInterface getUi() {
-        return ui;
-    }
-
-    public void setUi(UserInterface ui) {
-        this.ui = ui;
-    }
-
     public CollisionChecker getCollisionChecker() {
         return collisionChecker;
     }
 
-    public void setCollisionChecker(CollisionChecker collisionChecker) {
-        this.collisionChecker = collisionChecker;
-    }
 }

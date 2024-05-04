@@ -15,11 +15,11 @@ import javafx.scene.paint.Color;
 import java.io.InputStream;
 
 public class MenuPane extends BorderPane {
-    Button play, info; // Declare play, how, and info buttons
-    Image background = new Image(ClassLoader.getSystemResourceAsStream("image/backgrounds/menu.jpg"));
-    Image playPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/play.png"));
-    Image infoPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/info.png"));
-    Image gifImage = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/slime.gif")); // Change "your_gif.gif" to your actual GIF file
+    private Button play, info; // Declare play, how, and info buttons
+    private Image background = new Image(ClassLoader.getSystemResourceAsStream("image/backgrounds/menu.jpg"));
+    private Image playPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/play.png"));
+    private Image infoPic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/info.png"));
+    private Image gifImage = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/slime.gif")); // Change "your_gif.gif" to your actual GIF file
     BackgroundImage backgroundImage = new BackgroundImage(background,
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
             BackgroundPosition.DEFAULT, new BackgroundSize(
@@ -40,29 +40,10 @@ public class MenuPane extends BorderPane {
         gifImageView.setFitHeight(Config.tileSize);
         setButton();
 
-        // Create title label
-        Label titleLabel = new Label("Lost in Island");
-        titleLabel.setStyle("-fx-font-size: 120px; -fx-text-fill: white; -fx-font-weight: bold;"); // Adjust font size, color, and style
-        VBox.setMargin(titleLabel, new Insets(50, 0, 20, 0)); // Add padding to the top
+        createTitle();
+        setInfoButton();
+        VBox centerBox = setPlayButton(gifImageView);
 
-        // Set the title label above the play button
-        VBox titleBox = new VBox(titleLabel);
-        titleBox.setAlignment(Pos.CENTER);
-        this.setTop(titleBox);
-
-
-        // Set the info button in the bottom-left
-        HBox bottomRightBox = new HBox(info);
-        bottomRightBox.setAlignment(Pos.BOTTOM_RIGHT);
-        bottomRightBox.setSpacing(10); // Adjust spacing as needed
-        HBox.setMargin(info, new Insets(0, 10, 10, 0)); // Add margin to the left
-        this.setBottom(bottomRightBox);
-
-        // Set the play button in the center
-        VBox centerBox = new VBox();
-        centerBox.setAlignment(Pos.CENTER);
-        centerBox.getChildren().addAll(gifImageView);
-        centerBox.getChildren().add(play);
         // Set padding to move the play button up
         VBox.setMargin(gifImageView, new Insets(-150, 0, 0, 0)); // Adjust the top margin as needed
         VBox.setMargin(play, new Insets(-13, 0, 0, 0)); // Adjust the top margin as needed
@@ -70,13 +51,7 @@ public class MenuPane extends BorderPane {
         // Set the center of the BorderPane to the VBox containing the GIF image and the play button
         this.setCenter(centerBox);
 
-        // Add hover effect to the play button
-        play.setOnMouseEntered(e -> play.setStyle("-fx-background-color: #666666;"));
-        play.setOnMouseExited(e -> play.setStyle("-fx-background-color: black;"));
-
-        // Add hover effect to the info button
-        info.setOnMouseEntered(e -> info.setStyle("-fx-background-color: #666666;"));
-        info.setOnMouseExited(e -> info.setStyle("-fx-background-color: black;"));
+        setButtonHover();
 
         // Add action for play button
         play.setOnAction(new EventHandler<ActionEvent>() {
@@ -91,6 +66,43 @@ public class MenuPane extends BorderPane {
                 Goto.infoScreen();
             }
         });
+    }
+
+    public void createTitle() {
+        // Create title label
+        Label titleLabel = new Label("Lost in Island");
+        titleLabel.setStyle("-fx-font-size: 120px; -fx-text-fill: white; -fx-font-weight: bold;"); // Adjust font size, color, and style
+        VBox.setMargin(titleLabel, new Insets(50, 0, 20, 0)); // Add padding to the top
+
+        // Set the title label above the play button
+        VBox titleBox = new VBox(titleLabel);
+        titleBox.setAlignment(Pos.CENTER);
+        this.setTop(titleBox);
+    }
+
+    public void setInfoButton() {
+        // Set the info button in the bottom-left
+        HBox bottomRightBox = new HBox(info);
+        bottomRightBox.setAlignment(Pos.BOTTOM_RIGHT);
+        bottomRightBox.setSpacing(10); // Adjust spacing as needed
+        HBox.setMargin(info, new Insets(0, 10, 10, 0)); // Add margin to the left
+        this.setBottom(bottomRightBox);
+    }
+
+    public VBox setPlayButton(ImageView gifImageView) {
+        VBox centerBox = new VBox();
+        centerBox.setAlignment(Pos.CENTER);
+        centerBox.getChildren().addAll(gifImageView);
+        centerBox.getChildren().add(play);
+        return centerBox;
+    }
+
+    public void setButtonHover() {
+        play.setOnMouseEntered(e -> play.setStyle("-fx-background-color: #666666;"));
+        play.setOnMouseExited(e -> play.setStyle("-fx-background-color: black;"));
+
+        info.setOnMouseEntered(e -> info.setStyle("-fx-background-color: #666666;"));
+        info.setOnMouseExited(e -> info.setStyle("-fx-background-color: black;"));
     }
 
     public void setButton() {

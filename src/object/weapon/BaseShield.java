@@ -6,7 +6,7 @@ import object.Thing;
 public abstract class BaseShield extends Thing {
     protected Image image;
     protected int defenseValue=0;
-    int price = 0;
+    protected int price = 0;
 
     public int getDefenseValue() {
         return defenseValue;

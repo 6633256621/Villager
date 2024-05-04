@@ -7,7 +7,7 @@ import object.Trader;
 import object.potion.HealthPotion;
 
 public class ObjectSetter {
-    GameLogic gl;
+    private GameLogic gl;
     private House house = House.getInstance();
 
     public ObjectSetter(GameLogic gl) {

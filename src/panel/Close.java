@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 public class Close extends Button {
-    Image closePic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/close.png"));
+    private Image closePic = new Image(ClassLoader.getSystemResourceAsStream("image/buttons/close.png"));
     public Close() {
         super();
         setPrefSize(25,25);

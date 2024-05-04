@@ -12,7 +12,7 @@ public class SpeedPotion extends Potion{
         name ="Speed Potion";
         price=5;
         description="["+name+"]\nFor increase speed";
-        collision=false;
+        isCollision=false;
     }
 
     @Override

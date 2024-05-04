@@ -1,6 +1,5 @@
 package object;
 
-import config.GameState;
 import config.Status;
 import interfacep.Storable;
 import javafx.scene.media.Media;
@@ -14,7 +13,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
-import panel.GameOverPane;
 import panel.GamePanel;
 import utility.InputUtility;
 
@@ -31,7 +29,6 @@ public class Player extends Entity implements Storable {
     //counter
     private int spriteCounter = 0;
     private int attackCounter = 0;
-    private int attackNum = 1;
     private int spriteNum = 1;
     private int thirtyFiveCounter = 0;
 
@@ -51,9 +48,8 @@ public class Player extends Entity implements Storable {
         return instance;
     }
 
-    GamePanel gp = GamePanel.getInstance();
-    GraphicsContext gc = gp.getGraphicsContext2D();
-    GameLogic gl;
+    private GamePanel gp = GamePanel.getInstance();
+
     private Image def;//display image at that moment
     private Image attackDef;
 
@@ -77,7 +73,6 @@ public class Player extends Entity implements Storable {
 
     private void setSound() {
         swordURL = getClass().getResource("sounds/sword.mp3");
-
     }
 
     private void setItems() {
@@ -285,16 +280,16 @@ public class Player extends Entity implements Storable {
 
         //if collision is false,player can move
 
-        if (invincible) {
+        if (isInvincible) {
             invincibleCounter++;
             if (invincibleCounter > 60) {
-                invincible = false;
+                isInvincible = false;
                 invincibleCounter = 0;
             }
         }
-
         spriteCount();
     }
+
     private void attackCheck() {
         if (isAttack) {
             attackingCount();
@@ -312,11 +307,13 @@ public class Player extends Entity implements Storable {
             move();
         }
     }
+
     private void playSwordSound() {
         swordPlayer = new MediaPlayer(new Media(swordURL.toString()));
         swordPlayer.setVolume(0.5);
         swordPlayer.play();
     }
+
     private void move() {
         if (InputUtility.isKeyPressed(KeyCode.W) && InputUtility.isKeyPressed(KeyCode.A)) {
             upleft();
@@ -454,6 +451,7 @@ public class Player extends Entity implements Storable {
             System.out.println("MISS!");
         }
     }
+
     public void knockBackSlime(Entity e) {
         Slime slime = (Slime) e;
         slime.setDirection(direction);
@@ -464,7 +462,7 @@ public class Player extends Entity implements Storable {
     //draw image
     @Override
     public void draw(GraphicsContext gc) {
-        if (invincible) {
+        if (isInvincible) {
             gc.setGlobalAlpha(0.3);
         }
         gc.drawImage(def, screenX, screenY, Config.tileSize, Config.tileSize);
