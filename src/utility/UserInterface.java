@@ -1,8 +1,6 @@
 package utility;
 
-import com.sun.javafx.tk.FontLoader;
 import config.Config;
-import config.GameState;
 import config.Status;
 import interfacep.Storable;
 import javafx.scene.image.Image;
@@ -11,14 +9,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import object.Thing;
-import object.items.Hammer;
+import object.items.BaseHammer;
 import object.potion.Potion;
 import object.weapon.BaseShield;
 import object.weapon.BaseWeapon;
 import panel.GamePanel;
 
-import java.security.Key;
 import java.util.Objects;
 
 public class UserInterface {
@@ -84,8 +80,8 @@ public class UserInterface {
                     } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Potion) {
                         ((Potion) p.getInventory().get(getItemIndexOnSlot("right"))).use( p);
                         p.getInventory().remove(getItemIndexOnSlot("right"));
-                    } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof Hammer) {
-                        ((Hammer) p.getInventory().get(getItemIndexOnSlot("right"))).use();
+                    } else if (p.getInventory().get(getItemIndexOnSlot("right")) instanceof BaseHammer) {
+                        ((BaseHammer) p.getInventory().get(getItemIndexOnSlot("right"))).use();
                         p.getInventory().remove(getItemIndexOnSlot("right"));
                     }
                 } catch (IndexOutOfBoundsException e) {
