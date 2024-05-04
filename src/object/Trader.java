@@ -9,9 +9,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import logic.GameLogic;
-import object.items.Hammer;
+import object.items.NormalHammer;
 import object.items.Item;
+import object.items.SuperHammer;
 import object.potion.DexPotion;
 import object.potion.HealthPotion;
 import object.potion.SpeedPotion;
@@ -55,7 +55,8 @@ public class Trader extends Item {
         sellingItem.add(new PowerfulShield());
         sellingItem.add(new LegendarySword());
         sellingItem.add(new LegendaryShield());
-        sellingItem.add(new Hammer());
+        sellingItem.add(new NormalHammer());
+        sellingItem.add(new SuperHammer());
     }
 
     @Override
