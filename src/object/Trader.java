@@ -36,7 +36,7 @@ public class Trader extends Item {
         z = 10;
         name = "Trader";
         solidArea = new Rectangle(0, 0, Config.tileSize * 4, Config.tileSize * 3);
-        image = new Image(ClassLoader.getSystemResourceAsStream("image/objects/trader.png"));
+        image = new Image(ClassLoader.getSystemResourceAsStream("image/objects/Trader.png"));
         setWorldX(64 * Config.tileSize);
         setWorldY(66 * Config.tileSize);
         setCollision(true);
