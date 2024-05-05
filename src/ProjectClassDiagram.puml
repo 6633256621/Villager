@@ -646,7 +646,6 @@ class utility.Timer {
 
 render.Renderable <|.. object.OBJ
 object.potion.Potion <|-- object.potion.SpeedPotion
-javafx.scene.layout.BorderPane <|-- panel.GameOverPane
 object.potion.Potion <|-- object.potion.StrengthPotion
 object.potion.Potion <|-- object.potion.HealthPotion
 object.items.BaseHammer <|-- object.items.SuperHammer

@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class GameOverPane extends BorderPane {
+public class GameOverPane {
      public static void gameOver() {
          // Create a new Rectangle covering the entire scene
          Rectangle cover = new Rectangle(0, 0, RootPane.getInstance().getWidth(), RootPane.getInstance().getHeight());

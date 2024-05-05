@@ -2,15 +2,10 @@
   <artifact type="jar" name="Villager:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Villager_jar</output-path>
     <root id="archive" name="Villager.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
       <element id="module-output" name="Villager" />
-      <element id="extracted-dir" path="$JavaFX$/javafx-swt.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.web.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.base.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.fxml.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.media.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.swing.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.controls.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$JavaFX$/javafx.graphics.jar" path-in-jar="/" />
       <element id="module-source" name="Villager" />
     </root>
   </artifact>
